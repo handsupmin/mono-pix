@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# MonoPix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[한국어](./README.ko.md)
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="./docs/logo.png" alt="MonoPix logo" width="300" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**See the world through a pixel monocle.**
 
-## React Compiler
+Convert any image into pixel art — right in your browser. No server, no account, no nonsense.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+![License](https://img.shields.io/badge/license-MIT-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## What it does
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Upload an image, crop it to a square, pick a resolution, and get pixel art. That's it.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Crop** — 1:1 aspect ratio editor with drag & zoom
+- **Pixelate** — cell-based sampling, Clean (most frequent color) or Detail (average color), 8×8 to 256×256
+- **Compare** — before / after / split compare views
+- **Download** — export as PNG, keeping or resizing to the selected resolution
+- **History** — last 10 results saved locally in your browser, no account needed
+- **i18n** — English and Korean
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+All processing runs in a Web Worker. Nothing leaves your device.
+
+---
+
+## Example
+
+| Original                                                             | Clean                                                            | Detail                                                             |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+| <img src="./docs/1.convert-before.png" alt="Original" width="200" /> | <img src="./docs/2.convert-clean.png" alt="Clean" width="200" /> | <img src="./docs/3.convert-detail.png" alt="Detail" width="200" /> |
+
+**Clean** picks the most frequent color in each cell — sharp, graphic edges.
+
+**Detail** averages all colors in each cell — smoother gradients, more texture.
+
+---
+
+## Getting Started
+
+**Requirements:** Node.js 18+
+
+```bash
+git clone https://github.com/your-username/mono-pix.git
+cd mono-pix
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Scripts
+
+| Command            | Description              |
+| ------------------ | ------------------------ |
+| `npm run dev`      | Start development server |
+| `npm run build`    | Production build         |
+| `npm run preview`  | Preview production build |
+| `npm run lint`     | Run ESLint               |
+| `npm run lint:fix` | Auto-fix lint errors     |
+| `npm run format`   | Format with Prettier     |
+
+---
+
+## Stack
+
+[React](https://react.dev) · [TypeScript](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [shadcn/ui](https://ui.shadcn.com) · [Tailwind CSS v4](https://tailwindcss.com) · [Zustand](https://zustand-demo.pmnd.rs) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
+
+---
+
+## License
+
+MIT

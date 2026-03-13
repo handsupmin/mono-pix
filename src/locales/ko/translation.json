@@ -1,0 +1,68 @@
+{
+  "app": {
+    "title": "MonoPix",
+    "tagline": "픽셀 렌즈로 세상을 바라보세요."
+  },
+  "upload": {
+    "placeholder": "이미지를 드래그하거나",
+    "button": "이미지 업로드",
+    "dragActive": "여기에 놓으세요!",
+    "formats": "PNG, JPG, JPEG, WEBP · 최대 20MB"
+  },
+  "controls": {
+    "resolution": "해상도",
+    "outputMode": "출력 방식",
+    "convertType": "변환 방식",
+    "convertType1": "깔끔함",
+    "convertType2": "섬세함",
+    "outputModeA": "Crop 크기 유지",
+    "outputModeB": "해상도 축소",
+    "gridOverlay": "격자선 표시",
+    "viewMode": "보기 모드",
+    "viewBefore": "변환 전",
+    "viewAfter": "변환 후",
+    "viewCompare": "비교",
+    "convert": "변환",
+    "download": "다운로드",
+    "reset": "설정 초기화",
+    "backToEdit": "편집",
+    "language": "언어"
+  },
+  "preview": {
+    "cropSize": "Crop 크기",
+    "outputMode": "출력 방식",
+    "finalOutput": "최종 출력 크기"
+  },
+  "history": {
+    "title": "히스토리",
+    "empty": "히스토리가 없습니다",
+    "clearAll": "전체 삭제",
+    "clearConfirmTitle": "히스토리 삭제",
+    "clearConfirmMessage": "저장된 히스토리가 모두 삭제됩니다. 되돌릴 수 없습니다.",
+    "clearConfirmOk": "전체 삭제",
+    "clearConfirmCancel": "취소",
+    "download": "다운로드",
+    "delete": "삭제"
+  },
+  "progress": {
+    "preparingCrop": "Crop 준비 중...",
+    "samplingColors": "색상 샘플링 중...",
+    "renderingPixel": "픽셀 이미지 렌더링 중...",
+    "finalizingPreview": "미리보기 완성 중..."
+  },
+  "errors": {
+    "unsupportedFormat": "지원하지 않는 파일 형식입니다.",
+    "fileTooLarge": "최대 업로드 크기는 20MB입니다.",
+    "imageTooSmall": "이미지는 최소 8×8 픽셀이어야 합니다.",
+    "fileReadFailed": "파일을 읽는 데 실패했습니다.",
+    "invalidCrop": "유효하지 않은 crop 상태입니다. crop 영역을 조정해 주세요.",
+    "resolutionTooLarge": "선택한 해상도가 현재 crop 크기보다 큽니다.",
+    "canvasFailed": "캔버스 렌더링에 실패했습니다.",
+    "downloadFailed": "다운로드 파일 생성에 실패했습니다."
+  },
+  "tooltip": {
+    "convertDisabledNoImage": "먼저 이미지를 업로드하세요",
+    "convertDisabledNoResolution": "유효한 해상도를 선택하세요",
+    "downloadDisabled": "먼저 이미지를 변환하세요"
+  }
+}
