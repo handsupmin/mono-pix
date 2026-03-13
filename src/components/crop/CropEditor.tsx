@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Cropper from 'react-easy-crop'
 import { useCropStore } from '@/stores/crop.store'
 import { useSettingsStore } from '@/stores/settings.store'
+import { useUploadStore } from '@/stores/upload.store'
 import type { Area } from 'react-easy-crop'
 
 interface CropEditorProps {
@@ -20,6 +21,10 @@ interface CropBoxRect {
 export function CropEditor({ imageUrl, showGrid, gridColor }: CropEditorProps) {
   const { crop, zoom, setCrop, setZoom, setCroppedAreaPixels } = useCropStore()
   const { resolution } = useSettingsStore()
+  const { image } = useUploadStore()
+  const maxZoom = image
+    ? Math.max(3, Math.ceil(Math.min(image.naturalWidth, image.naturalHeight) / 8))
+    : 3
   const containerRef = useRef<HTMLDivElement>(null)
   const [cropBoxRect, setCropBoxRect] = useState<CropBoxRect | null>(null)
 
@@ -81,6 +86,7 @@ export function CropEditor({ imageUrl, showGrid, gridColor }: CropEditorProps) {
         image={imageUrl}
         crop={crop}
         zoom={zoom}
+        maxZoom={maxZoom}
         aspect={1}
         onCropChange={setCrop}
         onZoomChange={setZoom}

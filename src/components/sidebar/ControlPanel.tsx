@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Download, Grid3x3, RotateCcw, ChevronDown, Check, Github } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -108,6 +108,14 @@ export function ControlPanel() {
   const { image } = useUploadStore()
   const { croppedAreaPixels } = useCropStore()
   const validResolutions = useValidResolutions()
+
+  // Auto-select largest valid resolution when crop changes invalidate current selection
+  useEffect(() => {
+    if (validResolutions.size > 0 && !validResolutions.has(resolution)) {
+      const largest = [...validResolutions].at(-1)!
+      setResolution(largest)
+    }
+  }, [validResolutions, resolution, setResolution])
 
   const isDone = status === 'done'
   const canDownload = isDone && !!resultDataUrl

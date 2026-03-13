@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useConversionStore } from '@/stores/conversion.store'
 import { useSettingsStore } from '@/stores/settings.store'
 
@@ -36,6 +36,79 @@ function PixelCanvas({ src, alt, className }: { src: string; alt: string; classN
   )
 }
 
+function CompareView({ beforeSrc, afterSrc }: { beforeSrc: string; afterSrc: string }) {
+  const [splitPct, setSplitPct] = useState(50)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const isDragging = useRef(false)
+
+  const updateSplit = (clientX: number) => {
+    const rect = containerRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100))
+    setSplitPct(pct)
+  }
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    isDragging.current = true
+    ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+    e.preventDefault()
+  }
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current) return
+    updateSplit(e.clientX)
+  }
+
+  const onPointerUp = () => {
+    isDragging.current = false
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-hidden rounded-xl bg-[repeating-conic-gradient(#e5e5e5_0%_25%,transparent_0%_50%)_0_0/16px_16px]"
+    >
+      {/* Before (full, behind) */}
+      <div className="absolute inset-0">
+        <PixelCanvas src={beforeSrc} alt="Before" />
+      </div>
+      {/* After (clipped to right of split) */}
+      <div className="absolute inset-0" style={{ clipPath: `inset(0 0 0 ${splitPct}%)` }}>
+        <PixelCanvas src={afterSrc} alt="After" />
+      </div>
+      {/* Draggable divider */}
+      <div
+        className="absolute top-0 bottom-0 w-1 -translate-x-1/2 cursor-ew-resize z-10 group"
+        style={{ left: `${splitPct}%` }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+      >
+        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5 bg-white/80 shadow-lg" />
+        {/* Handle */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white shadow-md flex items-center justify-center">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path
+              d="M3 2L1 5L3 8M7 2L9 5L7 8"
+              stroke="#666"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+      {/* Labels */}
+      <span className="absolute top-2 left-3 text-[10px] font-medium text-white/70 bg-black/30 px-1.5 py-0.5 rounded pointer-events-none">
+        Before
+      </span>
+      <span className="absolute top-2 right-3 text-[10px] font-medium text-white/70 bg-black/30 px-1.5 py-0.5 rounded pointer-events-none">
+        After
+      </span>
+    </div>
+  )
+}
+
 export function PreviewArea() {
   const { resultDataUrl, originalCroppedDataUrl } = useConversionStore()
   const { viewMode } = useSettingsStore()
@@ -59,27 +132,7 @@ export function PreviewArea() {
   }
 
   if (viewMode === 'compare') {
-    return (
-      <div className="relative w-full h-full overflow-hidden rounded-xl bg-[repeating-conic-gradient(#e5e5e5_0%_25%,transparent_0%_50%)_0_0/16px_16px]">
-        {/* Before (full, behind) */}
-        <div className="absolute inset-0">
-          <PixelCanvas src={originalCroppedDataUrl} alt="Before" />
-        </div>
-        {/* After (clipped to right 50%) */}
-        <div className="absolute inset-0" style={{ clipPath: 'inset(0 0 0 50%)' }}>
-          <PixelCanvas src={resultDataUrl} alt="After" />
-        </div>
-        {/* Divider */}
-        <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/80 shadow-lg -translate-x-px" />
-        {/* Labels */}
-        <span className="absolute top-2 left-3 text-[10px] font-medium text-white/70 bg-black/30 px-1.5 py-0.5 rounded">
-          Before
-        </span>
-        <span className="absolute top-2 right-3 text-[10px] font-medium text-white/70 bg-black/30 px-1.5 py-0.5 rounded">
-          After
-        </span>
-      </div>
-    )
+    return <CompareView beforeSrc={originalCroppedDataUrl} afterSrc={resultDataUrl} />
   }
 
   return null

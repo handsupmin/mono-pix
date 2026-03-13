@@ -117,63 +117,25 @@ export function MainLayout() {
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-3 border-b border-border shrink-0">
           <div className="flex items-center gap-2">
-            <img src={logoSrc} alt="MonoPix logo" className="w-6 h-6 object-contain" />
+            <img src={logoSrc} alt="MonoPix logo" className="w-7 h-7 object-contain" />
             <span
-              className="text-sm font-semibold tracking-tight text-foreground"
+              className="text-xl font-semibold tracking-tight text-foreground"
               style={{ fontFamily: 'DungGeunMo, monospace' }}
             >
               MonoPix
             </span>
-            <span className="text-xs text-muted-foreground font-normal">Pixelate with Monocle</span>
-            {/* Mode badge */}
-            {hasImage && (
-              <span
-                className={cn(
-                  'text-[10px] font-medium px-1.5 py-0.5 rounded-full',
-                  isDone
-                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                    : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-                )}
-              >
-                {isDone ? 'Preview' : 'Edit'}
-              </span>
-            )}
           </div>
 
           {/* Header action buttons */}
           {hasImage && !isConverting && (
-            <div className="flex items-center gap-1">
-              {isDone ? (
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleBackToEdit}
-                    className="h-7 text-xs gap-1.5"
-                  >
-                    <Pencil className="w-3 h-3" />
-                    {t('controls.backToEdit') ?? 'Edit'}
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handleDeleteImage}
-                    className="h-7 w-7 text-muted-foreground hover:text-destructive"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleDeleteImage}
-                  className="h-7 w-7 text-muted-foreground hover:text-destructive"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </Button>
-              )}
-            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleDeleteImage}
+              className="h-7 w-7 text-muted-foreground hover:text-destructive"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+            </Button>
           )}
         </div>
 
@@ -193,6 +155,19 @@ export function MainLayout() {
             <CropEditor imageUrl={image.dataUrl} showGrid={gridOverlay} gridColor={gridColor} />
           )}
           <LoadingOverlay />
+
+          {/* Floating Back to Edit button */}
+          {isDone && !isConverting && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
+              <button
+                onClick={handleBackToEdit}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+              >
+                <Pencil className="w-3.5 h-3.5" />
+                {t('controls.backToEdit')}
+              </button>
+            </div>
+          )}
 
           {/* Global drag overlay */}
           {isDragging && (
