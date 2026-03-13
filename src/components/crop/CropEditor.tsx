@@ -7,6 +7,7 @@ import type { Area } from 'react-easy-crop'
 interface CropEditorProps {
   imageUrl: string
   showGrid: boolean
+  gridColor: string
 }
 
 interface CropBoxRect {
@@ -16,7 +17,7 @@ interface CropBoxRect {
   height: number
 }
 
-export function CropEditor({ imageUrl, showGrid }: CropEditorProps) {
+export function CropEditor({ imageUrl, showGrid, gridColor }: CropEditorProps) {
   const { crop, zoom, setCrop, setZoom, setCroppedAreaPixels } = useCropStore()
   const { resolution } = useSettingsStore()
   const containerRef = useRef<HTMLDivElement>(null)
@@ -93,12 +94,22 @@ export function CropEditor({ imageUrl, showGrid }: CropEditorProps) {
           },
         }}
       />
-      {showGrid && cropBoxRect && <GridOverlay resolution={resolution} rect={cropBoxRect} />}
+      {showGrid && cropBoxRect && (
+        <GridOverlay resolution={resolution} rect={cropBoxRect} color={gridColor} />
+      )}
     </div>
   )
 }
 
-function GridOverlay({ resolution, rect }: { resolution: number; rect: CropBoxRect }) {
+function GridOverlay({
+  resolution,
+  rect,
+  color,
+}: {
+  resolution: number
+  rect: CropBoxRect
+  color: string
+}) {
   const opacity = resolution >= 128 ? 0.15 : resolution >= 64 ? 0.25 : 0.4
   const lines: React.ReactNode[] = []
 
@@ -111,7 +122,7 @@ function GridOverlay({ resolution, rect }: { resolution: number; rect: CropBoxRe
         y1="0"
         x2={`${pct}%`}
         y2="100%"
-        stroke="white"
+        stroke={color}
         strokeWidth="0.5"
         strokeOpacity={opacity}
       />,
@@ -121,7 +132,7 @@ function GridOverlay({ resolution, rect }: { resolution: number; rect: CropBoxRe
         y1={`${pct}%`}
         x2="100%"
         y2={`${pct}%`}
-        stroke="white"
+        stroke={color}
         strokeWidth="0.5"
         strokeOpacity={opacity}
       />,

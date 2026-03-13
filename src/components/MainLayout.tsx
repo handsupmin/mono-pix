@@ -59,7 +59,7 @@ export function MainLayout() {
   const { image, setImage } = useUploadStore()
   const { status, reset: resetConversion } = useConversionStore()
   const { reset: resetCrop } = useCropStore()
-  const { gridOverlay } = useSettingsStore()
+  const { gridOverlay, gridColor } = useSettingsStore()
 
   const isDone = status === 'done'
   const isConverting = status === 'converting'
@@ -190,7 +190,7 @@ export function MainLayout() {
           ) : isDone ? (
             <PreviewArea />
           ) : (
-            <CropEditor imageUrl={image.dataUrl} showGrid={gridOverlay} />
+            <CropEditor imageUrl={image.dataUrl} showGrid={gridOverlay} gridColor={gridColor} />
           )}
           <LoadingOverlay />
 

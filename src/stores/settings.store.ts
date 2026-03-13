@@ -14,12 +14,14 @@ interface SettingsState {
   pixelateMode: PixelateMode
   viewMode: ViewMode
   gridOverlay: boolean
+  gridColor: string
   language: Language
   setResolution: (r: Resolution) => void
   setOutputMode: (m: OutputMode) => void
   setPixelateMode: (m: PixelateMode) => void
   setViewMode: (v: ViewMode) => void
   setGridOverlay: (v: boolean) => void
+  setGridColor: (c: string) => void
   setLanguage: (l: Language) => void
   resetSettings: () => void
 }
@@ -30,6 +32,7 @@ const DEFAULTS = {
   pixelateMode: 'frequent' as PixelateMode,
   viewMode: 'before' as ViewMode,
   gridOverlay: false,
+  gridColor: '#ffffff',
   language: 'en' as Language,
 }
 
@@ -42,6 +45,7 @@ export const useSettingsStore = create<SettingsState>()(
       setPixelateMode: (pixelateMode) => set({ pixelateMode }),
       setViewMode: (viewMode) => set({ viewMode }),
       setGridOverlay: (gridOverlay) => set({ gridOverlay }),
+      setGridColor: (gridColor) => set({ gridColor }),
       setLanguage: (language) => set({ language }),
       resetSettings: () =>
         set({

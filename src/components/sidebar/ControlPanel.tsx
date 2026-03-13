@@ -1,9 +1,8 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Download, Grid3x3, RotateCcw, ChevronDown, Check } from 'lucide-react'
+import { Download, Grid3x3, RotateCcw, ChevronDown, Check, Github } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Toggle } from '@/components/ui/toggle'
 import {
   useSettingsStore,
   RESOLUTIONS,
@@ -95,13 +94,16 @@ export function ControlPanel() {
     pixelateMode,
     viewMode,
     gridOverlay,
+    gridColor,
     setResolution,
     setOutputMode,
     setPixelateMode,
     setViewMode,
     setGridOverlay,
+    setGridColor,
     resetSettings,
   } = useSettingsStore()
+  const colorInputRef = useRef<HTMLInputElement>(null)
   const { status, resultDataUrl } = useConversionStore()
   const { image } = useUploadStore()
   const { croppedAreaPixels } = useCropStore()
@@ -123,6 +125,23 @@ export function ControlPanel() {
 
   return (
     <div className="flex flex-col h-full overflow-y-auto">
+      {/* 0. GitHub */}
+      <div className="px-4 py-2.5 flex items-center justify-between">
+        <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+          GitHub
+        </span>
+        <a
+          href="https://github.com/handsupmin/mono-pix"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1 rounded hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+          title="GitHub"
+        >
+          <Github className="w-3.5 h-3.5" />
+        </a>
+      </div>
+      <Separator />
+
       {/* 1. Language */}
       <LanguageSelector />
       <Separator />
@@ -201,15 +220,35 @@ export function ControlPanel() {
         <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
           {t('controls.gridOverlay')}
         </label>
-        <Toggle
-          pressed={gridOverlay}
-          onPressedChange={setGridOverlay}
-          size="sm"
-          variant="outline"
-          aria-label={t('controls.gridOverlay')}
-        >
-          <Grid3x3 className="w-3.5 h-3.5" />
-        </Toggle>
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => colorInputRef.current?.click()}
+            className="w-5 h-5 rounded border border-border transition-opacity hover:opacity-80"
+            style={{ backgroundColor: gridColor }}
+            title="Grid color"
+            aria-label="Grid color"
+          />
+          <input
+            ref={colorInputRef}
+            type="color"
+            value={gridColor}
+            onChange={(e) => setGridColor(e.target.value)}
+            className="sr-only"
+            aria-hidden
+          />
+          <button
+            onClick={() => setGridOverlay(!gridOverlay)}
+            aria-label={t('controls.gridOverlay')}
+            className={cn(
+              'p-1.5 rounded transition-colors',
+              gridOverlay
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground',
+            )}
+          >
+            <Grid3x3 className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
       <Separator />
 
