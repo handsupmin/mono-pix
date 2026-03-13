@@ -2,8 +2,8 @@
 @import 'tailwindcss';
 
 @font-face {
-  font-family: 'KenneyMini';
-  src: url('@/assets/fonts/KenneyMini.ttf') format('truetype');
+  font-family: 'DungGeunMo';
+  src: url('@/assets/fonts/DungGeunMo.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;

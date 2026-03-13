@@ -36,7 +36,7 @@
 ```
 src/
 ├── assets/
-│   ├── fonts/KenneyMini.ttf       # 픽셀 폰트 (헤더 타이틀, Convert 버튼 hover)
+│   ├── fonts/DungGeunMo.woff2       # 픽셀 폰트 (헤더 타이틀, Convert 버튼 hover)
 │   ├── logo.png                   # 인앱 헤더 로고 (favicon2 계열, 192x192)
 │   └── logo-small.png             # 헤더용 소형 로고 (MainLayout에서 import)
 ├── components/
@@ -227,7 +227,7 @@ public/          # 브라우저 직접 접근 가능한 파일 (favicon 등)
 src/assets/
   logo.png          # 인앱 헤더 로고 (favicon2 계열, 192x192)
   logo-small.png    # MainLayout 헤더에서 실제 사용 (더 작은 버전)
-  fonts/KenneyMini.ttf
+  fonts/DungGeunMo.woff2
   1.convert-before.png   # 예시 이미지 (원본)
   2.convert-clean.png    # 예시 이미지 (Clean 결과)
   3.convert-detail.png   # 예시 이미지 (Detail 결과)

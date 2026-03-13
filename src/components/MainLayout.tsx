@@ -120,11 +120,11 @@ export function MainLayout() {
             <img src={logoSrc} alt="MonoPix logo" className="w-6 h-6 object-contain" />
             <span
               className="text-sm font-semibold tracking-tight text-foreground"
-              style={{ fontFamily: 'KenneyMini, monospace' }}
+              style={{ fontFamily: 'DungGeunMo, monospace' }}
             >
               MonoPix
             </span>
-            <span className="text-xs text-muted-foreground font-normal">pixel monocle</span>
+            <span className="text-xs text-muted-foreground font-normal">Pixelate with Monocle</span>
             {/* Mode badge */}
             {hasImage && (
               <span

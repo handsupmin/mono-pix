@@ -17,7 +17,7 @@ export function LoadingOverlay() {
         <div className="flex flex-col items-center gap-1">
           <p
             className="text-sm font-medium text-foreground"
-            style={{ fontFamily: 'KenneyMini, monospace' }}
+            style={{ fontFamily: 'DungGeunMo, monospace' }}
           >
             {progress.messageKey ? t(`progress.${progress.messageKey}`) : ''}
           </p>

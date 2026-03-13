@@ -39,7 +39,7 @@ export function ConvertButton() {
           // Normal state: Pretendard, tracking normal
           'font-semibold tracking-wide',
           // Hover: pixel font, wider tracking
-          'group-hover:[font-family:KenneyMini,monospace] group-hover:tracking-widest group-hover:text-base',
+          'group-hover:[font-family:DungGeunMo,monospace] group-hover:tracking-widest group-hover:text-base',
         )}
       >
         {t('controls.convert')}
