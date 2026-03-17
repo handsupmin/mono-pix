@@ -51,7 +51,7 @@ function generateThumbnail(dataUrl: string, size = 80): Promise<string> {
 export function useConvert() {
   const { croppedAreaPixels } = useCropStore()
   const { image } = useUploadStore()
-  const { resolution, outputMode, pixelateMode, setViewMode } = useSettingsStore()
+  const { resolution, outputMode, pixelateMode, colorVariety, setViewMode } = useSettingsStore()
   const { setConverting, setDone, setError } = useConversionStore()
   const { load } = useHistoryStore()
 
@@ -78,6 +78,17 @@ export function useConvert() {
       if (msg.type === 'progress') {
         setConverting({ step: msg.step, total: msg.total, messageKey: msg.message })
       } else if (msg.type === 'done') {
+        // Debug: auto-download repair log as txt
+        if (msg.debugLog) {
+          const blob = new Blob([msg.debugLog], { type: 'text/plain' })
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = `repair-debug-${Date.now()}.txt`
+          a.click()
+          URL.revokeObjectURL(url)
+        }
+
         const resultDataUrl = imageDataToDataUrl(msg.result)
         const thumbnailDataUrl = await generateThumbnail(resultDataUrl)
 
@@ -94,7 +105,14 @@ export function useConvert() {
 
         await load()
         setViewMode('after')
-        setDone(resultDataUrl, originalCroppedDataUrl, msg.detectedResolution)
+        setDone(
+          resultDataUrl,
+          originalCroppedDataUrl,
+          msg.detectedResolution,
+          msg.colCuts,
+          msg.rowCuts,
+          msg.numCells,
+        )
         worker.terminate()
       } else if (msg.type === 'error') {
         setError('errors.canvasFailed')
@@ -112,6 +130,7 @@ export function useConvert() {
       resolution,
       outputMode,
       pixelateMode,
+      colorVariety,
     }
 
     worker.postMessage(request, [imageData.data.buffer])
@@ -121,6 +140,7 @@ export function useConvert() {
     resolution,
     outputMode,
     pixelateMode,
+    colorVariety,
     setViewMode,
     setConverting,
     setDone,

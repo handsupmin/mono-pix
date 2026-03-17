@@ -6,7 +6,9 @@ import { Separator } from '@/components/ui/separator'
 import {
   useSettingsStore,
   RESOLUTIONS,
+  COLOR_VARIETIES,
   type Resolution,
+  type ColorVariety,
   type OutputMode,
   type PixelateMode,
   type ViewMode,
@@ -98,12 +100,14 @@ export function ControlPanel() {
     viewMode,
     gridOverlay,
     gridColor,
+    colorVariety,
     setResolution,
     setOutputMode,
     setPixelateMode,
     setViewMode,
     setGridOverlay,
     setGridColor,
+    setColorVariety,
     resetSettings,
   } = useSettingsStore()
   const colorInputRef = useRef<HTMLInputElement>(null)
@@ -119,6 +123,13 @@ export function ControlPanel() {
       setResolution(largest)
     }
   }, [validResolutions, resolution, setResolution])
+
+  // Reset verify viewMode when leaving snap mode
+  useEffect(() => {
+    if (viewMode === 'verify' && (pixelateMode !== 'repair' || !detectedResolution)) {
+      setViewMode('after')
+    }
+  }, [pixelateMode, detectedResolution, viewMode, setViewMode])
 
   const isDone = status === 'done'
   const canDownload = isDone && !!resultDataUrl
@@ -206,7 +217,7 @@ export function ControlPanel() {
       </div>
       <Separator />
 
-      {/* 4. Resolution (hidden in Repair mode) */}
+      {/* 4. Resolution (hidden in Snap mode) */}
       {pixelateMode !== 'repair' && (
         <>
           <div className="px-4 py-3 flex flex-col gap-2">
@@ -240,42 +251,75 @@ export function ControlPanel() {
         </>
       )}
 
-      {/* 5. Grid Overlay */}
-      <div className="px-4 py-2.5 flex items-center justify-between">
-        <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-          {t('controls.gridOverlay')}
-        </label>
-        <div className="flex items-center gap-1.5">
-          <button
-            onClick={() => colorInputRef.current?.click()}
-            className="w-5 h-5 rounded border border-border transition-opacity hover:opacity-80"
-            style={{ backgroundColor: gridColor }}
-            title="Grid color"
-            aria-label="Grid color"
-          />
-          <input
-            ref={colorInputRef}
-            type="color"
-            value={gridColor}
-            onChange={(e) => setGridColor(e.target.value)}
-            className="sr-only"
-            aria-hidden
-          />
-          <button
-            onClick={() => setGridOverlay(!gridOverlay)}
-            aria-label={t('controls.gridOverlay')}
-            className={cn(
-              'p-1.5 rounded transition-colors',
-              gridOverlay
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground',
-            )}
-          >
-            <Grid3x3 className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </div>
-      <Separator />
+      {/* 4b. Color Variety (Snap mode only) */}
+      {pixelateMode === 'repair' && (
+        <>
+          <div className="px-4 py-3 flex flex-col gap-2">
+            <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+              {t('controls.colorVariety')}
+            </label>
+            <div className="grid grid-cols-4 gap-1">
+              {COLOR_VARIETIES.map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setColorVariety(v as ColorVariety)}
+                  className={cn(
+                    'text-xs py-1.5 rounded-md font-mono font-medium transition-colors',
+                    colorVariety === v
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted hover:bg-muted/70 text-foreground',
+                  )}
+                >
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+          <Separator />
+        </>
+      )}
+
+      {/* 5. Grid Overlay (Snap: only after conversion) */}
+      {(pixelateMode !== 'repair' ||
+        (pixelateMode === 'repair' && isDone && detectedResolution)) && (
+        <>
+          <div className="px-4 py-2.5 flex items-center justify-between">
+            <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+              {t('controls.gridOverlay')}
+            </label>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => colorInputRef.current?.click()}
+                className="w-5 h-5 rounded border border-border transition-opacity hover:opacity-80"
+                style={{ backgroundColor: gridColor }}
+                title="Grid color"
+                aria-label="Grid color"
+              />
+              <input
+                ref={colorInputRef}
+                type="color"
+                value={gridColor}
+                onChange={(e) => setGridColor(e.target.value)}
+                className="sr-only"
+                aria-hidden
+              />
+              <button
+                onClick={() => setGridOverlay(!gridOverlay)}
+                aria-label={t('controls.gridOverlay')}
+                className={cn(
+                  'p-1.5 rounded transition-colors',
+                  gridOverlay
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground',
+                )}
+              >
+                <Grid3x3 className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+          <Separator />
+        </>
+      )}
 
       {/* 5. Output Mode */}
       <div className="px-4 py-3 flex flex-col gap-2">
@@ -294,7 +338,13 @@ export function ControlPanel() {
                   : 'bg-muted hover:bg-muted/70 text-foreground',
               )}
             >
-              {mode === 'original-size' ? t('controls.outputModeA') : t('controls.outputModeB')}
+              {mode === 'original-size'
+                ? pixelateMode === 'repair'
+                  ? t('controls.outputModeSnapA')
+                  : t('controls.outputModeA')
+                : pixelateMode === 'repair'
+                  ? t('controls.outputModeSnapB')
+                  : t('controls.outputModeB')}
             </button>
           ))}
         </div>
@@ -336,28 +386,34 @@ export function ControlPanel() {
             <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
               {t('controls.viewMode')}
             </label>
-            <div className="grid grid-cols-3 gap-1">
-              {(
-                [
-                  ['before', t('controls.viewBefore')],
-                  ['after', t('controls.viewAfter')],
-                  ['compare', t('controls.viewCompare')],
-                ] as [ViewMode, string][]
-              ).map(([mode, label]) => (
-                <button
-                  key={mode}
-                  onClick={() => setViewMode(mode)}
-                  className={cn(
-                    'text-xs py-1.5 rounded-md font-medium transition-colors',
-                    viewMode === mode
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted hover:bg-muted/70 text-foreground',
-                  )}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+            {(() => {
+              const modes: [ViewMode, string][] = [
+                ['before', t('controls.viewBefore')],
+                ['after', t('controls.viewAfter')],
+                ['compare', t('controls.viewCompare')],
+              ]
+              if (pixelateMode === 'repair' && detectedResolution) {
+                modes.push(['verify', t('controls.viewVerify')])
+              }
+              return (
+                <div className={`grid ${modes.length > 3 ? 'grid-cols-4' : 'grid-cols-3'} gap-1`}>
+                  {modes.map(([mode, label]) => (
+                    <button
+                      key={mode}
+                      onClick={() => setViewMode(mode)}
+                      className={cn(
+                        'text-xs py-1.5 rounded-md font-medium transition-colors',
+                        viewMode === mode
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted hover:bg-muted/70 text-foreground',
+                      )}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )
+            })()}
           </div>
         </>
       )}

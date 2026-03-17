@@ -5,8 +5,11 @@ export const RESOLUTIONS = [8, 16, 32, 64, 128, 256] as const
 export type Resolution = (typeof RESOLUTIONS)[number]
 export type OutputMode = 'original-size' | 'resized'
 export type PixelateMode = 'average' | 'frequent' | 'repair'
-export type ViewMode = 'before' | 'after' | 'compare'
+export type ViewMode = 'before' | 'after' | 'compare' | 'verify'
 export type Language = 'en' | 'ko' | 'ja' | 'zh' | 'es'
+
+export const COLOR_VARIETIES = [8, 16, 24, 32, 64, 128, 256] as const
+export type ColorVariety = (typeof COLOR_VARIETIES)[number]
 
 interface SettingsState {
   resolution: Resolution
@@ -16,6 +19,7 @@ interface SettingsState {
   gridOverlay: boolean
   gridColor: string
   language: Language
+  colorVariety: ColorVariety
   setResolution: (r: Resolution) => void
   setOutputMode: (m: OutputMode) => void
   setPixelateMode: (m: PixelateMode) => void
@@ -23,6 +27,7 @@ interface SettingsState {
   setGridOverlay: (v: boolean) => void
   setGridColor: (c: string) => void
   setLanguage: (l: Language) => void
+  setColorVariety: (v: ColorVariety) => void
   resetSettings: () => void
 }
 
@@ -34,6 +39,7 @@ const DEFAULTS = {
   gridOverlay: false,
   gridColor: '#ffffff',
   language: 'en' as Language,
+  colorVariety: 16 as ColorVariety,
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -47,12 +53,14 @@ export const useSettingsStore = create<SettingsState>()(
       setGridOverlay: (gridOverlay) => set({ gridOverlay }),
       setGridColor: (gridColor) => set({ gridColor }),
       setLanguage: (language) => set({ language }),
+      setColorVariety: (colorVariety) => set({ colorVariety }),
       resetSettings: () =>
         set({
           resolution: DEFAULTS.resolution,
           outputMode: DEFAULTS.outputMode,
           pixelateMode: DEFAULTS.pixelateMode,
           viewMode: DEFAULTS.viewMode,
+          colorVariety: DEFAULTS.colorVariety,
         }),
     }),
     {

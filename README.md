@@ -1,7 +1,5 @@
 # MonoPix
 
-[한국어](./README.ko.md)
-
 <p align="center">
   <img src="./docs/logo.png" alt="MonoPix logo" width="300" />
 </p>
@@ -12,6 +10,8 @@ Convert any image into pixel art — right in your browser. No server, no accoun
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 
+[한국어](./README.ko.md) · [日本語](./README.ja.md) · [中文](./README.zh.md) · [Español](./README.es.md)
+
 ---
 
 ## What it does
@@ -19,11 +19,13 @@ Convert any image into pixel art — right in your browser. No server, no accoun
 Upload an image, crop it to a square, pick a resolution, and get pixel art. That's it.
 
 - **Crop** — 1:1 aspect ratio editor with drag & zoom
-- **Pixelate** — cell-based sampling, Clean (most frequent color) or Detail (average color), 8×8 to 256×256
+- **Clean** — picks the most frequent color per cell, sharp graphic edges, 8×8 to 256×256
+- **Detail** — averages all colors per cell, smoother gradients
+- **Repair** — drops an AI-generated "fake" pixel art and re-grids it properly. No resolution to set — it just figures it out on its own
 - **Compare** — before / after / split compare views
 - **Download** — export as PNG, keeping or resizing to the selected resolution
 - **History** — last 10 results saved locally in your browser, no account needed
-- **i18n** — English and Korean
+- **i18n** — English, Korean, Japanese, Chinese (Simplified), Spanish
 
 All processing runs in a Web Worker. Nothing leaves your device.
 
@@ -38,6 +40,8 @@ All processing runs in a Web Worker. Nothing leaves your device.
 **Clean** picks the most frequent color in each cell — sharp, graphic edges.
 
 **Detail** averages all colors in each cell — smoother gradients, more texture.
+
+**Repair** — got an AI-generated image that looks like pixel art but isn't really? Repair mode figures out the grid automatically and snaps every cell to a single clean color. Just hit convert, it does the rest.
 
 ---
 

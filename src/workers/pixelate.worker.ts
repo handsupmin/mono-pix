@@ -5,11 +5,20 @@ export type PixelateRequest = {
   resolution: number
   outputMode: 'original-size' | 'resized'
   pixelateMode: 'average' | 'frequent' | 'repair'
+  colorVariety?: number
 }
 
 export type PixelateResponse =
   | { type: 'progress'; step: number; total: number; message: string }
-  | { type: 'done'; result: ImageData; detectedResolution?: number }
+  | {
+      type: 'done'
+      result: ImageData
+      detectedResolution?: number
+      colCuts?: number[]
+      rowCuts?: number[]
+      numCells?: number
+      debugLog?: string
+    }
   | { type: 'error'; message: string }
 
 // ─── Repair mode: grid detection & re-snap ───────────────────────────────────
@@ -347,21 +356,30 @@ function resampleCells(
 function repairPixelate(
   imageData: ImageData,
   outputMode: 'original-size' | 'resized',
-): { data: Uint8ClampedArray; width: number; height: number; detectedResolution: number } {
+  colorVariety: number,
+): {
+  data: Uint8ClampedArray
+  width: number
+  height: number
+  detectedResolution: number
+  colCuts: number[]
+  rowCuts: number[]
+  debugLog: string
+} {
   const { width, height } = imageData
   const pixelCount = width * height
 
-  const quantData = kmeansQuantize(imageData.data, pixelCount)
+  const quantData = kmeansQuantize(imageData.data, pixelCount, colorVariety)
   const colProfile = computeColProfile(quantData, width, height)
   const rowProfile = computeRowProfile(quantData, width, height)
 
   const colStep = estimateStep(colProfile) ?? Math.max(1, Math.round(width / FALLBACK_SEGMENTS))
   const rowStep = estimateStep(rowProfile) ?? Math.max(1, Math.round(height / FALLBACK_SEGMENTS))
 
+  // 1) Walk-based cuts: snaps to actual grid boundaries → accurate color sampling
   let colCuts = walk(colProfile, colStep, width)
   let rowCuts = walk(rowProfile, rowStep, height)
 
-  // Axis stabilization: prevent skewed grids when one axis step >> other
   ;({ colCuts, rowCuts } = stabilizeAxes(
     colProfile,
     rowProfile,
@@ -372,8 +390,6 @@ function repairPixelate(
     width,
     height,
   ))
-
-  // Minimum cells guarantee
   colCuts = ensureMinCuts(colProfile, colCuts, width)
   rowCuts = ensureMinCuts(rowProfile, rowCuts, height)
 
@@ -381,10 +397,46 @@ function repairPixelate(
   const numRows = rowCuts.length - 1
   const detectedResolution = Math.round((numCols + numRows) / 2)
 
+  // Sample colors using walk cuts (accurate to actual grid boundaries)
   const cells = resampleCells(quantData, width, colCuts, rowCuts)
 
+  // 2) Render with uniform cell size (every cell exactly the same pixel size)
+  const cellSize = Math.floor(Math.min(width, height) / Math.max(numCols, numRows))
+  const outW = cellSize * numCols
+  const outH = cellSize * numRows
+
+  // Uniform cuts for grid overlay
+  const uniformColCuts: number[] = []
+  const uniformRowCuts: number[] = []
+  for (let i = 0; i <= numCols; i++) uniformColCuts.push(i * cellSize)
+  for (let i = 0; i <= numRows; i++) uniformRowCuts.push(i * cellSize)
+
+  // ── Debug ──
+  const walkColSizes: number[] = []
+  for (let i = 0; i < numCols; i++) walkColSizes.push(colCuts[i + 1] - colCuts[i])
+  const walkRowSizes: number[] = []
+  for (let i = 0; i < numRows; i++) walkRowSizes.push(rowCuts[i + 1] - rowCuts[i])
+  const debugLog = [
+    `=== Repair Mode Debug Log ===`,
+    `timestamp: ${new Date().toISOString()}`,
+    ``,
+    `[input]  image: ${width}x${height}`,
+    `[detect] colStep=${colStep}, rowStep=${rowStep}`,
+    `[grid]   numCols=${numCols}, numRows=${numRows}`,
+    ``,
+    `[sampling] walk cuts (snapped to actual grid)`,
+    `  col unique sizes: [${[...new Set(walkColSizes)].sort((a, b) => a - b).join(', ')}]`,
+    `  row unique sizes: [${[...new Set(walkRowSizes)].sort((a, b) => a - b).join(', ')}]`,
+    ``,
+    `[rendering] uniform output`,
+    `  cellSize=${cellSize}, outW=${outW}, outH=${outH}`,
+    `  every cell = ${cellSize}x${cellSize}px → UNIFORM ✓`,
+  ].join('\n')
+  // ── End debug ──
+
   if (outputMode === 'original-size') {
-    const result = new Uint8ClampedArray(width * height * 4)
+    // Scale cells (1px each) to uniform cellSize blocks
+    const result = new Uint8ClampedArray(outW * outH * 4)
     for (let ri = 0; ri < numRows; ri++) {
       for (let ci = 0; ci < numCols; ci++) {
         const cellIdx = (ri * numCols + ci) * 4
@@ -392,9 +444,11 @@ function repairPixelate(
           g = cells[cellIdx + 1],
           b = cells[cellIdx + 2],
           a = cells[cellIdx + 3]
-        for (let py = rowCuts[ri]; py < rowCuts[ri + 1]; py++) {
-          for (let px = colCuts[ci]; px < colCuts[ci + 1]; px++) {
-            const idx = (py * width + px) * 4
+        const pyStart = ri * cellSize
+        const pxStart = ci * cellSize
+        for (let py = pyStart; py < pyStart + cellSize; py++) {
+          for (let px = pxStart; px < pxStart + cellSize; px++) {
+            const idx = (py * outW + px) * 4
             result[idx] = r
             result[idx + 1] = g
             result[idx + 2] = b
@@ -403,16 +457,32 @@ function repairPixelate(
         }
       }
     }
-    return { data: result, width, height, detectedResolution }
+    return {
+      data: result,
+      width: outW,
+      height: outH,
+      detectedResolution,
+      colCuts: uniformColCuts,
+      rowCuts: uniformRowCuts,
+      debugLog,
+    }
   } else {
-    return { data: cells, width: numCols, height: numRows, detectedResolution }
+    return {
+      data: cells,
+      width: numCols,
+      height: numRows,
+      detectedResolution,
+      colCuts: uniformColCuts,
+      rowCuts: uniformRowCuts,
+      debugLog,
+    }
   }
 }
 
 // ─── Main message handler ────────────────────────────────────────────────────
 
 self.onmessage = (e: MessageEvent<PixelateRequest>) => {
-  const { imageData, resolution, outputMode, pixelateMode } = e.data
+  const { imageData, resolution, outputMode, pixelateMode, colorVariety } = e.data
 
   const post = (step: number, total: number, message: string) =>
     self.postMessage({ type: 'progress', step, total, message } satisfies PixelateResponse)
@@ -421,7 +491,7 @@ self.onmessage = (e: MessageEvent<PixelateRequest>) => {
     if (pixelateMode === 'repair') {
       post(0, 5, 'preparingCrop')
       post(1, 5, 'samplingColors')
-      const repaired = repairPixelate(imageData, outputMode)
+      const repaired = repairPixelate(imageData, outputMode, colorVariety ?? 16)
       post(2, 5, 'detectingGrid')
       post(3, 5, 'renderingPixel')
       const outputImageData = new ImageData(
@@ -435,6 +505,10 @@ self.onmessage = (e: MessageEvent<PixelateRequest>) => {
           type: 'done',
           result: outputImageData,
           detectedResolution: repaired.detectedResolution,
+          colCuts: repaired.colCuts,
+          rowCuts: repaired.rowCuts,
+          numCells: repaired.colCuts.length - 1,
+          debugLog: repaired.debugLog,
         } satisfies PixelateResponse,
         { transfer: [outputImageData.data.buffer] },
       )
