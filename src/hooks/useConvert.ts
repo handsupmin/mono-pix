@@ -84,7 +84,7 @@ export function useConvert() {
         await addHistoryItem({
           originalFileName: image.file.name,
           createdAt: Date.now(),
-          resolution,
+          resolution: msg.detectedResolution ?? resolution,
           outputMode,
           resultDataUrl,
           thumbnailDataUrl,
@@ -94,7 +94,7 @@ export function useConvert() {
 
         await load()
         setViewMode('after')
-        setDone(resultDataUrl, originalCroppedDataUrl)
+        setDone(resultDataUrl, originalCroppedDataUrl, msg.detectedResolution)
         worker.terminate()
       } else if (msg.type === 'error') {
         setError('errors.canvasFailed')

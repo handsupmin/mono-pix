@@ -107,7 +107,7 @@ export function ControlPanel() {
     resetSettings,
   } = useSettingsStore()
   const colorInputRef = useRef<HTMLInputElement>(null)
-  const { status, resultDataUrl } = useConversionStore()
+  const { status, resultDataUrl, detectedResolution } = useConversionStore()
   const { image } = useUploadStore()
   const { croppedAreaPixels } = useCropStore()
   const validResolutions = useValidResolutions()
@@ -131,7 +131,11 @@ export function ControlPanel() {
   const outputSize = croppedAreaPixels
     ? outputMode === 'original-size'
       ? `${croppedAreaPixels.width} × ${croppedAreaPixels.height}`
-      : `${resolution} × ${resolution}`
+      : pixelateMode === 'repair'
+        ? isDone && detectedResolution
+          ? `~${detectedResolution} × ${detectedResolution}`
+          : t('controls.autoDetected')
+        : `${resolution} × ${resolution}`
     : '—'
 
   return (
@@ -173,58 +177,68 @@ export function ControlPanel() {
       <Separator />
 
       {/* 3. Convert Type */}
-      <div className="px-4 py-2.5 flex items-center justify-between">
+      <div className="px-4 py-2.5 flex flex-col gap-2">
         <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
           {t('controls.convertType')}
         </label>
         <div className="flex gap-1">
-          {(['frequent', 'average'] as PixelateMode[]).map((mode, i) => (
+          {(
+            [
+              ['frequent', t('controls.convertType1')],
+              ['average', t('controls.convertType2')],
+              ['repair', t('controls.convertType3')],
+            ] as [PixelateMode, string][]
+          ).map(([mode, label]) => (
             <button
               key={mode}
               onClick={() => setPixelateMode(mode)}
               className={cn(
-                'text-xs px-2.5 py-1 rounded-md font-medium transition-colors',
+                'flex-1 text-xs px-2 py-1 rounded-md font-medium transition-colors',
                 pixelateMode === mode
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-muted hover:bg-muted/70 text-foreground',
               )}
             >
-              {i === 0 ? t('controls.convertType1') : t('controls.convertType2')}
+              {label}
             </button>
           ))}
         </div>
       </div>
       <Separator />
 
-      {/* 4. Resolution */}
-      <div className="px-4 py-3 flex flex-col gap-2">
-        <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-          {t('controls.resolution')}
-        </label>
-        <div className="grid grid-cols-3 gap-1">
-          {RESOLUTIONS.map((r) => {
-            const isValid = validResolutions.has(r)
-            return (
-              <button
-                key={r}
-                disabled={!isValid}
-                onClick={() => setResolution(r as Resolution)}
-                className={cn(
-                  'text-xs py-1.5 rounded-md font-mono font-medium transition-colors',
-                  resolution === r
-                    ? 'bg-primary text-primary-foreground'
-                    : isValid
-                      ? 'bg-muted hover:bg-muted/70 text-foreground'
-                      : 'bg-muted/30 text-muted-foreground/40 cursor-not-allowed',
-                )}
-              >
-                {r}×{r}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-      <Separator />
+      {/* 4. Resolution (hidden in Repair mode) */}
+      {pixelateMode !== 'repair' && (
+        <>
+          <div className="px-4 py-3 flex flex-col gap-2">
+            <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+              {t('controls.resolution')}
+            </label>
+            <div className="grid grid-cols-3 gap-1">
+              {RESOLUTIONS.map((r) => {
+                const isValid = validResolutions.has(r)
+                return (
+                  <button
+                    key={r}
+                    disabled={!isValid}
+                    onClick={() => setResolution(r as Resolution)}
+                    className={cn(
+                      'text-xs py-1.5 rounded-md font-mono font-medium transition-colors',
+                      resolution === r
+                        ? 'bg-primary text-primary-foreground'
+                        : isValid
+                          ? 'bg-muted hover:bg-muted/70 text-foreground'
+                          : 'bg-muted/30 text-muted-foreground/40 cursor-not-allowed',
+                    )}
+                  >
+                    {r}×{r}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+          <Separator />
+        </>
+      )}
 
       {/* 5. Grid Overlay */}
       <div className="px-4 py-2.5 flex items-center justify-between">
@@ -297,10 +311,19 @@ export function ControlPanel() {
                 {croppedAreaPixels.width} × {croppedAreaPixels.height}
               </span>
             </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">{t('preview.finalOutput')}</span>
-              <span className="font-mono font-medium">{outputSize}</span>
-            </div>
+            {pixelateMode === 'repair' && isDone && detectedResolution ? (
+              <div className="flex justify-between text-xs">
+                <span className="text-muted-foreground">{t('controls.detectedResolution')}</span>
+                <span className="font-mono font-medium">
+                  ~{detectedResolution}×{detectedResolution}
+                </span>
+              </div>
+            ) : (
+              <div className="flex justify-between text-xs">
+                <span className="text-muted-foreground">{t('preview.finalOutput')}</span>
+                <span className="font-mono font-medium">{outputSize}</span>
+              </div>
+            )}
           </div>
         </>
       )}

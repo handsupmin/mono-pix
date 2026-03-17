@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 export const RESOLUTIONS = [8, 16, 32, 64, 128, 256] as const
 export type Resolution = (typeof RESOLUTIONS)[number]
 export type OutputMode = 'original-size' | 'resized'
-export type PixelateMode = 'average' | 'frequent'
+export type PixelateMode = 'average' | 'frequent' | 'repair'
 export type ViewMode = 'before' | 'after' | 'compare'
 export type Language = 'en' | 'ko' | 'ja' | 'zh' | 'es'
 

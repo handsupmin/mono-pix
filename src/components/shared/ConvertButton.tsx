@@ -12,13 +12,16 @@ export function ConvertButton() {
   const { status } = useConversionStore()
   const { image } = useUploadStore()
   const { croppedAreaPixels } = useCropStore()
-  const { resolution } = useSettingsStore()
+  const { resolution, pixelateMode } = useSettingsStore()
   const validResolutions = useValidResolutions()
   const { convert } = useConvert()
 
   const isConverting = status === 'converting'
   const isDisabled =
-    isConverting || !image || !croppedAreaPixels || !validResolutions.has(resolution)
+    isConverting ||
+    !image ||
+    !croppedAreaPixels ||
+    (pixelateMode !== 'repair' && !validResolutions.has(resolution))
 
   return (
     <button

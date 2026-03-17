@@ -12,10 +12,15 @@ interface ConversionState {
   status: ConversionStatus
   resultDataUrl: string | null
   originalCroppedDataUrl: string | null
+  detectedResolution: number | null
   progress: ProgressState
   errorKey: string | null
   setConverting: (progress: ProgressState) => void
-  setDone: (resultDataUrl: string, originalCroppedDataUrl: string) => void
+  setDone: (
+    resultDataUrl: string,
+    originalCroppedDataUrl: string,
+    detectedResolution?: number,
+  ) => void
   setError: (errorKey: string) => void
   reset: () => void
 }
@@ -24,17 +29,24 @@ export const useConversionStore = create<ConversionState>((set) => ({
   status: 'idle',
   resultDataUrl: null,
   originalCroppedDataUrl: null,
+  detectedResolution: null,
   progress: { step: 0, total: 4, messageKey: '' },
   errorKey: null,
   setConverting: (progress) => set({ status: 'converting', progress, errorKey: null }),
-  setDone: (resultDataUrl, originalCroppedDataUrl) =>
-    set({ status: 'done', resultDataUrl, originalCroppedDataUrl }),
+  setDone: (resultDataUrl, originalCroppedDataUrl, detectedResolution) =>
+    set({
+      status: 'done',
+      resultDataUrl,
+      originalCroppedDataUrl,
+      detectedResolution: detectedResolution ?? null,
+    }),
   setError: (errorKey) => set({ status: 'error', errorKey }),
   reset: () =>
     set({
       status: 'idle',
       resultDataUrl: null,
       originalCroppedDataUrl: null,
+      detectedResolution: null,
       progress: { step: 0, total: 4, messageKey: '' },
       errorKey: null,
     }),
