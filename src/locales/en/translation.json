@@ -15,6 +15,9 @@
     "convertType": "Convert Type",
     "convertType1": "Clean",
     "convertType2": "Detail",
+    "convertType3": "Repair",
+    "detectedResolution": "Detected grid",
+    "autoDetected": "(auto)",
     "outputModeA": "Keep cropped size",
     "outputModeB": "Resize to resolution",
     "gridOverlay": "Grid Overlay",
@@ -47,6 +50,7 @@
   "progress": {
     "preparingCrop": "Preparing crop...",
     "samplingColors": "Sampling colors...",
+    "detectingGrid": "Detecting pixel grid...",
     "renderingPixel": "Rendering pixel image...",
     "finalizingPreview": "Finalizing preview..."
   },

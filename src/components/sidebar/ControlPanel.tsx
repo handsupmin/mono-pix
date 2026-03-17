@@ -36,6 +36,9 @@ function buildFilename(originalName: string, resolution: number, outputMode: Out
 const LANGUAGE_OPTIONS: { value: Language; label: string; native: string }[] = [
   { value: 'en', label: 'English', native: 'English' },
   { value: 'ko', label: 'Korean', native: '한국어' },
+  { value: 'ja', label: 'Japanese', native: '日本語' },
+  { value: 'zh', label: 'Chinese', native: '中文' },
+  { value: 'es', label: 'Spanish', native: 'Español' },
 ]
 
 function LanguageSelector() {

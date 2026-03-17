@@ -6,7 +6,7 @@ export type Resolution = (typeof RESOLUTIONS)[number]
 export type OutputMode = 'original-size' | 'resized'
 export type PixelateMode = 'average' | 'frequent'
 export type ViewMode = 'before' | 'after' | 'compare'
-export type Language = 'en' | 'ko'
+export type Language = 'en' | 'ko' | 'ja' | 'zh' | 'es'
 
 interface SettingsState {
   resolution: Resolution

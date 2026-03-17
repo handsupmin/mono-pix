@@ -15,6 +15,9 @@
     "convertType": "변환 방식",
     "convertType1": "깔끔함",
     "convertType2": "섬세함",
+    "convertType3": "복원",
+    "detectedResolution": "감지된 그리드",
+    "autoDetected": "(자동)",
     "outputModeA": "Crop 크기 유지",
     "outputModeB": "해상도 축소",
     "gridOverlay": "격자선 표시",
@@ -47,6 +50,7 @@
   "progress": {
     "preparingCrop": "Crop 준비 중...",
     "samplingColors": "색상 샘플링 중...",
+    "detectingGrid": "픽셀 그리드 감지 중...",
     "renderingPixel": "픽셀 이미지 렌더링 중...",
     "finalizingPreview": "미리보기 완성 중..."
   },

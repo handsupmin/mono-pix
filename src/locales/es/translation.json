@@ -1,0 +1,72 @@
+{
+  "app": {
+    "title": "MonoPix",
+    "tagline": "Mira el mundo a través de un monóculo de píxeles."
+  },
+  "upload": {
+    "placeholder": "Suelta una imagen aquí, o",
+    "button": "Subir imagen",
+    "dragActive": "¡Suéltala aquí!",
+    "formats": "PNG, JPG, JPEG, WEBP · Máx 20MB"
+  },
+  "controls": {
+    "resolution": "Resolución",
+    "outputMode": "Modo de salida",
+    "convertType": "Tipo de conversión",
+    "convertType1": "Limpio",
+    "convertType2": "Detalle",
+    "convertType3": "Reparar",
+    "detectedResolution": "Cuadrícula detectada",
+    "autoDetected": "(auto)",
+    "outputModeA": "Mantener tamaño recortado",
+    "outputModeB": "Redimensionar a resolución",
+    "gridOverlay": "Superposición de cuadrícula",
+    "viewMode": "Modo de vista",
+    "viewBefore": "Antes",
+    "viewAfter": "Después",
+    "viewCompare": "Comparar",
+    "convert": "Convertir",
+    "download": "Descargar",
+    "reset": "Restablecer ajustes",
+    "backToEdit": "Editar",
+    "language": "Idioma"
+  },
+  "preview": {
+    "cropSize": "Tamaño del recorte",
+    "outputMode": "Modo de salida",
+    "finalOutput": "Salida final"
+  },
+  "history": {
+    "title": "Historial",
+    "empty": "Sin historial aún",
+    "clearAll": "Borrar todo",
+    "clearConfirmTitle": "Borrar historial",
+    "clearConfirmMessage": "Esto eliminará todo el historial. No se puede deshacer.",
+    "clearConfirmOk": "Borrar todo",
+    "clearConfirmCancel": "Cancelar",
+    "download": "Descargar",
+    "delete": "Eliminar"
+  },
+  "progress": {
+    "preparingCrop": "Preparando recorte...",
+    "samplingColors": "Muestreando colores...",
+    "detectingGrid": "Detectando cuadrícula de píxeles...",
+    "renderingPixel": "Renderizando imagen de píxeles...",
+    "finalizingPreview": "Finalizando vista previa..."
+  },
+  "errors": {
+    "unsupportedFormat": "Este formato de archivo no es compatible.",
+    "fileTooLarge": "El tamaño máximo de carga es 20MB.",
+    "imageTooSmall": "La imagen debe tener al menos 8×8 píxeles.",
+    "fileReadFailed": "No se pudo leer el archivo.",
+    "invalidCrop": "Estado de recorte inválido. Ajusta el área de recorte.",
+    "resolutionTooLarge": "La resolución seleccionada es mayor que el tamaño de recorte actual.",
+    "canvasFailed": "No se pudo renderizar el lienzo.",
+    "downloadFailed": "No se pudo generar el archivo de descarga."
+  },
+  "tooltip": {
+    "convertDisabledNoImage": "Sube una imagen primero",
+    "convertDisabledNoResolution": "Selecciona una resolución válida",
+    "downloadDisabled": "Convierte la imagen primero"
+  }
+}
