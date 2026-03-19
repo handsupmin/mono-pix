@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
 import { useConversionStore } from '@/stores/conversion.store'
 import { useSettingsStore } from '@/stores/settings.store'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 function PixelCanvas({
   src,
@@ -338,7 +338,7 @@ function VerifyView({
     ctx.strokeStyle = 'white'
     ctx.lineWidth = BORDER
     ctx.stroke()
-  }, [canvasSize, canvasOffset, colCuts, rowCuts, gridColor])
+  }, [canvasSize, canvasOffset, colCuts, rowCuts, gridColor, MAG_RADIUS])
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
@@ -358,7 +358,7 @@ function VerifyView({
       cancelAnimationFrame(rafRef.current)
       rafRef.current = requestAnimationFrame(drawMagnifier)
     },
-    [drawMagnifier, mouseVisible],
+    [drawMagnifier, mouseVisible, MAG_RADIUS],
   )
 
   const handleMouseLeave = useCallback(() => {
@@ -422,7 +422,7 @@ export function PreviewArea() {
 
   if (!resultDataUrl || !originalCroppedDataUrl) return null
 
-  const showSnapGrid = pixelateMode === 'repair' && gridOverlay && colCuts && rowCuts && canvasSize
+  const showSnapGrid = pixelateMode === 'snap' && gridOverlay && colCuts && rowCuts && canvasSize
 
   if (viewMode === 'before') {
     return (

@@ -128,7 +128,7 @@ export function ControlPanel() {
 
   // Reset verify viewMode when leaving snap mode
   useEffect(() => {
-    if (viewMode === 'verify' && (pixelateMode !== 'repair' || !detectedResolution)) {
+    if (viewMode === 'verify' && (pixelateMode !== 'snap' || !detectedResolution)) {
       setViewMode('after')
     }
   }, [pixelateMode, detectedResolution, viewMode, setViewMode])
@@ -144,7 +144,7 @@ export function ControlPanel() {
   const outputSize = croppedAreaPixels
     ? outputMode === 'original-size'
       ? `${croppedAreaPixels.width} × ${croppedAreaPixels.height}`
-      : pixelateMode === 'repair'
+      : pixelateMode === 'snap'
         ? isDone && detectedResolution
           ? `~${detectedResolution} × ${detectedResolution}`
           : t('controls.autoDetected')
@@ -217,7 +217,7 @@ export function ControlPanel() {
         <div className="flex gap-1">
           {(
             [
-              ['repair', t('controls.convertType3')],
+              ['snap', t('controls.convertType3')],
               ['frequent', t('controls.convertType1')],
               ['average', t('controls.convertType2')],
             ] as [PixelateMode, string][]
@@ -240,7 +240,7 @@ export function ControlPanel() {
       <Separator />
 
       {/* 4. Resolution (hidden in Snap mode) */}
-      {pixelateMode !== 'repair' && (
+      {pixelateMode !== 'snap' && (
         <>
           <div className="px-4 py-3 flex flex-col gap-2">
             <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
@@ -274,7 +274,7 @@ export function ControlPanel() {
       )}
 
       {/* 4b. Color Variety (Snap mode only) */}
-      {pixelateMode === 'repair' && (
+      {pixelateMode === 'snap' && (
         <>
           <div className="px-4 py-3 flex flex-col gap-2">
             <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
@@ -302,8 +302,7 @@ export function ControlPanel() {
       )}
 
       {/* 5. Grid Overlay (Snap: only after conversion) */}
-      {(pixelateMode !== 'repair' ||
-        (pixelateMode === 'repair' && isDone && detectedResolution)) && (
+      {(pixelateMode !== 'snap' || (pixelateMode === 'snap' && isDone && detectedResolution)) && (
         <>
           <div className="px-4 py-2.5 flex items-center justify-between">
             <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
@@ -361,10 +360,10 @@ export function ControlPanel() {
               )}
             >
               {mode === 'original-size'
-                ? pixelateMode === 'repair'
+                ? pixelateMode === 'snap'
                   ? t('controls.outputModeSnapA')
                   : t('controls.outputModeA')
-                : pixelateMode === 'repair'
+                : pixelateMode === 'snap'
                   ? t('controls.outputModeSnapB')
                   : t('controls.outputModeB')}
             </button>
@@ -383,7 +382,7 @@ export function ControlPanel() {
                 {croppedAreaPixels.width} × {croppedAreaPixels.height}
               </span>
             </div>
-            {pixelateMode === 'repair' && isDone && detectedResolution ? (
+            {pixelateMode === 'snap' && isDone && detectedResolution ? (
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">{t('controls.detectedResolution')}</span>
                 <span className="font-mono font-medium">

@@ -14,14 +14,22 @@ Convierte cualquier imagen en pixel art, directamente en tu navegador. Sin servi
 
 ---
 
-## Qué hace
+## Snap — Convierte Pixel Art Falso en Pixel Art Real
 
-Sube una imagen, recórtala en cuadrado, elige la resolución y listo. Así de simple.
+Las imágenes generadas por IA _parecen_ pixel art, pero no lo son realmente. Bordes borrosos, contornos suavizados, cuadrícula desalineada. **El modo Snap detecta automáticamente la cuadrícula original de píxeles y reconstruye cada celda con un único color limpio.** Preserva la transparencia. No hay que configurar resolución.
 
+| Antes (borroso, desalineado)                                        | Después (limpio, uniforme)                                           | Después + Cuadrícula                                                         |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| <img src="./docs/4.snap-before.png" alt="Snap Antes" width="200" /> | <img src="./docs/5.snap-after.png" alt="Snap Después" width="200" /> | <img src="./docs/6.snap-after-grid.png" alt="Snap Cuadrícula" width="200" /> |
+
+---
+
+## Funcionalidades
+
+- **Snap** — Reconstruye pixel art "falso" generado por IA en pixel art real. Detección automática de cuadrícula, preserva transparencia
 - **Recorte** — Editor de relación de aspecto 1:1 con arrastre y zoom
 - **Limpio (Clean)** — Usa el color más frecuente en cada celda. Bordes nítidos y estilo gráfico. De 8×8 a 256×256
 - **Detalle (Detail)** — Usa el color promedio de cada celda. Degradados más suaves y mayor textura
-- **Reparar (Repair)** — Toma ese pixel art "falso" generado por IA y lo reconstruye como pixel art de verdad. Sin ajustar resolución — detecta la cuadrícula solo
 - **Comparar** — Vistas antes / después / comparación dividida
 - **Descargar** — Exporta como PNG manteniendo el tamaño original o ajustando a la resolución seleccionada
 - **Historial** — Los últimos 10 resultados guardados localmente en tu navegador
@@ -40,14 +48,6 @@ Todo el procesamiento ocurre en un Web Worker. Nada sale de tu dispositivo.
 **Limpio (Clean)** toma el color más frecuente en cada celda — bordes nítidos y estilo gráfico.
 
 **Detalle (Detail)** promedia todos los colores en cada celda — degradados más suaves y más textura.
-
-### Snap (Repair) — Convierte Pixel Art Falso en Pixel Art Real
-
-¿Tienes una imagen generada por IA que *parece* pixel art pero no lo es realmente? ¿Bordes borrosos, contornos suavizados, cuadrícula desalineada? **El modo Snap lo arregla todo.** Detecta automáticamente la cuadrícula original de píxeles y reconstruye cada celda con un único color limpio. No hay que configurar resolución — lo resuelve solo.
-
-| Antes (borroso, desalineado)                                                 | Después (limpio, uniforme)                                                 | Después + Cuadrícula                                                              |
-| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| <img src="./docs/4.snap-before.png" alt="Snap Antes" width="200" />         | <img src="./docs/5.snap-after.png" alt="Snap Después" width="200" />       | <img src="./docs/6.snap-after-grid.png" alt="Snap Cuadrícula" width="200" />      |
 
 ---
 
@@ -82,6 +82,12 @@ Abre [http://localhost:5173](http://localhost:5173).
 ## Stack
 
 [React](https://react.dev) · [TypeScript](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [shadcn/ui](https://ui.shadcn.com) · [Tailwind CSS v4](https://tailwindcss.com) · [Zustand](https://zustand-demo.pmnd.rs) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
+
+---
+
+## Contribuir
+
+Se aceptan issues y pull requests.
 
 ---
 

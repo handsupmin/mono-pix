@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 export const RESOLUTIONS = [8, 16, 32, 64, 128, 256] as const
 export type Resolution = (typeof RESOLUTIONS)[number]
 export type OutputMode = 'original-size' | 'resized'
-export type PixelateMode = 'average' | 'frequent' | 'repair'
+export type PixelateMode = 'average' | 'frequent' | 'snap'
 export type ViewMode = 'before' | 'after' | 'compare' | 'verify'
 export type Language = 'en' | 'ko' | 'ja' | 'zh' | 'es'
 
@@ -36,12 +36,12 @@ interface SettingsState {
 const DEFAULTS = {
   resolution: 32 as Resolution,
   outputMode: 'original-size' as OutputMode,
-  pixelateMode: 'repair' as PixelateMode,
+  pixelateMode: 'snap' as PixelateMode,
   viewMode: 'before' as ViewMode,
   gridOverlay: false,
   gridColor: '#ffffff',
   language: 'en' as Language,
-  colorVariety: 32 as ColorVariety,
+  colorVariety: 256 as ColorVariety,
   darkMode: false,
 }
 

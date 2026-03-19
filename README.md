@@ -1,12 +1,12 @@
 # MonoPix
 
 <p align="center">
-  <img src="./docs/logo.png" alt="MonoPix logo" width="300" />
+  <img src="./docs/logo.png" alt="MonoPix logo" width="250" />
 </p>
 
 **See the world through a pixel monocle.**
 
-Convert any image into pixel art — right in your browser. No server, no account, no nonsense.
+Browser-only pixel art toolkit. No server, no account, no nonsense.
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 
@@ -14,40 +14,46 @@ Convert any image into pixel art — right in your browser. No server, no accoun
 
 ---
 
-## What it does
+## Snap — Turn Fake Pixel Art into Real Pixel Art
 
-Upload an image, crop it to a square, pick a resolution, and get pixel art. That's it.
+Most AI-generated pixel art is **fake** — blurry edges, anti-aliased borders, misaligned grids. It _looks_ like pixel art but every cell has slightly different sizes and mixed colors.
 
-- **Crop** — 1:1 aspect ratio editor with drag & zoom
-- **Clean** — picks the most frequent color per cell, sharp graphic edges, 8×8 to 256×256
-- **Detail** — averages all colors per cell, smoother gradients
-- **Repair** — drops an AI-generated "fake" pixel art and re-grids it properly. No resolution to set — it just figures it out on its own
-- **Compare** — before / after / split compare views
-- **Download** — export as PNG, keeping or resizing to the selected resolution
-- **History** — last 10 results saved locally in your browser, no account needed
-- **i18n** — English, Korean, Japanese, Chinese (Simplified), Spanish
+**Snap fixes all of that.** It auto-detects the original pixel grid, rebuilds every cell with a single clean color, and outputs a perfectly uniform grid. Transparency is fully preserved.
 
-All processing runs in a Web Worker. Nothing leaves your device.
+No resolution to set. No manual alignment. Just drop the image and hit convert.
+
+| Before (blurry, misaligned)                                          | After (clean, uniform)                                             | After + Grid overlay                                                         |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| <img src="./docs/4.snap-before.png" alt="Snap Before" width="200" /> | <img src="./docs/5.snap-after.png" alt="Snap After" width="200" /> | <img src="./docs/6.snap-after-grid.png" alt="Snap After Grid" width="200" /> |
+
+Powered by [`fast-pixelizer`](https://github.com/handsupmin/fast-pixelizer) — our open-source pixel art engine.
 
 ---
 
-## Example
+## Clean & Detail — Generate Pixel Art from Any Image
 
 | Original                                                             | Clean                                                            | Detail                                                             |
 | -------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
 | <img src="./docs/1.convert-before.png" alt="Original" width="200" /> | <img src="./docs/2.convert-clean.png" alt="Clean" width="200" /> | <img src="./docs/3.convert-detail.png" alt="Detail" width="200" /> |
 
-**Clean** picks the most frequent color in each cell — sharp, graphic edges.
+**Clean** — most frequent color per cell. Sharp, graphic edges.
 
-**Detail** averages all colors in each cell — smoother gradients, more texture.
+**Detail** — average color per cell. Smoother gradients, more texture.
 
-### Snap (Repair) — Turn Fake Pixel Art into Real Pixel Art
+---
 
-Got an AI-generated image that *looks* like pixel art but isn't really? Blurry edges, anti-aliased borders, misaligned grid? **Snap mode fixes all of that.** It auto-detects the original pixel grid and rebuilds every cell with a single clean color. No resolution to set — it just figures it out.
+## Features
 
-| Before (blurry, misaligned)                                                  | After (clean, uniform)                                                     | After + Grid overlay                                                              |
-| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| <img src="./docs/4.snap-before.png" alt="Snap Before" width="200" />        | <img src="./docs/5.snap-after.png" alt="Snap After" width="200" />         | <img src="./docs/6.snap-after-grid.png" alt="Snap After Grid" width="200" />      |
+- **Snap** — auto-detect pixel grid in AI art, rebuild with perfect alignment. Transparency preserved
+- **Clean / Detail** — convert any image to pixel art, 8×8 to 256×256
+- **Crop** — 1:1 editor with drag & zoom
+- **Compare** — before / after / split views + Monocle magnifier for snap results
+- **Download** — PNG export, original size or resized
+- **History** — last 10 results saved locally
+- **Dark mode** — full dark mode support
+- **i18n** — English, Korean, Japanese, Chinese, Spanish
+
+All processing runs in a Web Worker. Nothing leaves your device.
 
 ---
 
@@ -56,7 +62,7 @@ Got an AI-generated image that *looks* like pixel art but isn't really? Blurry e
 **Requirements:** Node.js 18+
 
 ```bash
-git clone https://github.com/your-username/mono-pix.git
+git clone https://github.com/handsupmin/mono-pix.git
 cd mono-pix
 npm install
 npm run dev
@@ -81,7 +87,19 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ## Stack
 
-[React](https://react.dev) · [TypeScript](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [shadcn/ui](https://ui.shadcn.com) · [Tailwind CSS v4](https://tailwindcss.com) · [Zustand](https://zustand-demo.pmnd.rs) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
+[React 19](https://react.dev) · [TypeScript 5.9](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [Tailwind CSS v4](https://tailwindcss.com) · [shadcn/ui](https://ui.shadcn.com) · [Zustand](https://zustand-demo.pmnd.rs) · [fast-pixelizer](https://github.com/handsupmin/fast-pixelizer) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
+
+---
+
+## Contributing
+
+Contributions are welcome! Fork the repo, create a branch, and open a PR.
+
+```bash
+npm run lint:fix   # fix lint errors
+npm run format     # format code
+npm run build      # verify build passes
+```
 
 ---
 

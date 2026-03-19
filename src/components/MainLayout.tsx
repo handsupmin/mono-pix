@@ -1,10 +1,10 @@
-import logoSrc from '@/assets/logo-small.png'
+import logoSrc from '@/assets/logo.png'
 import { cn } from '@/lib/utils'
 import { useConversionStore } from '@/stores/conversion.store'
 import { useCropStore } from '@/stores/crop.store'
 import { useSettingsStore } from '@/stores/settings.store'
 import { useUploadStore } from '@/stores/upload.store'
-import { Pencil, Search, X, Trash2 } from 'lucide-react'
+import { Pencil, Search, Trash2, X } from 'lucide-react'
 import { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CropEditor } from './crop/CropEditor'
@@ -167,7 +167,7 @@ export function MainLayout() {
                 {t('controls.backToEdit')}
               </button>
 
-              {pixelateMode === 'repair' && detectedResolution && colCuts && (
+              {pixelateMode === 'snap' && detectedResolution && colCuts && (
                 <button
                   onClick={() => setViewMode(viewMode === 'verify' ? 'after' : 'verify')}
                   className={cn(
@@ -177,9 +177,52 @@ export function MainLayout() {
                       : 'bg-black/80 text-white hover:scale-[1.03] dark:bg-white/90 dark:text-gray-900 dark:hover:bg-white',
                   )}
                 >
-                  {/* Animated rainbow glow (only when not active) */}
+                  {/* Animated rainbow corona border glow (only when not active) */}
                   {viewMode !== 'verify' && (
-                    <span className="pointer-events-none absolute -inset-[3px] rounded-full bg-[conic-gradient(from_0deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3,#54a0ff,#5f27cd,#ff6b6b)] opacity-70 blur-md animate-[spin_3s_linear_infinite] group-hover:opacity-100 group-hover:blur-lg" />
+                    <>
+                      {/* Rainbow conic base - static */}
+                      <span
+                        className="pointer-events-none absolute -inset-[3px] rounded-full blur-[6px] group-hover:blur-[10px]"
+                        style={{
+                          background: 'conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b)',
+                          animation: 'corona-breathe-1 2.3s ease-in-out infinite',
+                          opacity: 0.75,
+                        }}
+                      />
+                      {/* Pulse ring 1 */}
+                      <span
+                        className="pointer-events-none absolute -inset-[2px] rounded-full blur-md group-hover:blur-lg"
+                        style={{
+                          background: 'conic-gradient(from 120deg, #ff9ff3, #54a0ff, #48dbfb, #feca57, #ff6b6b, #5f27cd, #ff9ff3)',
+                          animation: 'corona-breathe-2 1.8s ease-in-out infinite',
+                          opacity: 0.55,
+                        }}
+                      />
+                      {/* Pulse ring 2 */}
+                      <span
+                        className="pointer-events-none absolute -inset-[4px] rounded-full blur-lg group-hover:blur-xl"
+                        style={{
+                          background: 'conic-gradient(from 240deg, #48dbfb, #5f27cd, #ff6b6b, #54a0ff, #feca57, #ff9ff3, #48dbfb)',
+                          animation: 'corona-breathe-3 2.7s ease-in-out infinite',
+                          opacity: 0.4,
+                        }}
+                      />
+                      <style>{`
+                        @keyframes corona-breathe-1 {
+                          0%, 100% { transform: scale(1); opacity: 0.7; }
+                          50% { transform: scale(1.12); opacity: 0.9; }
+                        }
+                        @keyframes corona-breathe-2 {
+                          0%, 100% { transform: scale(1.05); opacity: 0.5; }
+                          50% { transform: scale(0.93); opacity: 0.8; }
+                        }
+                        @keyframes corona-breathe-3 {
+                          0%, 100% { transform: scale(1.08); opacity: 0.4; }
+                          35% { transform: scale(0.92); opacity: 0.7; }
+                          70% { transform: scale(1.18); opacity: 0.55; }
+                        }
+                      `}</style>
+                    </>
                   )}
                   <span className="relative z-10 flex items-center gap-2">
                     {viewMode === 'verify' ? (

@@ -38,7 +38,6 @@ src/
 ├── assets/
 │   ├── fonts/DungGeunMo.woff2       # 픽셀 폰트 (헤더 타이틀, Convert 버튼 hover)
 │   ├── logo.png                   # 인앱 헤더 로고 (favicon2 계열, 192x192)
-│   └── logo-small.png             # 헤더용 소형 로고 (MainLayout에서 import)
 ├── components/
 │   ├── MainLayout.tsx             # 전체 레이아웃 + 글로벌 drag&drop
 │   ├── crop/CropEditor.tsx        # react-easy-crop 래퍼 + GridOverlay SVG
@@ -226,7 +225,7 @@ public/          # 브라우저 직접 접근 가능한 파일 (favicon 등)
 
 src/assets/
   logo.png          # 인앱 헤더 로고 (favicon2 계열, 192x192)
-  logo-small.png    # MainLayout 헤더에서 실제 사용 (더 작은 버전)
+  logo.png    # MainLayout 헤더에서 실제 사용 (더 작은 버전)
   fonts/DungGeunMo.woff2
   1.convert-before.png   # 예시 이미지 (원본)
   2.convert-clean.png    # 예시 이미지 (Clean 결과)

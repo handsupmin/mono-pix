@@ -21,7 +21,7 @@ export function ConvertButton() {
     isConverting ||
     !image ||
     !croppedAreaPixels ||
-    (pixelateMode !== 'repair' && !validResolutions.has(resolution))
+    (pixelateMode !== 'snap' && !validResolutions.has(resolution))
 
   return (
     <button
