@@ -152,7 +152,7 @@ function CompareView({ beforeSrc, afterSrc }: { beforeSrc: string; afterSrc: str
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full overflow-hidden rounded-xl bg-[repeating-conic-gradient(#e5e5e5_0%_25%,transparent_0%_50%)_0_0/16px_16px]"
+      className="relative w-full h-full overflow-hidden rounded-xl bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/16px_16px]"
     >
       {/* Before (full, behind) */}
       <div className="absolute inset-0">
@@ -369,7 +369,7 @@ function VerifyView({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(#e5e5e5_0%_25%,transparent_0%_50%)_0_0/16px_16px]"
+      className="relative w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/16px_16px]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ cursor: mouseVisible ? 'none' : 'default' }}
@@ -403,8 +403,18 @@ function VerifyView({
 
 export function PreviewArea() {
   const { resultDataUrl, originalCroppedDataUrl, colCuts, rowCuts, numCells } = useConversionStore()
-  const { viewMode, pixelateMode, gridOverlay, gridColor } = useSettingsStore()
+  const { viewMode, pixelateMode, gridOverlay, gridColor, setViewMode } = useSettingsStore()
   const [canvasSize, setCanvasSize] = useState<{ w: number; h: number } | null>(null)
+
+  // ESC key to exit verify mode
+  useEffect(() => {
+    if (viewMode !== 'verify') return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setViewMode('after')
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [viewMode, setViewMode])
 
   const handleCanvasSize = useCallback((w: number, h: number) => {
     setCanvasSize({ w, h })
@@ -416,7 +426,7 @@ export function PreviewArea() {
 
   if (viewMode === 'before') {
     return (
-      <div className="w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(#e5e5e5_0%_25%,transparent_0%_50%)_0_0/16px_16px]">
+      <div className="w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/16px_16px]">
         <PixelCanvas src={originalCroppedDataUrl} alt="Before" className="rounded-xl" />
       </div>
     )
@@ -424,7 +434,7 @@ export function PreviewArea() {
 
   if (viewMode === 'after') {
     return (
-      <div className="relative w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(#e5e5e5_0%_25%,transparent_0%_50%)_0_0/16px_16px]">
+      <div className="relative w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/16px_16px]">
         <PixelCanvas
           src={resultDataUrl}
           alt="After"

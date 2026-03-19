@@ -33,7 +33,11 @@
     "download": "다운로드",
     "reset": "설정 초기화",
     "backToEdit": "편집",
-    "language": "언어"
+    "inspectMonocle": "모노클로 검사",
+    "exitMonocle": "모노클 닫기",
+    "turnOffMonocle": "모노클 끄기",
+    "language": "언어",
+    "darkMode": "다크 모드"
   },
   "preview": {
     "cropSize": "Crop 크기",

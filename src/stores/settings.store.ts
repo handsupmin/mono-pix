@@ -20,6 +20,7 @@ interface SettingsState {
   gridColor: string
   language: Language
   colorVariety: ColorVariety
+  darkMode: boolean
   setResolution: (r: Resolution) => void
   setOutputMode: (m: OutputMode) => void
   setPixelateMode: (m: PixelateMode) => void
@@ -28,18 +29,20 @@ interface SettingsState {
   setGridColor: (c: string) => void
   setLanguage: (l: Language) => void
   setColorVariety: (v: ColorVariety) => void
+  setDarkMode: (v: boolean) => void
   resetSettings: () => void
 }
 
 const DEFAULTS = {
   resolution: 32 as Resolution,
   outputMode: 'original-size' as OutputMode,
-  pixelateMode: 'frequent' as PixelateMode,
+  pixelateMode: 'repair' as PixelateMode,
   viewMode: 'before' as ViewMode,
   gridOverlay: false,
   gridColor: '#ffffff',
   language: 'en' as Language,
-  colorVariety: 16 as ColorVariety,
+  colorVariety: 32 as ColorVariety,
+  darkMode: false,
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -54,6 +57,7 @@ export const useSettingsStore = create<SettingsState>()(
       setGridColor: (gridColor) => set({ gridColor }),
       setLanguage: (language) => set({ language }),
       setColorVariety: (colorVariety) => set({ colorVariety }),
+      setDarkMode: (darkMode) => set({ darkMode }),
       resetSettings: () =>
         set({
           resolution: DEFAULTS.resolution,
@@ -68,6 +72,7 @@ export const useSettingsStore = create<SettingsState>()(
       partialize: (state) => ({
         language: state.language,
         outputMode: state.outputMode,
+        darkMode: state.darkMode,
       }),
     },
   ),

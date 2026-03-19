@@ -33,7 +33,11 @@
     "download": "ダウンロード",
     "reset": "設定をリセット",
     "backToEdit": "編集",
-    "language": "言語"
+    "inspectMonocle": "モノクルで検査",
+    "exitMonocle": "モノクルを閉じる",
+    "turnOffMonocle": "モノクルをオフ",
+    "language": "言語",
+    "darkMode": "ダークモード"
   },
   "preview": {
     "cropSize": "切り抜きサイズ",

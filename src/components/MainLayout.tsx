@@ -4,7 +4,7 @@ import { useConversionStore } from '@/stores/conversion.store'
 import { useCropStore } from '@/stores/crop.store'
 import { useSettingsStore } from '@/stores/settings.store'
 import { useUploadStore } from '@/stores/upload.store'
-import { Pencil, Trash2 } from 'lucide-react'
+import { Pencil, Search, X, Trash2 } from 'lucide-react'
 import { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CropEditor } from './crop/CropEditor'
@@ -57,9 +57,9 @@ function useGlobalDrop(onFile: (file: File) => void) {
 export function MainLayout() {
   const { t } = useTranslation()
   const { image, setImage } = useUploadStore()
-  const { status, reset: resetConversion } = useConversionStore()
+  const { status, detectedResolution, colCuts, reset: resetConversion } = useConversionStore()
   const { reset: resetCrop } = useCropStore()
-  const { gridOverlay, gridColor } = useSettingsStore()
+  const { gridOverlay, gridColor, pixelateMode, viewMode, setViewMode } = useSettingsStore()
 
   const isDone = status === 'done'
   const isConverting = status === 'converting'
@@ -156,9 +156,9 @@ export function MainLayout() {
           )}
           <LoadingOverlay />
 
-          {/* Floating Back to Edit button */}
+          {/* Floating action buttons */}
           {isDone && !isConverting && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
               <button
                 onClick={handleBackToEdit}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors text-sm font-medium"
@@ -166,6 +166,36 @@ export function MainLayout() {
                 <Pencil className="w-3.5 h-3.5" />
                 {t('controls.backToEdit')}
               </button>
+
+              {pixelateMode === 'repair' && detectedResolution && colCuts && (
+                <button
+                  onClick={() => setViewMode(viewMode === 'verify' ? 'after' : 'verify')}
+                  className={cn(
+                    'group relative flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all overflow-hidden',
+                    viewMode === 'verify'
+                      ? 'bg-muted text-muted-foreground shadow-lg hover:bg-muted/80'
+                      : 'bg-black/80 text-white hover:scale-[1.03] dark:bg-white/90 dark:text-gray-900 dark:hover:bg-white',
+                  )}
+                >
+                  {/* Animated rainbow glow (only when not active) */}
+                  {viewMode !== 'verify' && (
+                    <span className="pointer-events-none absolute -inset-[3px] rounded-full bg-[conic-gradient(from_0deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3,#54a0ff,#5f27cd,#ff6b6b)] opacity-70 blur-md animate-[spin_3s_linear_infinite] group-hover:opacity-100 group-hover:blur-lg" />
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    {viewMode === 'verify' ? (
+                      <>
+                        <X className="w-3.5 h-3.5" />
+                        {t('controls.turnOffMonocle')}
+                      </>
+                    ) : (
+                      <>
+                        <Search className="w-3.5 h-3.5" />
+                        {t('controls.inspectMonocle')}
+                      </>
+                    )}
+                  </span>
+                </button>
+              )}
             </div>
           )}
 

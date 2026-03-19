@@ -33,7 +33,11 @@
     "download": "下载",
     "reset": "重置设置",
     "backToEdit": "编辑",
-    "language": "语言"
+    "inspectMonocle": "用单片镜检查",
+    "exitMonocle": "退出单片镜",
+    "turnOffMonocle": "关闭单片镜",
+    "language": "语言",
+    "darkMode": "深色模式"
   },
   "preview": {
     "cropSize": "裁剪尺寸",

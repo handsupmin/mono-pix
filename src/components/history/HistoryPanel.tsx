@@ -19,7 +19,7 @@ function HistoryCard({ item, onDelete }: { item: HistoryItem; onDelete: () => vo
   const filename = `${item.originalFileName.replace(/\.[^.]+$/, '')}_${item.resolution}x${item.resolution}_${item.outputMode}.png`
 
   return (
-    <div className="group relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border border-border cursor-pointer hover:border-primary/60 transition-colors bg-[repeating-conic-gradient(#e5e5e5_0%_25%,transparent_0%_50%)_0_0/8px_8px]">
+    <div className="group relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border border-border cursor-pointer hover:border-primary/60 transition-colors bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/8px_8px]">
       <img
         src={item.thumbnailDataUrl}
         alt={item.originalFileName}

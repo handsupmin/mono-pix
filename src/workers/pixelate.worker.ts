@@ -17,7 +17,6 @@ export type PixelateResponse =
       colCuts?: number[]
       rowCuts?: number[]
       numCells?: number
-      debugLog?: string
     }
   | { type: 'error'; message: string }
 
@@ -364,7 +363,6 @@ function repairPixelate(
   detectedResolution: number
   colCuts: number[]
   rowCuts: number[]
-  debugLog: string
 } {
   const { width, height } = imageData
   const pixelCount = width * height
@@ -411,29 +409,6 @@ function repairPixelate(
   for (let i = 0; i <= numCols; i++) uniformColCuts.push(i * cellSize)
   for (let i = 0; i <= numRows; i++) uniformRowCuts.push(i * cellSize)
 
-  // ── Debug ──
-  const walkColSizes: number[] = []
-  for (let i = 0; i < numCols; i++) walkColSizes.push(colCuts[i + 1] - colCuts[i])
-  const walkRowSizes: number[] = []
-  for (let i = 0; i < numRows; i++) walkRowSizes.push(rowCuts[i + 1] - rowCuts[i])
-  const debugLog = [
-    `=== Repair Mode Debug Log ===`,
-    `timestamp: ${new Date().toISOString()}`,
-    ``,
-    `[input]  image: ${width}x${height}`,
-    `[detect] colStep=${colStep}, rowStep=${rowStep}`,
-    `[grid]   numCols=${numCols}, numRows=${numRows}`,
-    ``,
-    `[sampling] walk cuts (snapped to actual grid)`,
-    `  col unique sizes: [${[...new Set(walkColSizes)].sort((a, b) => a - b).join(', ')}]`,
-    `  row unique sizes: [${[...new Set(walkRowSizes)].sort((a, b) => a - b).join(', ')}]`,
-    ``,
-    `[rendering] uniform output`,
-    `  cellSize=${cellSize}, outW=${outW}, outH=${outH}`,
-    `  every cell = ${cellSize}x${cellSize}px → UNIFORM ✓`,
-  ].join('\n')
-  // ── End debug ──
-
   if (outputMode === 'original-size') {
     // Scale cells (1px each) to uniform cellSize blocks
     const result = new Uint8ClampedArray(outW * outH * 4)
@@ -464,7 +439,6 @@ function repairPixelate(
       detectedResolution,
       colCuts: uniformColCuts,
       rowCuts: uniformRowCuts,
-      debugLog,
     }
   } else {
     return {
@@ -474,7 +448,6 @@ function repairPixelate(
       detectedResolution,
       colCuts: uniformColCuts,
       rowCuts: uniformRowCuts,
-      debugLog,
     }
   }
 }
@@ -508,7 +481,6 @@ self.onmessage = (e: MessageEvent<PixelateRequest>) => {
           colCuts: repaired.colCuts,
           rowCuts: repaired.rowCuts,
           numCells: repaired.colCuts.length - 1,
-          debugLog: repaired.debugLog,
         } satisfies PixelateResponse,
         { transfer: [outputImageData.data.buffer] },
       )

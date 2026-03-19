@@ -33,7 +33,11 @@
     "download": "Descargar",
     "reset": "Restablecer ajustes",
     "backToEdit": "Editar",
-    "language": "Idioma"
+    "inspectMonocle": "Inspeccionar con Monóculo",
+    "exitMonocle": "Salir del Monóculo",
+    "turnOffMonocle": "Apagar Monóculo",
+    "language": "Idioma",
+    "darkMode": "Modo oscuro"
   },
   "preview": {
     "cropSize": "Tamaño del recorte",

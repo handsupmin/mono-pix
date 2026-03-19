@@ -33,7 +33,11 @@
     "download": "Download",
     "reset": "Reset Settings",
     "backToEdit": "Edit",
-    "language": "Language"
+    "inspectMonocle": "Inspect with Monocle",
+    "exitMonocle": "Exit Monocle",
+    "turnOffMonocle": "Turn off Monocle",
+    "language": "Language",
+    "darkMode": "Dark Mode"
   },
   "preview": {
     "cropSize": "Crop size",

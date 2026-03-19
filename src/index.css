@@ -141,6 +141,13 @@ body {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+:root {
+  --checkerboard: #e5e5e5;
+}
+.dark {
+  --checkerboard: #404040;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

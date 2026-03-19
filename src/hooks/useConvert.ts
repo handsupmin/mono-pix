@@ -78,17 +78,6 @@ export function useConvert() {
       if (msg.type === 'progress') {
         setConverting({ step: msg.step, total: msg.total, messageKey: msg.message })
       } else if (msg.type === 'done') {
-        // Debug: auto-download repair log as txt
-        if (msg.debugLog) {
-          const blob = new Blob([msg.debugLog], { type: 'text/plain' })
-          const url = URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = `repair-debug-${Date.now()}.txt`
-          a.click()
-          URL.revokeObjectURL(url)
-        }
-
         const resultDataUrl = imageDataToDataUrl(msg.result)
         const thumbnailDataUrl = await generateThumbnail(resultDataUrl)
 

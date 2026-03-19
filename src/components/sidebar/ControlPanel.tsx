@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Download, Grid3x3, RotateCcw, ChevronDown, Check, Github } from 'lucide-react'
+import { Download, Grid3x3, RotateCcw, ChevronDown, Check, Github, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -101,6 +101,7 @@ export function ControlPanel() {
     gridOverlay,
     gridColor,
     colorVariety,
+    darkMode,
     setResolution,
     setOutputMode,
     setPixelateMode,
@@ -108,6 +109,7 @@ export function ControlPanel() {
     setGridOverlay,
     setGridColor,
     setColorVariety,
+    setDarkMode,
     resetSettings,
   } = useSettingsStore()
   const colorInputRef = useRef<HTMLInputElement>(null)
@@ -172,6 +174,26 @@ export function ControlPanel() {
       <LanguageSelector />
       <Separator />
 
+      {/* 1b. Dark Mode */}
+      <div className="px-4 py-2.5 flex items-center justify-between">
+        <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+          {t('controls.darkMode')}
+        </span>
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className={cn(
+            'p-1.5 rounded transition-colors',
+            darkMode
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground',
+          )}
+          aria-label={t('controls.darkMode')}
+        >
+          {darkMode ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
+        </button>
+      </div>
+      <Separator />
+
       {/* 2. Reset Settings */}
       <div className="px-4 py-2.5 flex items-center justify-between">
         <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
@@ -195,9 +217,9 @@ export function ControlPanel() {
         <div className="flex gap-1">
           {(
             [
+              ['repair', t('controls.convertType3')],
               ['frequent', t('controls.convertType1')],
               ['average', t('controls.convertType2')],
-              ['repair', t('controls.convertType3')],
             ] as [PixelateMode, string][]
           ).map(([mode, label]) => (
             <button
@@ -386,34 +408,28 @@ export function ControlPanel() {
             <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
               {t('controls.viewMode')}
             </label>
-            {(() => {
-              const modes: [ViewMode, string][] = [
-                ['before', t('controls.viewBefore')],
-                ['after', t('controls.viewAfter')],
-                ['compare', t('controls.viewCompare')],
-              ]
-              if (pixelateMode === 'repair' && detectedResolution) {
-                modes.push(['verify', t('controls.viewVerify')])
-              }
-              return (
-                <div className={`grid ${modes.length > 3 ? 'grid-cols-4' : 'grid-cols-3'} gap-1`}>
-                  {modes.map(([mode, label]) => (
-                    <button
-                      key={mode}
-                      onClick={() => setViewMode(mode)}
-                      className={cn(
-                        'text-xs py-1.5 rounded-md font-medium transition-colors',
-                        viewMode === mode
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted hover:bg-muted/70 text-foreground',
-                      )}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              )
-            })()}
+            <div className="grid grid-cols-3 gap-1">
+              {(
+                [
+                  ['before', t('controls.viewBefore')],
+                  ['after', t('controls.viewAfter')],
+                  ['compare', t('controls.viewCompare')],
+                ] as [ViewMode, string][]
+              ).map(([mode, label]) => (
+                <button
+                  key={mode}
+                  onClick={() => setViewMode(mode)}
+                  className={cn(
+                    'text-xs py-1.5 rounded-md font-medium transition-colors',
+                    viewMode === mode
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted hover:bg-muted/70 text-foreground',
+                  )}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </>
       )}
