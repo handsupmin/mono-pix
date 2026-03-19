@@ -41,7 +41,13 @@ All processing runs in a Web Worker. Nothing leaves your device.
 
 **Detail** averages all colors in each cell — smoother gradients, more texture.
 
-**Repair** — got an AI-generated image that looks like pixel art but isn't really? Repair mode figures out the grid automatically and snaps every cell to a single clean color. Just hit convert, it does the rest.
+### Snap (Repair) — Turn Fake Pixel Art into Real Pixel Art
+
+Got an AI-generated image that *looks* like pixel art but isn't really? Blurry edges, anti-aliased borders, misaligned grid? **Snap mode fixes all of that.** It auto-detects the original pixel grid and rebuilds every cell with a single clean color. No resolution to set — it just figures it out.
+
+| Before (blurry, misaligned)                                                  | After (clean, uniform)                                                     | After + Grid overlay                                                              |
+| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| <img src="./docs/4.snap-before.png" alt="Snap Before" width="200" />        | <img src="./docs/5.snap-after.png" alt="Snap After" width="200" />         | <img src="./docs/6.snap-after-grid.png" alt="Snap After Grid" width="200" />      |
 
 ---
 

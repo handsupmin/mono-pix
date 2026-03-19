@@ -41,7 +41,13 @@ Todo el procesamiento ocurre en un Web Worker. Nada sale de tu dispositivo.
 
 **Detalle (Detail)** promedia todos los colores en cada celda — degradados más suaves y más textura.
 
-**Reparar (Repair)** — ¿Tienes una imagen generada por IA que parece pixel art pero en realidad no lo es del todo? El modo Repair analiza la cuadrícula automáticamente y ajusta cada celda a un solo color limpio. Sin configurar nada, solo dale al botón.
+### Snap (Repair) — Convierte Pixel Art Falso en Pixel Art Real
+
+¿Tienes una imagen generada por IA que *parece* pixel art pero no lo es realmente? ¿Bordes borrosos, contornos suavizados, cuadrícula desalineada? **El modo Snap lo arregla todo.** Detecta automáticamente la cuadrícula original de píxeles y reconstruye cada celda con un único color limpio. No hay que configurar resolución — lo resuelve solo.
+
+| Antes (borroso, desalineado)                                                 | Después (limpio, uniforme)                                                 | Después + Cuadrícula                                                              |
+| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| <img src="./docs/4.snap-before.png" alt="Snap Antes" width="200" />         | <img src="./docs/5.snap-after.png" alt="Snap Después" width="200" />       | <img src="./docs/6.snap-after-grid.png" alt="Snap Cuadrícula" width="200" />      |
 
 ---
 
