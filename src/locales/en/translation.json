@@ -60,7 +60,8 @@
     "samplingColors": "Sampling colors...",
     "detectingGrid": "Detecting pixel grid...",
     "renderingPixel": "Rendering pixel image...",
-    "finalizingPreview": "Finalizing preview..."
+    "finalizingPreview": "Finalizing preview...",
+    "pixelating": "Pixelating..."
   },
   "errors": {
     "unsupportedFormat": "This file format is not supported.",

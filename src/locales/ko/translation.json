@@ -60,7 +60,8 @@
     "samplingColors": "색상 샘플링 중...",
     "detectingGrid": "픽셀 그리드 감지 중...",
     "renderingPixel": "픽셀 이미지 렌더링 중...",
-    "finalizingPreview": "미리보기 완성 중..."
+    "finalizingPreview": "미리보기 완성 중...",
+    "pixelating": "픽셀화 중..."
   },
   "errors": {
     "unsupportedFormat": "지원하지 않는 파일 형식입니다.",

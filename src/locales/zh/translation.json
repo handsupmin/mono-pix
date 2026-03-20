@@ -60,7 +60,8 @@
     "samplingColors": "正在采样颜色...",
     "detectingGrid": "正在检测像素网格...",
     "renderingPixel": "正在渲染像素图像...",
-    "finalizingPreview": "正在完成预览..."
+    "finalizingPreview": "正在完成预览...",
+    "pixelating": "像素化中..."
   },
   "errors": {
     "unsupportedFormat": "不支持此文件格式。",

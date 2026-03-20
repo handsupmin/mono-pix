@@ -60,7 +60,8 @@
     "samplingColors": "Muestreando colores...",
     "detectingGrid": "Detectando cuadrícula de píxeles...",
     "renderingPixel": "Renderizando imagen de píxeles...",
-    "finalizingPreview": "Finalizando vista previa..."
+    "finalizingPreview": "Finalizando vista previa...",
+    "pixelating": "Pixelando..."
   },
   "errors": {
     "unsupportedFormat": "Este formato de archivo no es compatible.",

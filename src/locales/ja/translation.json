@@ -60,7 +60,8 @@
     "samplingColors": "色をサンプリング中...",
     "detectingGrid": "ピクセルグリッドを検出中...",
     "renderingPixel": "ピクセル画像をレンダリング中...",
-    "finalizingPreview": "プレビューを完成中..."
+    "finalizingPreview": "プレビューを完成中...",
+    "pixelating": "ピクセル化中..."
   },
   "errors": {
     "unsupportedFormat": "このファイル形式はサポートされていません。",
