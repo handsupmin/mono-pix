@@ -1,0 +1,87 @@
+{
+  "app": {
+    "title": "MonoPix",
+    "tagline": "用像素单片眼镜看世界。"
+  },
+  "upload": {
+    "placeholder": "将图片拖放至此，或",
+    "button": "上传图片",
+    "dragActive": "放在这里！",
+    "formats": "PNG, JPG, JPEG, WEBP · 最大 20MB"
+  },
+  "controls": {
+    "resolution": "分辨率",
+    "outputMode": "输出模式",
+    "convertType": "转换类型",
+    "convertType1": "清晰",
+    "convertType2": "细节",
+    "convertType3": "对齐",
+    "detectedResolution": "检测到的网格",
+    "autoDetected": "(自动)",
+    "colorVariety": "色彩多样性",
+    "outputModeA": "保持裁剪尺寸",
+    "outputModeB": "调整为分辨率",
+    "outputModeSnapA": "保持原始尺寸",
+    "outputModeSnapB": "调整为网格尺寸",
+    "gridOverlay": "网格叠加",
+    "viewMode": "查看模式",
+    "viewBefore": "转换前",
+    "viewAfter": "转换后",
+    "viewCompare": "对比",
+    "viewVerify": "验证",
+    "convert": "转换",
+    "download": "下载",
+    "reset": "重置设置",
+    "backToEdit": "编辑",
+    "inspectMonocle": "用单片镜检查",
+    "exitMonocle": "退出单片镜",
+    "turnOffMonocle": "关闭单片镜",
+    "language": "语言",
+    "darkMode": "深色模式"
+  },
+  "preview": {
+    "cropSize": "裁剪尺寸",
+    "outputMode": "输出模式",
+    "finalOutput": "最终输出"
+  },
+  "history": {
+    "title": "历史记录",
+    "empty": "暂无历史记录",
+    "clearAll": "全部清除",
+    "clearConfirmTitle": "清除历史记录",
+    "clearConfirmMessage": "将删除所有历史记录，此操作无法撤销。",
+    "clearConfirmOk": "全部清除",
+    "clearConfirmCancel": "取消",
+    "download": "下载",
+    "delete": "删除"
+  },
+  "progress": {
+    "preparingCrop": "正在准备裁剪...",
+    "samplingColors": "正在采样颜色...",
+    "detectingGrid": "正在检测像素网格...",
+    "renderingPixel": "正在渲染像素图像...",
+    "finalizingPreview": "正在完成预览...",
+    "pixelating": "像素化中..."
+  },
+  "errors": {
+    "unsupportedFormat": "不支持此文件格式。",
+    "fileTooLarge": "最大上传大小为20MB。",
+    "imageTooSmall": "图片至少需要8×8像素。",
+    "fileReadFailed": "文件读取失败。",
+    "invalidCrop": "裁剪状态无效，请调整裁剪区域。",
+    "resolutionTooLarge": "所选分辨率大于当前裁剪尺寸。",
+    "canvasFailed": "画布渲染失败。",
+    "downloadFailed": "生成下载文件失败。"
+  },
+  "hints": {
+    "scrollZoom": "滚轮缩放",
+    "dragPan": "拖拽平移",
+    "dblClickReset": "双击重置",
+    "escExit": "ESC退出"
+  },
+  "tooltip": {
+    "convertDisabledNoImage": "请先上传图片",
+    "convertDisabledNoResolution": "请选择有效的分辨率",
+    "downloadDisabled": "请先转换图片"
+  }
+}

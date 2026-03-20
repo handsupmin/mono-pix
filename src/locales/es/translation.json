@@ -1,0 +1,87 @@
+{
+  "app": {
+    "title": "MonoPix",
+    "tagline": "Mira el mundo a través de un monóculo de píxeles."
+  },
+  "upload": {
+    "placeholder": "Suelta una imagen aquí, o",
+    "button": "Subir imagen",
+    "dragActive": "¡Suéltala aquí!",
+    "formats": "PNG, JPG, JPEG, WEBP · Máx 20MB"
+  },
+  "controls": {
+    "resolution": "Resolución",
+    "outputMode": "Modo de salida",
+    "convertType": "Tipo de conversión",
+    "convertType1": "Limpio",
+    "convertType2": "Detalle",
+    "convertType3": "Ajustar",
+    "detectedResolution": "Cuadrícula detectada",
+    "autoDetected": "(auto)",
+    "colorVariety": "Variedad de color",
+    "outputModeA": "Mantener tamaño recortado",
+    "outputModeB": "Redimensionar a resolución",
+    "outputModeSnapA": "Mantener tamaño original",
+    "outputModeSnapB": "Redimensionar a cuadrícula",
+    "gridOverlay": "Superposición de cuadrícula",
+    "viewMode": "Modo de vista",
+    "viewBefore": "Antes",
+    "viewAfter": "Después",
+    "viewCompare": "Comparar",
+    "viewVerify": "Verificar",
+    "convert": "Convertir",
+    "download": "Descargar",
+    "reset": "Restablecer ajustes",
+    "backToEdit": "Editar",
+    "inspectMonocle": "Inspeccionar con Monóculo",
+    "exitMonocle": "Salir del Monóculo",
+    "turnOffMonocle": "Apagar Monóculo",
+    "language": "Idioma",
+    "darkMode": "Modo oscuro"
+  },
+  "preview": {
+    "cropSize": "Tamaño del recorte",
+    "outputMode": "Modo de salida",
+    "finalOutput": "Salida final"
+  },
+  "history": {
+    "title": "Historial",
+    "empty": "Sin historial aún",
+    "clearAll": "Borrar todo",
+    "clearConfirmTitle": "Borrar historial",
+    "clearConfirmMessage": "Esto eliminará todo el historial. No se puede deshacer.",
+    "clearConfirmOk": "Borrar todo",
+    "clearConfirmCancel": "Cancelar",
+    "download": "Descargar",
+    "delete": "Eliminar"
+  },
+  "progress": {
+    "preparingCrop": "Preparando recorte...",
+    "samplingColors": "Muestreando colores...",
+    "detectingGrid": "Detectando cuadrícula de píxeles...",
+    "renderingPixel": "Renderizando imagen de píxeles...",
+    "finalizingPreview": "Finalizando vista previa...",
+    "pixelating": "Pixelando..."
+  },
+  "errors": {
+    "unsupportedFormat": "Este formato de archivo no es compatible.",
+    "fileTooLarge": "El tamaño máximo de carga es 20MB.",
+    "imageTooSmall": "La imagen debe tener al menos 8×8 píxeles.",
+    "fileReadFailed": "No se pudo leer el archivo.",
+    "invalidCrop": "Estado de recorte inválido. Ajusta el área de recorte.",
+    "resolutionTooLarge": "La resolución seleccionada es mayor que el tamaño de recorte actual.",
+    "canvasFailed": "No se pudo renderizar el lienzo.",
+    "downloadFailed": "No se pudo generar el archivo de descarga."
+  },
+  "hints": {
+    "scrollZoom": "Desplazar para zoom",
+    "dragPan": "Arrastrar para mover",
+    "dblClickReset": "Doble clic para reiniciar",
+    "escExit": "ESC para salir"
+  },
+  "tooltip": {
+    "convertDisabledNoImage": "Sube una imagen primero",
+    "convertDisabledNoResolution": "Selecciona una resolución válida",
+    "downloadDisabled": "Convierte la imagen primero"
+  }
+}

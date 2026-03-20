@@ -1,0 +1,87 @@
+{
+  "app": {
+    "title": "MonoPix",
+    "tagline": "ピクセルの単眼鏡で世界を見よう。"
+  },
+  "upload": {
+    "placeholder": "ここに画像をドロップ、または",
+    "button": "画像をアップロード",
+    "dragActive": "ここにドロップ！",
+    "formats": "PNG, JPG, JPEG, WEBP · 最大 20MB"
+  },
+  "controls": {
+    "resolution": "解像度",
+    "outputMode": "出力モード",
+    "convertType": "変換タイプ",
+    "convertType1": "クリーン",
+    "convertType2": "ディテール",
+    "convertType3": "スナップ",
+    "detectedResolution": "検出グリッド",
+    "autoDetected": "(自動)",
+    "colorVariety": "色の多様性",
+    "outputModeA": "切り抜きサイズを維持",
+    "outputModeB": "解像度にリサイズ",
+    "outputModeSnapA": "元のサイズを維持",
+    "outputModeSnapB": "グリッドにリサイズ",
+    "gridOverlay": "グリッド表示",
+    "viewMode": "表示モード",
+    "viewBefore": "変換前",
+    "viewAfter": "変換後",
+    "viewCompare": "比較",
+    "viewVerify": "検証",
+    "convert": "変換",
+    "download": "ダウンロード",
+    "reset": "設定をリセット",
+    "backToEdit": "編集",
+    "inspectMonocle": "モノクルで検査",
+    "exitMonocle": "モノクルを閉じる",
+    "turnOffMonocle": "モノクルをオフ",
+    "language": "言語",
+    "darkMode": "ダークモード"
+  },
+  "preview": {
+    "cropSize": "切り抜きサイズ",
+    "outputMode": "出力モード",
+    "finalOutput": "最終出力"
+  },
+  "history": {
+    "title": "履歴",
+    "empty": "履歴はまだありません",
+    "clearAll": "すべてクリア",
+    "clearConfirmTitle": "履歴を削除",
+    "clearConfirmMessage": "すべての履歴が削除されます。元に戻すことはできません。",
+    "clearConfirmOk": "すべてクリア",
+    "clearConfirmCancel": "キャンセル",
+    "download": "ダウンロード",
+    "delete": "削除"
+  },
+  "progress": {
+    "preparingCrop": "切り抜きを準備中...",
+    "samplingColors": "色をサンプリング中...",
+    "detectingGrid": "ピクセルグリッドを検出中...",
+    "renderingPixel": "ピクセル画像をレンダリング中...",
+    "finalizingPreview": "プレビューを完成中...",
+    "pixelating": "ピクセル化中..."
+  },
+  "errors": {
+    "unsupportedFormat": "このファイル形式はサポートされていません。",
+    "fileTooLarge": "最大アップロードサイズは20MBです。",
+    "imageTooSmall": "画像は最低8×8ピクセルが必要です。",
+    "fileReadFailed": "ファイルの読み込みに失敗しました。",
+    "invalidCrop": "切り抜きの状態が無効です。切り抜きエリアを調整してください。",
+    "resolutionTooLarge": "選択した解像度が現在の切り抜きサイズより大きいです。",
+    "canvasFailed": "キャンバスのレンダリングに失敗しました。",
+    "downloadFailed": "ダウンロードファイルの生成に失敗しました。"
+  },
+  "hints": {
+    "scrollZoom": "スクロールでズーム",
+    "dragPan": "ドラッグで移動",
+    "dblClickReset": "ダブルクリックでリセット",
+    "escExit": "ESCで終了"
+  },
+  "tooltip": {
+    "convertDisabledNoImage": "先に画像をアップロードしてください",
+    "convertDisabledNoResolution": "有効な解像度を選択してください",
+    "downloadDisabled": "先に画像を変換してください"
+  }
+}

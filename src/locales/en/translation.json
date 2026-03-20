@@ -1,0 +1,87 @@
+{
+  "app": {
+    "title": "MonoPix",
+    "tagline": "See the world through a pixel monocle."
+  },
+  "upload": {
+    "placeholder": "Drop an image here, or",
+    "button": "Upload Image",
+    "dragActive": "Drop it here!",
+    "formats": "PNG, JPG, JPEG, WEBP · Max 20MB"
+  },
+  "controls": {
+    "resolution": "Resolution",
+    "outputMode": "Output Mode",
+    "convertType": "Convert Type",
+    "convertType1": "Clean",
+    "convertType2": "Detail",
+    "convertType3": "Snap",
+    "detectedResolution": "Detected grid",
+    "autoDetected": "(auto)",
+    "colorVariety": "Color Variety",
+    "outputModeA": "Keep cropped size",
+    "outputModeB": "Resize to resolution",
+    "outputModeSnapA": "Keep original size",
+    "outputModeSnapB": "Resize to grid",
+    "gridOverlay": "Grid Overlay",
+    "viewMode": "View Mode",
+    "viewBefore": "Before",
+    "viewAfter": "After",
+    "viewCompare": "Compare",
+    "viewVerify": "Verify",
+    "convert": "Convert",
+    "download": "Download",
+    "reset": "Reset Settings",
+    "backToEdit": "Edit",
+    "inspectMonocle": "Inspect with Monocle",
+    "exitMonocle": "Exit Monocle",
+    "turnOffMonocle": "Turn off Monocle",
+    "language": "Language",
+    "darkMode": "Dark Mode"
+  },
+  "preview": {
+    "cropSize": "Crop size",
+    "outputMode": "Output mode",
+    "finalOutput": "Final output"
+  },
+  "history": {
+    "title": "History",
+    "empty": "No history yet",
+    "clearAll": "Clear All",
+    "clearConfirmTitle": "Clear History",
+    "clearConfirmMessage": "This will delete all history. This cannot be undone.",
+    "clearConfirmOk": "Clear All",
+    "clearConfirmCancel": "Cancel",
+    "download": "Download",
+    "delete": "Delete"
+  },
+  "progress": {
+    "preparingCrop": "Preparing crop...",
+    "samplingColors": "Sampling colors...",
+    "detectingGrid": "Detecting pixel grid...",
+    "renderingPixel": "Rendering pixel image...",
+    "finalizingPreview": "Finalizing preview...",
+    "pixelating": "Pixelating..."
+  },
+  "errors": {
+    "unsupportedFormat": "This file format is not supported.",
+    "fileTooLarge": "Maximum upload size is 20MB.",
+    "imageTooSmall": "Image must be at least 8×8 pixels.",
+    "fileReadFailed": "Failed to read the file.",
+    "invalidCrop": "Invalid crop state. Please adjust the crop area.",
+    "resolutionTooLarge": "Selected resolution is larger than the current crop size.",
+    "canvasFailed": "Failed to render the canvas.",
+    "downloadFailed": "Failed to generate the download file."
+  },
+  "hints": {
+    "scrollZoom": "Scroll to zoom",
+    "dragPan": "Drag to pan",
+    "dblClickReset": "Double-click to reset",
+    "escExit": "ESC to exit"
+  },
+  "tooltip": {
+    "convertDisabledNoImage": "Upload an image first",
+    "convertDisabledNoResolution": "Select a valid resolution",
+    "downloadDisabled": "Convert the image first"
+  }
+}
