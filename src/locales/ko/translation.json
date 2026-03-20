@@ -73,6 +73,12 @@
     "canvasFailed": "캔버스 렌더링에 실패했습니다.",
     "downloadFailed": "다운로드 파일 생성에 실패했습니다."
   },
+  "hints": {
+    "scrollZoom": "스크롤로 확대/축소",
+    "dragPan": "드래그로 이동",
+    "dblClickReset": "더블클릭으로 초기화",
+    "escExit": "ESC로 나가기"
+  },
   "tooltip": {
     "convertDisabledNoImage": "먼저 이미지를 업로드하세요",
     "convertDisabledNoResolution": "유효한 해상도를 선택하세요",

@@ -73,6 +73,12 @@
     "canvasFailed": "画布渲染失败。",
     "downloadFailed": "生成下载文件失败。"
   },
+  "hints": {
+    "scrollZoom": "滚轮缩放",
+    "dragPan": "拖拽平移",
+    "dblClickReset": "双击重置",
+    "escExit": "ESC退出"
+  },
   "tooltip": {
     "convertDisabledNoImage": "请先上传图片",
     "convertDisabledNoResolution": "请选择有效的分辨率",

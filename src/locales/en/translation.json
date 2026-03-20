@@ -73,6 +73,12 @@
     "canvasFailed": "Failed to render the canvas.",
     "downloadFailed": "Failed to generate the download file."
   },
+  "hints": {
+    "scrollZoom": "Scroll to zoom",
+    "dragPan": "Drag to pan",
+    "dblClickReset": "Double-click to reset",
+    "escExit": "ESC to exit"
+  },
   "tooltip": {
     "convertDisabledNoImage": "Upload an image first",
     "convertDisabledNoResolution": "Select a valid resolution",

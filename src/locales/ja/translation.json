@@ -73,6 +73,12 @@
     "canvasFailed": "キャンバスのレンダリングに失敗しました。",
     "downloadFailed": "ダウンロードファイルの生成に失敗しました。"
   },
+  "hints": {
+    "scrollZoom": "スクロールでズーム",
+    "dragPan": "ドラッグで移動",
+    "dblClickReset": "ダブルクリックでリセット",
+    "escExit": "ESCで終了"
+  },
   "tooltip": {
     "convertDisabledNoImage": "先に画像をアップロードしてください",
     "convertDisabledNoResolution": "有効な解像度を選択してください",

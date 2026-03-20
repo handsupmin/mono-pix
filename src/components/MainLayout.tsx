@@ -18,6 +18,36 @@ import { UploadZone } from './upload/UploadZone'
 const SUPPORTED = ['image/png', 'image/jpeg', 'image/webp']
 const MAX_SIZE = 20 * 1024 * 1024
 
+const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.userAgent)
+
+function ShortcutHints({ isDone, viewMode }: { isDone: boolean; viewMode: string }) {
+  const { t } = useTranslation()
+  const mod = isMac ? '⌘' : 'Ctrl'
+
+  let hints: string[] = []
+  if (!isDone) {
+    // Crop mode
+    hints = [t('hints.scrollZoom', { mod }), t('hints.dragPan')]
+  } else if (viewMode === 'verify') {
+    hints = [t('hints.escExit')]
+  } else if (viewMode === 'before' || viewMode === 'after') {
+    hints = [t('hints.scrollZoom', { mod }), t('hints.dragPan'), t('hints.dblClickReset')]
+  }
+
+  if (hints.length === 0) return null
+
+  return (
+    <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground/60">
+      {hints.map((hint, i) => (
+        <span key={i} className="flex items-center gap-1.5">
+          {i > 0 && <span className="text-muted-foreground/30">·</span>}
+          {hint}
+        </span>
+      ))}
+    </div>
+  )
+}
+
 function useGlobalDrop(onFile: (file: File) => void) {
   const [isDragging, setIsDragging] = useState(false)
   const dragCounter = useRef(0)
@@ -126,17 +156,22 @@ export function MainLayout() {
             </span>
           </div>
 
-          {/* Header action buttons */}
-          {hasImage && !isConverting && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleDeleteImage}
-              className="h-7 w-7 text-muted-foreground hover:text-destructive"
-            >
-              <Trash2 className="w-3.5 h-3.5" />
-            </Button>
-          )}
+          {/* Header: shortcut hints + action buttons */}
+          <div className="flex items-center gap-3">
+            {hasImage && !isConverting && (
+              <ShortcutHints isDone={isDone} viewMode={viewMode} />
+            )}
+            {hasImage && !isConverting && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleDeleteImage}
+                className="h-7 w-7 text-muted-foreground hover:text-destructive"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Canvas area */}

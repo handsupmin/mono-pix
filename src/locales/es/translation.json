@@ -73,6 +73,12 @@
     "canvasFailed": "No se pudo renderizar el lienzo.",
     "downloadFailed": "No se pudo generar el archivo de descarga."
   },
+  "hints": {
+    "scrollZoom": "Desplazar para zoom",
+    "dragPan": "Arrastrar para mover",
+    "dblClickReset": "Doble clic para reiniciar",
+    "escExit": "ESC para salir"
+  },
   "tooltip": {
     "convertDisabledNoImage": "Sube una imagen primero",
     "convertDisabledNoResolution": "Selecciona una resolución válida",

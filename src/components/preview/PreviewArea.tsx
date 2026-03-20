@@ -2,6 +2,127 @@ import { useConversionStore } from '@/stores/conversion.store'
 import { useSettingsStore } from '@/stores/settings.store'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+const MIN_ZOOM = 1
+const MAX_ZOOM = 20
+const ZOOM_SENSITIVITY = 0.002
+
+function ZoomablePixelCanvas({
+  src,
+  alt,
+  className,
+  numCells,
+  onCanvasSize,
+  children,
+}: {
+  src: string
+  alt: string
+  className?: string
+  numCells?: number | null
+  onCanvasSize?: (w: number, h: number) => void
+  children?: React.ReactNode
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [zoom, setZoom] = useState(1)
+  const [pan, setPan] = useState({ x: 0, y: 0 })
+  const dragRef = useRef<{ startX: number; startY: number; panX: number; panY: number } | null>(
+    null,
+  )
+
+  // Draw image
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const container = containerRef.current
+    if (!canvas || !container) return
+
+    const img = new Image()
+    img.onload = () => {
+      const { width: cw, height: ch } = container.getBoundingClientRect()
+      const scale = Math.min(cw / img.width, ch / img.height)
+      let dw = Math.floor(img.width * scale)
+      let dh = Math.floor(img.height * scale)
+      if (numCells && numCells > 0) {
+        const cellPx = Math.max(1, Math.floor(Math.min(dw, dh) / numCells))
+        dw = cellPx * numCells
+        dh = cellPx * numCells
+      }
+      canvas.width = dw
+      canvas.height = dh
+      const ctx = canvas.getContext('2d')!
+      ctx.imageSmoothingEnabled = false
+      ctx.drawImage(img, 0, 0, dw, dh)
+      onCanvasSize?.(dw, dh)
+    }
+    img.src = src
+  }, [src, numCells, onCanvasSize])
+
+  // Reset zoom/pan when src changes
+  useEffect(() => {
+    setZoom(1)
+    setPan({ x: 0, y: 0 })
+  }, [src])
+
+  // Wheel zoom
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault()
+    const delta = -e.deltaY * ZOOM_SENSITIVITY
+    setZoom((z) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z * (1 + delta))))
+  }, [])
+
+  // Drag pan
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      if (zoom <= 1) return
+      ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+      dragRef.current = { startX: e.clientX, startY: e.clientY, panX: pan.x, panY: pan.y }
+    },
+    [zoom, pan],
+  )
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!dragRef.current) return
+    setPan({
+      x: dragRef.current.panX + (e.clientX - dragRef.current.startX),
+      y: dragRef.current.panY + (e.clientY - dragRef.current.startY),
+    })
+  }, [])
+
+  const handlePointerUp = useCallback(() => {
+    dragRef.current = null
+  }, [])
+
+  // Double-click reset
+  const handleDoubleClick = useCallback(() => {
+    setZoom(1)
+    setPan({ x: 0, y: 0 })
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className={`w-full h-full flex items-center justify-center overflow-hidden ${className ?? ''}`}
+      onWheel={handleWheel}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onDoubleClick={handleDoubleClick}
+      style={{ cursor: zoom > 1 ? 'grab' : 'default' }}
+    >
+      <div
+        style={{
+          transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+          transformOrigin: 'center center',
+          position: 'relative',
+          display: 'inline-block',
+        }}
+      >
+        <canvas ref={canvasRef} aria-label={alt} style={{ imageRendering: 'pixelated' }} />
+        {children}
+      </div>
+    </div>
+  )
+}
+
 function PixelCanvas({
   src,
   alt,
@@ -61,12 +182,14 @@ function SnapGridOverlay({
   colCuts,
   rowCuts,
   color,
+  centered = false,
 }: {
   width: number
   height: number
   colCuts: number[]
   rowCuts: number[]
   color: string
+  centered?: boolean
 }) {
   if (width <= 0 || height <= 0) return null
 
@@ -115,7 +238,7 @@ function SnapGridOverlay({
       className="absolute pointer-events-none"
       width={width}
       height={height}
-      style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+      style={centered ? { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' } : { top: 0, left: 0 }}
     >
       {lines}
     </svg>
@@ -307,14 +430,26 @@ function VerifyView({
     // Effective zoom must match drawImage scaling (inner / source region)
     const effectiveZoom = inner / (viewRadius * 2)
 
+    // Image boundary in magnifier coordinates
+    const imgLeft = (0 - (cx - viewRadius)) * effectiveZoom + BORDER
+    const imgTop = (0 - (cy - viewRadius)) * effectiveZoom + BORDER
+    const imgRight = (canvasSize.w - (cx - viewRadius)) * effectiveZoom + BORDER
+    const imgBottom = (canvasSize.h - (cy - viewRadius)) * effectiveZoom + BORDER
+
+    // Clamp to magnifier inner area
+    const drawLeft = Math.max(BORDER, imgLeft)
+    const drawTop = Math.max(BORDER, imgTop)
+    const drawRight = Math.min(MAG_DIAMETER - BORDER, imgRight)
+    const drawBottom = Math.min(MAG_DIAMETER - BORDER, imgBottom)
+
     // Vertical lines
     for (let i = 1; i < colCuts.length - 1; i++) {
       const lineX = colCuts[i] * scaleX
       const magX = (lineX - (cx - viewRadius)) * effectiveZoom + BORDER
-      if (magX >= BORDER && magX <= MAG_DIAMETER - BORDER) {
+      if (magX >= drawLeft && magX <= drawRight) {
         ctx.beginPath()
-        ctx.moveTo(magX, BORDER)
-        ctx.lineTo(magX, MAG_DIAMETER - BORDER)
+        ctx.moveTo(magX, drawTop)
+        ctx.lineTo(magX, drawBottom)
         ctx.stroke()
       }
     }
@@ -322,10 +457,10 @@ function VerifyView({
     for (let i = 1; i < rowCuts.length - 1; i++) {
       const lineY = rowCuts[i] * scaleY
       const magY = (lineY - (cy - viewRadius)) * effectiveZoom + BORDER
-      if (magY >= BORDER && magY <= MAG_DIAMETER - BORDER) {
+      if (magY >= drawTop && magY <= drawBottom) {
         ctx.beginPath()
-        ctx.moveTo(BORDER, magY)
-        ctx.lineTo(MAG_DIAMETER - BORDER, magY)
+        ctx.moveTo(drawLeft, magY)
+        ctx.lineTo(drawRight, magY)
         ctx.stroke()
       }
     }
@@ -375,17 +510,19 @@ function VerifyView({
       style={{ cursor: mouseVisible ? 'none' : 'default' }}
     >
       <div className="w-full h-full flex items-center justify-center">
-        <canvas ref={baseCanvasRef} />
+        <div className="relative">
+          <canvas ref={baseCanvasRef} />
+          {canvasSize && (
+            <SnapGridOverlay
+              width={canvasSize.w}
+              height={canvasSize.h}
+              colCuts={colCuts}
+              rowCuts={rowCuts}
+              color={gridColor}
+            />
+          )}
+        </div>
       </div>
-      {canvasSize && (
-        <SnapGridOverlay
-          width={canvasSize.w}
-          height={canvasSize.h}
-          colCuts={colCuts}
-          rowCuts={rowCuts}
-          color={gridColor}
-        />
-      )}
       <canvas
         ref={magCanvasRef}
         width={MAG_DIAMETER}
@@ -427,7 +564,7 @@ export function PreviewArea() {
   if (viewMode === 'before') {
     return (
       <div className="w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/16px_16px]">
-        <PixelCanvas src={originalCroppedDataUrl} alt="Before" className="rounded-xl" />
+        <ZoomablePixelCanvas src={originalCroppedDataUrl} alt="Before" className="rounded-xl" />
       </div>
     )
   }
@@ -435,22 +572,23 @@ export function PreviewArea() {
   if (viewMode === 'after') {
     return (
       <div className="relative w-full h-full rounded-xl overflow-hidden bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/16px_16px]">
-        <PixelCanvas
+        <ZoomablePixelCanvas
           src={resultDataUrl}
           alt="After"
           className="rounded-xl"
           numCells={numCells}
           onCanvasSize={handleCanvasSize}
-        />
-        {showSnapGrid && (
-          <SnapGridOverlay
-            width={canvasSize.w}
-            height={canvasSize.h}
-            colCuts={colCuts}
-            rowCuts={rowCuts}
-            color={gridColor}
-          />
-        )}
+        >
+          {showSnapGrid && canvasSize && (
+            <SnapGridOverlay
+              width={canvasSize.w}
+              height={canvasSize.h}
+              colCuts={colCuts!}
+              rowCuts={rowCuts!}
+              color={gridColor}
+            />
+          )}
+        </ZoomablePixelCanvas>
       </div>
     )
   }
