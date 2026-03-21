@@ -14,6 +14,12 @@ Rápido, gratis, y funciona en tu navegador. Sin servidor, sin cuenta.
 
 ---
 
+## Pruébalo Ahora
+
+**[www.mono-pix.com](https://www.mono-pix.com)**
+
+---
+
 ## Snap — Convierte Pixel Art Falso en Pixel Art Real
 
 Las imágenes generadas por IA _parecen_ pixel art, pero no lo son realmente. Bordes borrosos, contornos suavizados, cuadrícula desalineada. **El modo Snap detecta automáticamente la cuadrícula original de píxeles y reconstruye cada celda con un único color limpio.** Preserva la transparencia. No hay que configurar resolución.
