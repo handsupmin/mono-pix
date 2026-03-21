@@ -238,7 +238,11 @@ function SnapGridOverlay({
       className="absolute pointer-events-none"
       width={width}
       height={height}
-      style={centered ? { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' } : { top: 0, left: 0 }}
+      style={
+        centered
+          ? { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
+          : { top: 0, left: 0 }
+      }
     >
       {lines}
     </svg>

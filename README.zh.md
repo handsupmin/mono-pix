@@ -4,9 +4,9 @@
   <img src="./docs/logo.png" alt="MonoPix 标志" width="300" />
 </p>
 
-**透过像素单片镜看世界。**
+**让假像素画变成真的**
 
-直接在浏览器中将任何图片转换为像素艺术。无需服务器，无需账号。
+快速、免费、在浏览器中直接运行。无需服务器，无需账号。
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 
@@ -56,7 +56,7 @@ AI 生成的图片*看起来*像像素画，但其实不是。边缘模糊、有
 **运行环境:** Node.js 18 及以上
 
 ```bash
-git clone https://github.com/your-username/mono-pix.git
+git clone https://github.com/handsupmin/mono-pix.git
 cd mono-pix
 npm install
 npm run dev
@@ -81,13 +81,27 @@ npm run dev
 
 ## 技术栈
 
-[React](https://react.dev) · [TypeScript](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [shadcn/ui](https://ui.shadcn.com) · [Tailwind CSS v4](https://tailwindcss.com) · [Zustand](https://zustand-demo.pmnd.rs) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
+[React 19](https://react.dev) · [TypeScript 5.9](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [Tailwind CSS v4](https://tailwindcss.com) · [shadcn/ui](https://ui.shadcn.com) · [Zustand](https://zustand-demo.pmnd.rs) · [fast-pixelizer](https://github.com/handsupmin/fast-pixelizer) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
 
 ---
 
 ## 贡献
 
-欢迎提交 Issue 和 Pull Request。
+欢迎任何形式的贡献！Fork 这个仓库，创建一个分支，然后提交 PR 就可以了。
+
+```bash
+npm run lint:fix   # 自动修复 lint 错误
+npm run format     # 格式化代码
+npm run build      # 验证构建通过
+```
+
+---
+
+## 支持
+
+如果你喜欢 MonoPix，请我喝杯咖啡吧！
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/handsupmin)
 
 ---
 

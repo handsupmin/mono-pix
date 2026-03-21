@@ -158,9 +158,7 @@ export function MainLayout() {
 
           {/* Header: shortcut hints + action buttons */}
           <div className="flex items-center gap-3">
-            {hasImage && !isConverting && (
-              <ShortcutHints isDone={isDone} viewMode={viewMode} />
-            )}
+            {hasImage && !isConverting && <ShortcutHints isDone={isDone} viewMode={viewMode} />}
             {hasImage && !isConverting && (
               <Button
                 variant="ghost"
@@ -219,7 +217,8 @@ export function MainLayout() {
                       <span
                         className="pointer-events-none absolute -inset-[3px] rounded-full blur-[6px] group-hover:blur-[10px]"
                         style={{
-                          background: 'conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b)',
+                          background:
+                            'conic-gradient(from 0deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b)',
                           animation: 'corona-breathe-1 2.3s ease-in-out infinite',
                           opacity: 0.75,
                         }}
@@ -228,7 +227,8 @@ export function MainLayout() {
                       <span
                         className="pointer-events-none absolute -inset-[2px] rounded-full blur-md group-hover:blur-lg"
                         style={{
-                          background: 'conic-gradient(from 120deg, #ff9ff3, #54a0ff, #48dbfb, #feca57, #ff6b6b, #5f27cd, #ff9ff3)',
+                          background:
+                            'conic-gradient(from 120deg, #ff9ff3, #54a0ff, #48dbfb, #feca57, #ff6b6b, #5f27cd, #ff9ff3)',
                           animation: 'corona-breathe-2 1.8s ease-in-out infinite',
                           opacity: 0.55,
                         }}
@@ -237,7 +237,8 @@ export function MainLayout() {
                       <span
                         className="pointer-events-none absolute -inset-[4px] rounded-full blur-lg group-hover:blur-xl"
                         style={{
-                          background: 'conic-gradient(from 240deg, #48dbfb, #5f27cd, #ff6b6b, #54a0ff, #feca57, #ff9ff3, #48dbfb)',
+                          background:
+                            'conic-gradient(from 240deg, #48dbfb, #5f27cd, #ff6b6b, #54a0ff, #feca57, #ff9ff3, #48dbfb)',
                           animation: 'corona-breathe-3 2.7s ease-in-out infinite',
                           opacity: 0.4,
                         }}

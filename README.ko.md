@@ -4,10 +4,9 @@
   <img src="./docs/logo.png" alt="MonoPix 로고" width="300" />
 </p>
 
-**픽셀 모노클로 세상을 바라보세요.**
+**가짜 픽셀아트를 진짜로 만들어 보세요**
 
-이미지를 픽셀 아트로 변환해 주는 브라우저 기반 도구입니다.
-서버도, 계정도, 설치도 필요 없습니다.
+빠르고, 무료이며, 브라우저에서 바로 실행됩니다. 서버도, 계정도 필요 없습니다.
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 
@@ -57,7 +56,7 @@ AI가 만든 이미지가 픽셀아트처럼 _보이지만_ 사실은 아닌 경
 **요구 사항:** Node.js 18 이상
 
 ```bash
-git clone https://github.com/your-username/mono-pix.git
+git clone https://github.com/handsupmin/mono-pix.git
 cd mono-pix
 npm install
 npm run dev
@@ -82,13 +81,27 @@ npm run dev
 
 ## 기술 스택
 
-[React](https://react.dev) · [TypeScript](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [shadcn/ui](https://ui.shadcn.com) · [Tailwind CSS v4](https://tailwindcss.com) · [Zustand](https://zustand-demo.pmnd.rs) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
+[React 19](https://react.dev) · [TypeScript 5.9](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [Tailwind CSS v4](https://tailwindcss.com) · [shadcn/ui](https://ui.shadcn.com) · [Zustand](https://zustand-demo.pmnd.rs) · [fast-pixelizer](https://github.com/handsupmin/fast-pixelizer) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
 
 ---
 
 ## 기여하기
 
-이슈와 풀 리퀘스트를 환영합니다.
+기여는 언제나 환영입니다! 레포지토리를 포크하고, 브랜치를 만들고, PR을 작성해 주세요.
+
+```bash
+npm run lint:fix   # 린트 오류 자동 수정
+npm run format     # 코드 포맷 적용
+npm run build      # 빌드 확인
+```
+
+---
+
+## 후원
+
+MonoPix가 마음에 드셨다면 커피 한 잔 사주세요!
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/handsupmin)
 
 ---
 

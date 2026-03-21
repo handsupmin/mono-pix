@@ -2,13 +2,107 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MonoPix — Turn Fake Pixel Art Real</title>
+    <meta
+      name="description"
+      content="Turn fake pixel art real. Fix AI-generated pixel art with auto grid detection, or convert any image to pixel art. Fast, free, and runs in your browser."
+    />
+    <meta
+      name="keywords"
+      content="pixel art, fake pixel art, fix pixel art, AI pixel art, pixel art converter, pixel art fixer, real pixel art, image to pixel art, free pixel art tool, MonoPix"
+    />
+    <meta name="author" content="handsupmin" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.mono-pix.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="MonoPix — Turn Fake Pixel Art Real" />
+    <meta
+      property="og:description"
+      content="Turn fake pixel art real. Fix AI-generated pixel art with auto grid detection, or convert any image to pixel art. Fast, free, and runs in your browser."
+    />
+    <meta property="og:url" content="https://www.mono-pix.com/" />
+    <meta property="og:site_name" content="MonoPix" />
+    <meta property="og:image" content="https://www.mono-pix.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MonoPix — Turn Fake Pixel Art Real" />
+    <meta
+      name="twitter:description"
+      content="Turn fake pixel art real. Fix AI-generated pixel art with auto grid detection, or convert any image to pixel art. Fast, free, and runs in your browser."
+    />
+    <meta name="twitter:image" content="https://www.mono-pix.com/og-image.png" />
+
+    <!-- Theme -->
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RY3VMHHGE5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'G-RY3VMHHGE5')
+    </script>
+
+    <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MonoPix</title>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MonoPix",
+        "url": "https://www.mono-pix.com",
+        "description": "Turn fake pixel art real. Fix AI-generated pixel art with automatic grid detection, or convert any image to pixel art. Fast, free, and runs entirely in your browser. No server, no account needed.",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires a modern browser with JavaScript enabled",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Convert any image to pixel art (8x8 to 256x256)",
+          "Fix AI-generated pixel art with auto grid detection (Snap mode)",
+          "Clean mode: most frequent color per cell for sharp edges",
+          "Detail mode: average color per cell for smooth gradients",
+          "1:1 crop editor with zoom",
+          "Before/After/Compare view modes",
+          "Monocle magnifier for pixel inspection",
+          "PNG export in original or resized resolution",
+          "History of last 10 conversions saved locally",
+          "Dark mode support",
+          "Multi-language: English, Korean, Japanese, Chinese, Spanish",
+          "All processing in Web Worker, nothing leaves your device",
+          "Fully transparent pixel art support"
+        ],
+        "creator": {
+          "@type": "Person",
+          "name": "handsupmin",
+          "url": "https://github.com/handsupmin"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": ["en", "ko", "ja", "zh", "es"]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

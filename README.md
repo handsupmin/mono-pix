@@ -4,9 +4,9 @@
   <img src="./docs/logo.png" alt="MonoPix logo" width="250" />
 </p>
 
-**See the world through a pixel monocle.**
+**Turn Fake Pixel Art Real**
 
-Browser-only pixel art toolkit. No server, no account, no nonsense.
+Fast, free, and runs in your browser. No server, no account.
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 
@@ -100,6 +100,14 @@ npm run lint:fix   # fix lint errors
 npm run format     # format code
 npm run build      # verify build passes
 ```
+
+---
+
+## Support
+
+If you like MonoPix, consider buying me a coffee!
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/handsupmin)
 
 ---
 

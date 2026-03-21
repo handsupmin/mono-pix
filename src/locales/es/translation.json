@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "MonoPix",
-    "tagline": "Mira el mundo a través de un monóculo de píxeles."
+    "tagline": "Convierte pixel art falso en real"
   },
   "upload": {
     "placeholder": "Suelta una imagen aquí, o",

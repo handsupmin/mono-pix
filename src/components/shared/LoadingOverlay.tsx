@@ -21,9 +21,7 @@ function shuffledIndices() {
 
 function getFillColor() {
   if (typeof window === 'undefined') return FILL_COLOR_LIGHT
-  return document.documentElement.classList.contains('dark')
-    ? FILL_COLOR_DARK
-    : FILL_COLOR_LIGHT
+  return document.documentElement.classList.contains('dark') ? FILL_COLOR_DARK : FILL_COLOR_LIGHT
 }
 
 export function LoadingOverlay() {

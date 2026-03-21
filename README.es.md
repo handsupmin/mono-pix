@@ -4,9 +4,9 @@
   <img src="./docs/logo.png" alt="Logo de MonoPix" width="300" />
 </p>
 
-**Ve el mundo a través de un monóculo de píxeles.**
+**Convierte pixel art falso en real**
 
-Convierte cualquier imagen en pixel art, directamente en tu navegador. Sin servidor, sin cuenta, sin complicaciones.
+Rápido, gratis, y funciona en tu navegador. Sin servidor, sin cuenta.
 
 ![License](https://img.shields.io/badge/license-MIT-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 
@@ -56,7 +56,7 @@ Todo el procesamiento ocurre en un Web Worker. Nada sale de tu dispositivo.
 **Requisitos:** Node.js 18 o superior
 
 ```bash
-git clone https://github.com/your-username/mono-pix.git
+git clone https://github.com/handsupmin/mono-pix.git
 cd mono-pix
 npm install
 npm run dev
@@ -81,13 +81,27 @@ Abre [http://localhost:5173](http://localhost:5173).
 
 ## Stack
 
-[React](https://react.dev) · [TypeScript](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [shadcn/ui](https://ui.shadcn.com) · [Tailwind CSS v4](https://tailwindcss.com) · [Zustand](https://zustand-demo.pmnd.rs) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
+[React 19](https://react.dev) · [TypeScript 5.9](https://www.typescriptlang.org) · [Vite](https://vite.dev) · [Tailwind CSS v4](https://tailwindcss.com) · [shadcn/ui](https://ui.shadcn.com) · [Zustand](https://zustand-demo.pmnd.rs) · [fast-pixelizer](https://github.com/handsupmin/fast-pixelizer) · [Dexie.js](https://dexie.org) · [react-easy-crop](https://github.com/ValentinH/react-easy-crop) · [react-i18next](https://react.i18next.com)
 
 ---
 
 ## Contribuir
 
-Se aceptan issues y pull requests.
+¡Las contribuciones son bienvenidas! Haz fork del repositorio, crea una rama y abre un PR.
+
+```bash
+npm run lint:fix   # corregir errores de lint
+npm run format     # formatear código
+npm run build      # verificar que el build pasa
+```
+
+---
+
+## Apoyo
+
+Si te gusta MonoPix, invítame un café!
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/handsupmin)
 
 ---
 

@@ -1,6 +1,7 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "MonoPix",
+  "short_name": "MonoPix",
+  "description": "Turn fake pixel art real. Fast, free, and runs in your browser.",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +16,8 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "start_url": "/",
+  "theme_color": "#0a0a0a",
   "background_color": "#ffffff",
   "display": "standalone"
 }
