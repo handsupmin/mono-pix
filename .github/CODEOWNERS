@@ -1,0 +1,10 @@
+# Default: all changes require review from owner
+* @handsupmin
+
+# Core logic
+src/workers/ @handsupmin
+src/stores/ @handsupmin
+src/hooks/ @handsupmin
+src/lib/ @handsupmin
+src/components/preview/ @handsupmin
+src/components/crop/ @handsupmin
