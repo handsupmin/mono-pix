@@ -50,17 +50,7 @@ export function ConvertButton() {
   useEffect(() => {
     const overlay = overlayRef.current
 
-    if (!hovered) {
-      cancelAnim()
-      setDissolved(false)
-      if (overlay) {
-        overlay.style.maskImage = ''
-        overlay.style.webkitMaskImage = ''
-      }
-      return
-    }
-
-    if (!overlay) return
+    if (!hovered || !overlay) return
 
     const rect = overlay.getBoundingClientRect()
     const w = Math.ceil(rect.width)
@@ -120,7 +110,14 @@ export function ConvertButton() {
 
     rafRef.current = requestAnimationFrame(tick)
 
-    return cancelAnim
+    return () => {
+      cancelAnim()
+      setDissolved(false)
+      if (overlay) {
+        overlay.style.maskImage = ''
+        overlay.style.webkitMaskImage = ''
+      }
+    }
   }, [hovered, cancelAnim])
 
   return (

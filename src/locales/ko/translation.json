@@ -7,7 +7,8 @@
     "placeholder": "이미지를 드래그하거나",
     "button": "이미지 업로드",
     "dragActive": "여기에 놓으세요!",
-    "formats": "PNG, JPG, JPEG, WEBP · 최대 20MB"
+    "formats": "PNG, JPG, JPEG, WEBP · 최대 20MB",
+    "tryDemo": "데모로 체험하기"
   },
   "controls": {
     "resolution": "해상도",

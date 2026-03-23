@@ -7,7 +7,8 @@
     "placeholder": "ここに画像をドロップ、または",
     "button": "画像をアップロード",
     "dragActive": "ここにドロップ！",
-    "formats": "PNG, JPG, JPEG, WEBP · 最大 20MB"
+    "formats": "PNG, JPG, JPEG, WEBP · 最大 20MB",
+    "tryDemo": "デモを試す"
   },
   "controls": {
     "resolution": "解像度",

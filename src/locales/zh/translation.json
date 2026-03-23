@@ -7,7 +7,8 @@
     "placeholder": "将图片拖放至此，或",
     "button": "上传图片",
     "dragActive": "放在这里！",
-    "formats": "PNG, JPG, JPEG, WEBP · 最大 20MB"
+    "formats": "PNG, JPG, JPEG, WEBP · 最大 20MB",
+    "tryDemo": "试试演示"
   },
   "controls": {
     "resolution": "分辨率",

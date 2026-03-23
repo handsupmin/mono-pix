@@ -11,6 +11,7 @@ import { CropEditor } from './crop/CropEditor'
 import { HistoryPanel } from './history/HistoryPanel'
 import { PreviewArea } from './preview/PreviewArea'
 import { LoadingOverlay } from './shared/LoadingOverlay'
+import { TryDemoFab } from './shared/TryDemoFab'
 import { ControlPanel } from './sidebar/ControlPanel'
 import { Button } from './ui/button'
 import { UploadZone } from './upload/UploadZone'
@@ -277,6 +278,9 @@ export function MainLayout() {
               )}
             </div>
           )}
+
+          {/* Try Demo FAB */}
+          {!hasImage && <TryDemoFab />}
 
           {/* Global drag overlay */}
           {isDragging && (

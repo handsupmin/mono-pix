@@ -56,10 +56,12 @@ function ZoomablePixelCanvas({
     img.src = src
   }, [src, numCells, onCanvasSize])
 
-  // Reset zoom/pan when src changes
+  // Reset zoom/pan when src changes (cleanup runs before next effect)
   useEffect(() => {
-    setZoom(1)
-    setPan({ x: 0, y: 0 })
+    return () => {
+      setZoom(1)
+      setPan({ x: 0, y: 0 })
+    }
   }, [src])
 
   // Wheel zoom

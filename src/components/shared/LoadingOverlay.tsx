@@ -34,10 +34,7 @@ export function LoadingOverlay() {
   const stepRef = useRef(0)
 
   useEffect(() => {
-    if (status !== 'converting') {
-      setPixels(new Array(TOTAL).fill(null))
-      return
-    }
+    if (status !== 'converting') return
 
     const fillColor = getFillColor()
     const interval = CYCLE_MS / TOTAL
@@ -72,6 +69,7 @@ export function LoadingOverlay() {
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current)
+      setPixels(new Array(TOTAL).fill(null))
     }
   }, [status])
 
