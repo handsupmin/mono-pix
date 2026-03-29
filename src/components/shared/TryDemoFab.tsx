@@ -1,10 +1,18 @@
-import demoSrc from '@/assets/demo-rpg.png'
+import demo1Src from '@/assets/demo-1.png'
+import demo2Src from '@/assets/demo-2.png'
+import demo3Src from '@/assets/demo-3.png'
 import { useConversionStore } from '@/stores/conversion.store'
 import { useCropStore } from '@/stores/crop.store'
 import { useUploadStore } from '@/stores/upload.store'
 import { ImagePlay } from 'lucide-react'
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+
+const DEMO_IMAGES = [
+  { src: demo1Src, fileName: 'demo-1.png' },
+  { src: demo2Src, fileName: 'demo-2.png' },
+  { src: demo3Src, fileName: 'demo-3.png' },
+] as const
 
 function dataURLToBlob(dataUrl: string): Blob {
   const [header, base64] = dataUrl.split(',')
@@ -22,6 +30,7 @@ export function TryDemoFab() {
   const { reset: resetConversion } = useConversionStore()
 
   const handleTryDemo = useCallback(() => {
+    const demo = DEMO_IMAGES[Math.floor(Math.random() * DEMO_IMAGES.length)]
     const img = new Image()
     img.onload = () => {
       const canvas = document.createElement('canvas')
@@ -31,7 +40,7 @@ export function TryDemoFab() {
       ctx.drawImage(img, 0, 0)
       const dataUrl = canvas.toDataURL('image/png')
       const blob = dataURLToBlob(dataUrl)
-      const file = new File([blob], 'demo-rpg.png', { type: 'image/png' })
+      const file = new File([blob], demo.fileName, { type: 'image/png' })
       resetCrop()
       resetConversion()
       setImage({
@@ -41,7 +50,7 @@ export function TryDemoFab() {
         naturalHeight: img.naturalHeight,
       })
     }
-    img.src = demoSrc
+    img.src = demo.src
   }, [setImage, resetCrop, resetConversion])
 
   return (
