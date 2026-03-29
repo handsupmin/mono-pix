@@ -28,6 +28,14 @@ Las imágenes generadas por IA _parecen_ pixel art, pero no lo son realmente. Bo
 | ------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | <img src="./docs/4.snap-before.png" alt="Snap Antes" width="200" /> | <img src="./docs/5.snap-after.png" alt="Snap Después" width="200" /> | <img src="./docs/6.snap-after-grid.png" alt="Snap Cuadrícula" width="200" /> |
 
+Funciona sobre [`fast-pixelizer`](https://github.com/handsupmin/fast-pixelizer).
+
+**Nota sobre la calidad de entrada**
+
+Las imágenes “estilo pixel art” generadas por ChatGPT suelen ser una mala entrada para Snap. Pueden verse pixeladas, pero la imagen original muchas veces ya trae celdas con anchos y altos desiguales, bordes suaves y ejes ligeramente desviados. Snap puede regularizar el resultado, pero no puede garantizar una recuperación perfecta si la cuadrícula original ya era inconsistente.
+
+Si vas a generar imágenes nuevas específicamente para Snap, recomendamos Nano Banana o cualquier flujo que conserve desde el inicio una cuadrícula cuadrada de baja resolución de forma más estable.
+
 ---
 
 ## Funcionalidades
