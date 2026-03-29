@@ -34,6 +34,12 @@ No resolution to set. No manual alignment. Just drop the image and hit convert.
 
 Powered by [`fast-pixelizer`](https://github.com/handsupmin/fast-pixelizer) — our open-source pixel art engine.
 
+**Input quality note**
+
+ChatGPT-generated "pixel art" is often a poor Snap input. It may look pixelated, but the source image itself frequently contains uneven cell widths, uneven cell heights, soft edges, and off-axis boundaries before repair even starts. Snap can regularize that output, but it cannot guarantee perfect recovery when the original lattice was already inconsistent.
+
+If you are generating new images specifically for Snap, we recommend Nano Banana or any workflow that preserves a true square low-resolution grid from the start.
+
 ---
 
 ## Clean & Detail — Generate Pixel Art from Any Image

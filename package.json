@@ -17,7 +17,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dexie": "^4.3.0",
-    "fast-pixelizer": "^1.1.0",
+    "fast-pixelizer": "^1.2.0",
     "i18next": "^25.8.18",
     "lucide-react": "^0.577.0",
     "react": "^19.2.4",
