@@ -18,6 +18,10 @@
 
 **[www.mono-pix.com](https://www.mono-pix.com)**
 
+<p align="center">
+  <img src="./docs/convert-example.gif" alt="クリーンとディテール変換のアニメーション例" width="350" height="350" />
+</p>
+
 ---
 
 ## Snap — 偽ピクセルアートを本物のピクセルアートに

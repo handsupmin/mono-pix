@@ -18,6 +18,10 @@ Rápido, gratis, y funciona en tu navegador. Sin servidor, sin cuenta.
 
 **[www.mono-pix.com](https://www.mono-pix.com)**
 
+<p align="center">
+  <img src="./docs/convert-example.gif" alt="Ejemplo animado de conversión Clean y Detail" width="350" height="350" />
+</p>
+
 ---
 
 ## Snap — Convierte Pixel Art Falso en Pixel Art Real

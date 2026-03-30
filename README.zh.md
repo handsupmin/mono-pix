@@ -18,6 +18,10 @@
 
 **[www.mono-pix.com](https://www.mono-pix.com)**
 
+<p align="center">
+  <img src="./docs/convert-example.gif" alt="清晰与细腻转换的动态示例" width="350" height="350" />
+</p>
+
 ---
 
 ## Snap — 将假像素画变成真正的像素艺术

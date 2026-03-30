@@ -18,6 +18,10 @@
 
 **[www.mono-pix.com](https://www.mono-pix.com)**
 
+<p align="center">
+  <img src="./docs/convert-example.gif" alt="깔끔함과 섬세함 변환 애니메이션 예시" width="350" height="350" />
+</p>
+
 ---
 
 ## Snap — 가짜 픽셀아트를 진짜 픽셀아트로
