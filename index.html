@@ -11,7 +11,7 @@
     />
     <meta
       name="keywords"
-      content="pixel art maker, pixel art converter, pixel snapper, pixelart maker, pixelart snapper, image to pixel art, free pixel art tool, pixel art generator, MonoPix, mono-pix, monopix, fix pixel art, AI pixel art, fake pixel art fixer, online pixel art, pixel art editor"
+      content="pixel art maker, pixel art converter, pixel snapper, pixelart maker, pixelart snapper, image to pixel art, free pixel art tool, pixel art generator, MonoPix, mono-pix, monopix, fix pixel art, AI pixel art, fake pixel art fixer, online pixel art, pixel art editor, pixel art sprite, game asset creator, retro pixel art, pixelate image online, pixel art from photo, 8-bit art maker, game developer tools, AI art fix, pixel grid snap"
     />
     <meta name="author" content="handsupmin" />
     <meta name="robots" content="index, follow" />
@@ -29,7 +29,12 @@
     <meta property="og:image" content="https://www.mono-pix.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MonoPix — pixel art converter and AI pixel art snapper tool" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+    <meta property="og:locale:alternate" content="ja_JP" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+    <meta property="og:locale:alternate" content="es_ES" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -39,6 +44,7 @@
       content="MonoPix is a free pixel art maker and converter. Convert any image to pixel art, or snap AI-generated pixel art to a clean grid. Runs entirely in your browser — no upload, no account."
     />
     <meta name="twitter:image" content="https://www.mono-pix.com/og-image.png" />
+    <meta name="twitter:image:alt" content="MonoPix — pixel art converter and AI pixel art snapper tool" />
 
     <!-- Theme -->
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
@@ -63,46 +69,134 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- WebSite Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "MonoPix",
+        "url": "https://www.mono-pix.com/",
+        "description": "Free browser-based pixel art maker, converter, and AI pixel art snapper"
+      }
+    </script>
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is MonoPix?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MonoPix is a free, browser-based pixel art maker and converter. You can convert any photo or image to pixel art in resolutions from 8×8 to 256×256, or use the Pixel Snapper to fix misaligned AI-generated pixel art. Everything runs locally in your browser — no uploads, no account needed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the Pixel Snapper feature?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Pixel Snapper is MonoPix's unique tool for fixing AI-generated pixel art. When AI image generators create pixel art, the output often has grid misalignment — pixels don't line up to a clean grid. The Pixel Snapper automatically detects the pixel grid and snaps the image to it, producing clean, properly aligned pixel art."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between Clean mode and Detail mode?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Clean mode picks the most-frequent color in each cell, producing sharp, graphic-style pixel art with clear edges — best for game sprites and icons. Detail mode averages the colors in each cell, producing smoother, gradient-style pixel art that preserves more of the original image detail."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is MonoPix free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, MonoPix is completely free. There are no paid plans, no sign-ups, and no usage limits. The tool runs entirely in your browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does MonoPix upload my images to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. MonoPix processes all images locally in your browser using a Web Worker. Your images are never uploaded to any server and never leave your device. This makes MonoPix safe for converting private or sensitive images."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use MonoPix for game development?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. MonoPix is great for game developers who need to create pixel art sprites and game assets from photos or illustrations, or fix AI-generated art for use in retro-style games. It supports transparent PNG export, which is essential for game sprites."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What pixel art resolutions does MonoPix support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MonoPix supports pixel art resolutions from 8×8 to 256×256. You can choose the exact grid size for your output, and the tool calculates the valid resolutions based on your crop selection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What export formats does MonoPix support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "MonoPix exports pixel art as PNG files with full transparency support. You can export at the native pixel art resolution or at a scaled-up size for use in larger contexts."
+            }
+          }
+        ]
+      }
+    </script>
+
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "MonoPix",
-        "alternateName": ["mono-pix", "monopix", "Pixel Snapper", "Pixel Art Maker"],
+        "alternateName": ["mono-pix", "monopix", "Pixel Snapper", "Pixel Art Maker", "Pixel Art Converter"],
         "url": "https://www.mono-pix.com",
-        "description": "MonoPix is a free pixel art maker and converter. Convert any image to pixel art, or snap AI-generated pixel art to a clean grid — entirely in your browser. No upload, no account needed.",
+        "description": "MonoPix is a free pixel art maker and converter. Convert any image to pixel art in 8×8 to 256×256 resolution, or snap AI-generated pixel art to a clean grid — entirely in your browser. No upload, no account needed.",
         "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "Pixel Art Tools",
         "operatingSystem": "Any",
         "browserRequirements": "Requires a modern browser with JavaScript enabled",
-        "keywords": "pixel art maker, pixel art converter, pixel snapper, pixelart maker, pixelart snapper, image to pixel art, free pixel art tool, pixel art generator, MonoPix, mono-pix, fix pixel art, AI pixel art",
+        "softwareVersion": "1.0.0",
+        "isAccessibleForFree": true,
+        "inLanguage": ["en", "ko", "ja", "zh", "es"],
+        "keywords": "pixel art maker, pixel art converter, pixel snapper, image to pixel art, free pixel art tool, pixel art generator, fix AI pixel art, game asset, retro art, pixelate image",
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
         },
         "featureList": [
-          "Convert any image to pixel art (8x8 to 256x256)",
-          "Pixel Snapper: Fix AI-generated pixel art with auto grid detection",
-          "Clean mode: most frequent color per cell for sharp edges",
-          "Detail mode: average color per cell for smooth gradients",
-          "1:1 crop editor with zoom",
-          "Before/After/Compare view modes",
-          "Monocle magnifier for pixel inspection",
-          "PNG export in original or resized resolution",
-          "History of last 10 conversions saved locally",
-          "Dark mode support",
+          "Convert any image to pixel art (8×8 to 256×256 resolution)",
+          "Pixel Snapper: auto-detect and fix AI-generated pixel art grid misalignment",
+          "Clean mode: sharp graphic pixel art using most-frequent color per cell",
+          "Detail mode: smooth gradient pixel art using average color per cell",
+          "1:1 crop editor with zoom and grid overlay",
+          "Before / After / Split comparison view modes",
+          "Monocle magnifier for pixel-level inspection",
+          "PNG export in original or custom resized resolution",
+          "Local history of last 10 conversions (no server, IndexedDB only)",
+          "Dark mode and light mode support",
           "Multi-language: English, Korean, Japanese, Chinese, Spanish",
-          "All processing in Web Worker, nothing leaves your device",
-          "Fully transparent pixel art support"
+          "All image processing in Web Worker — nothing leaves your device",
+          "Full transparency support in pixel art output"
         ],
         "creator": {
           "@type": "Person",
           "name": "handsupmin",
           "url": "https://github.com/handsupmin"
         },
-        "isAccessibleForFree": true,
-        "inLanguage": ["en", "ko", "ja", "zh", "es"]
+        "image": "https://www.mono-pix.com/og-image.png"
       }
     </script>
   </head>
@@ -113,35 +207,44 @@
     <!-- SEO content for crawlers (hidden visually, readable by search engines) -->
     <noscript>
       <main>
-        <h1>MonoPix — Free Pixel Art Maker &amp; Converter</h1>
+        <h1>MonoPix — Free Pixel Art Maker &amp; Converter | Pixel Snapper</h1>
         <p>
-          MonoPix is a free, browser-based pixel art maker and pixel snapper tool.
-          Convert any image to pixel art, or fix AI-generated pixel art by snapping it to a clean grid.
-          No upload required — all processing happens in your browser.
+          MonoPix is a free, browser-based pixel art maker, converter, and pixel snapper tool.
+          Convert any image or photo to pixel art, or fix AI-generated pixel art by snapping it to a clean grid.
+          No upload required, no account needed — all processing happens locally in your browser.
         </p>
         <h2>What is MonoPix?</h2>
         <p>
-          MonoPix (mono-pix) is a free online pixel art maker and pixelart converter.
-          Whether you need a pixel snapper to fix AI-generated art, or a full image-to-pixel-art converter,
-          MonoPix handles both. It runs entirely in your browser — no account, no server, no file uploads.
+          MonoPix (mono-pix) is a free online pixel art maker and pixelart converter for artists, game developers,
+          and anyone working with retro or AI-generated art. Whether you need a pixel snapper to fix AI pixel art,
+          a pixelate image tool to create sprites and game assets, or a full image-to-pixel-art converter,
+          MonoPix handles all of it — entirely in your browser.
         </p>
-        <h2>Features</h2>
+        <h2>Key Features</h2>
         <ul>
-          <li>Pixel Snapper: automatically detect and align AI-generated pixel art to a clean grid</li>
-          <li>Pixel Art Maker: convert any photo or image to pixel art (8×8 up to 256×256)</li>
-          <li>Clean Mode: sharp, graphic pixel art using most-frequent color per cell</li>
+          <li>Pixel Snapper: auto-detect and realign AI-generated pixel art to a clean, precise grid</li>
+          <li>Pixel Art Maker: convert any photo or image to pixel art (8×8 up to 256×256 resolution)</li>
+          <li>Clean Mode: sharp, graphic pixel art using the most-frequent color per cell</li>
           <li>Detail Mode: smooth, gradient-style pixel art using average color per cell</li>
-          <li>1:1 crop editor with zoom</li>
-          <li>Before / After / Compare view</li>
-          <li>PNG export — original size or resized</li>
-          <li>History of last 10 conversions, saved locally</li>
-          <li>Fully private — nothing leaves your device</li>
+          <li>1:1 crop editor with zoom and grid overlay</li>
+          <li>Before / After / Split comparison view and Monocle magnifier</li>
+          <li>PNG export in original or custom resized resolution</li>
+          <li>Local history of last 10 conversions, saved in your browser</li>
+          <li>Full transparency support for pixel art sprites</li>
+          <li>Completely private — nothing ever leaves your device</li>
+          <li>Available in English, Korean, Japanese, Chinese, and Spanish</li>
         </ul>
-        <h2>Free Pixel Art Tools</h2>
+        <h2>For Game Developers &amp; Digital Artists</h2>
+        <p>
+          MonoPix is perfect for creating pixel art sprites and game assets from photos or illustrations.
+          The Snap feature is especially useful for fixing AI-generated pixel art that has misaligned grids —
+          a common problem when using image generation models for retro-style game graphics.
+        </p>
+        <h2>Free Pixel Art Tools — No Account Required</h2>
         <p>
           Looking for a pixelart maker, a pixelart snapper, or a simple image-to-pixel-art converter?
-          MonoPix is free, fast, and works on any modern browser.
-          Visit <a href="https://www.mono-pix.com/">mono-pix.com</a> to get started.
+          MonoPix is free, fast, and works on any modern browser with no sign-up required.
+          Visit <a href="https://www.mono-pix.com/">mono-pix.com</a> to get started instantly.
         </p>
       </main>
     </noscript>
