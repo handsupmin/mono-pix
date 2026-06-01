@@ -88,8 +88,14 @@ function useGlobalDrop(onFile: (file: File) => void) {
 export function MainLayout() {
   const { t } = useTranslation()
   const { image, setImage } = useUploadStore()
-  const { status, detectedResolution, colCuts, reset: resetConversion } = useConversionStore()
-  const { reset: resetCrop } = useCropStore()
+  const {
+    status,
+    detectedResolution,
+    colCuts,
+    rowCuts,
+    reset: resetConversion,
+  } = useConversionStore()
+  const { reset: resetCrop, resetForImage } = useCropStore()
   const { gridOverlay, gridColor, pixelateMode, viewMode, setViewMode } = useSettingsStore()
 
   const isDone = status === 'done'
@@ -106,7 +112,7 @@ export function MainLayout() {
         const img = new Image()
         img.onload = () => {
           if (img.naturalWidth < 8 || img.naturalHeight < 8) return
-          resetCrop()
+          resetForImage(img.naturalWidth, img.naturalHeight)
           resetConversion()
           setImage({
             file,
@@ -119,7 +125,7 @@ export function MainLayout() {
       }
       reader.readAsDataURL(file)
     },
-    [setImage, resetCrop, resetConversion],
+    [setImage, resetForImage, resetConversion],
   )
 
   const { isDragging, onDragEnter, onDragLeave, onDragOver, onDrop } =
@@ -186,7 +192,12 @@ export function MainLayout() {
           ) : isDone ? (
             <PreviewArea />
           ) : (
-            <CropEditor imageUrl={image.dataUrl} showGrid={gridOverlay} gridColor={gridColor} />
+            <CropEditor
+              key={image.dataUrl}
+              imageUrl={image.dataUrl}
+              showGrid={gridOverlay}
+              gridColor={gridColor}
+            />
           )}
           <LoadingOverlay />
 
@@ -201,7 +212,7 @@ export function MainLayout() {
                 {t('controls.backToEdit')}
               </button>
 
-              {pixelateMode === 'snap' && detectedResolution && colCuts && (
+              {pixelateMode === 'snap' && detectedResolution && colCuts && rowCuts && (
                 <button
                   onClick={() => setViewMode(viewMode === 'verify' ? 'after' : 'verify')}
                   className={cn(

@@ -38,7 +38,10 @@
     "exitMonocle": "モノクルを閉じる",
     "turnOffMonocle": "モノクルをオフ",
     "language": "言語",
-    "darkMode": "ダークモード"
+    "darkMode": "ダークモード",
+    "cropRatio": "切り抜き比率",
+    "cropRatioWidth": "切り抜き比率の横",
+    "cropRatioHeight": "切り抜き比率の縦"
   },
   "preview": {
     "cropSize": "切り抜きサイズ",

@@ -38,7 +38,10 @@
     "exitMonocle": "Exit Monocle",
     "turnOffMonocle": "Turn off Monocle",
     "language": "Language",
-    "darkMode": "Dark Mode"
+    "darkMode": "Dark Mode",
+    "cropRatio": "Crop Ratio",
+    "cropRatioWidth": "Crop ratio width",
+    "cropRatioHeight": "Crop ratio height"
   },
   "preview": {
     "cropSize": "Crop size",

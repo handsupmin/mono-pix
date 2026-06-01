@@ -43,6 +43,11 @@ const LANGUAGE_OPTIONS: { value: Language; label: string; native: string }[] = [
   { value: 'es', label: 'Spanish', native: 'Español' },
 ]
 
+function parseAspectValue(value: string) {
+  const parsed = Number.parseInt(value, 10)
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null
+}
+
 function LanguageSelector() {
   const { t } = useTranslation()
   const { language, setLanguage } = useSettingsStore()
@@ -91,6 +96,54 @@ function LanguageSelector() {
   )
 }
 
+function AspectRatioControl() {
+  const { t } = useTranslation()
+  const { aspectRatio, setAspectRatio } = useCropStore()
+  const resetConversion = useConversionStore((s) => s.reset)
+
+  const handleChange = (side: 'width' | 'height', value: string) => {
+    const nextValue = parseAspectValue(value.replace(/\D/g, ''))
+    if (!nextValue) return
+    const width = side === 'width' ? nextValue : aspectRatio.width
+    const height = side === 'height' ? nextValue : aspectRatio.height
+    if (width === aspectRatio.width && height === aspectRatio.height) return
+
+    setAspectRatio(width, height)
+    resetConversion()
+  }
+
+  return (
+    <div className="px-4 py-3 flex flex-col gap-2">
+      <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+        {t('controls.cropRatio')}
+      </label>
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2">
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={aspectRatio.width}
+          onChange={(e) => handleChange('width', e.target.value)}
+          onFocus={(e) => e.currentTarget.select()}
+          aria-label={t('controls.cropRatioWidth')}
+          className="h-8 min-w-0 rounded-md border border-border bg-background px-2 text-center font-mono text-xs font-medium outline-none transition-colors focus:border-primary"
+        />
+        <span className="text-xs font-mono text-muted-foreground">x</span>
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={aspectRatio.height}
+          onChange={(e) => handleChange('height', e.target.value)}
+          onFocus={(e) => e.currentTarget.select()}
+          aria-label={t('controls.cropRatioHeight')}
+          className="h-8 min-w-0 rounded-md border border-border bg-background px-2 text-center font-mono text-xs font-medium outline-none transition-colors focus:border-primary"
+        />
+      </div>
+    </div>
+  )
+}
+
 export function ControlPanel() {
   const { t } = useTranslation()
   const {
@@ -113,7 +166,7 @@ export function ControlPanel() {
     resetSettings,
   } = useSettingsStore()
   const colorInputRef = useRef<HTMLInputElement>(null)
-  const { status, resultDataUrl, detectedResolution } = useConversionStore()
+  const { status, resultDataUrl, detectedResolution, colCuts, rowCuts } = useConversionStore()
   const { image } = useUploadStore()
   const { croppedAreaPixels } = useCropStore()
   const validResolutions = useValidResolutions()
@@ -128,13 +181,19 @@ export function ControlPanel() {
 
   // Reset verify viewMode when leaving snap mode
   useEffect(() => {
-    if (viewMode === 'verify' && (pixelateMode !== 'snap' || !detectedResolution)) {
+    if (viewMode === 'verify' && (pixelateMode !== 'snap' || !colCuts || !rowCuts)) {
       setViewMode('after')
     }
-  }, [pixelateMode, detectedResolution, viewMode, setViewMode])
+  }, [pixelateMode, colCuts, rowCuts, viewMode, setViewMode])
 
   const isDone = status === 'done'
   const canDownload = isDone && !!resultDataUrl
+  const detectedGridLabel =
+    colCuts && rowCuts
+      ? `~${colCuts.length - 1} × ${rowCuts.length - 1}`
+      : detectedResolution
+        ? `~${detectedResolution} × ${detectedResolution}`
+        : null
 
   const handleDownload = () => {
     if (!resultDataUrl || !image) return
@@ -145,8 +204,8 @@ export function ControlPanel() {
     ? outputMode === 'original-size'
       ? `${croppedAreaPixels.width} × ${croppedAreaPixels.height}`
       : pixelateMode === 'snap'
-        ? isDone && detectedResolution
-          ? `~${detectedResolution} × ${detectedResolution}`
+        ? isDone && detectedGridLabel
+          ? detectedGridLabel
           : t('controls.autoDetected')
         : `${resolution} × ${resolution}`
     : '—'
@@ -239,6 +298,10 @@ export function ControlPanel() {
       </div>
       <Separator />
 
+      {/* 3b. Crop Ratio */}
+      <AspectRatioControl />
+      <Separator />
+
       {/* 4. Resolution (hidden in Snap mode) */}
       {pixelateMode !== 'snap' && (
         <>
@@ -302,7 +365,7 @@ export function ControlPanel() {
       )}
 
       {/* 5. Grid Overlay (Snap: only after conversion) */}
-      {(pixelateMode !== 'snap' || (pixelateMode === 'snap' && isDone && detectedResolution)) && (
+      {(pixelateMode !== 'snap' || (pixelateMode === 'snap' && isDone && detectedGridLabel)) && (
         <>
           <div className="px-4 py-2.5 flex items-center justify-between">
             <label className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
@@ -382,12 +445,10 @@ export function ControlPanel() {
                 {croppedAreaPixels.width} × {croppedAreaPixels.height}
               </span>
             </div>
-            {pixelateMode === 'snap' && isDone && detectedResolution ? (
+            {pixelateMode === 'snap' && isDone && detectedGridLabel ? (
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">{t('controls.detectedResolution')}</span>
-                <span className="font-mono font-medium">
-                  ~{detectedResolution}×{detectedResolution}
-                </span>
+                <span className="font-mono font-medium">{detectedGridLabel}</span>
               </div>
             ) : (
               <div className="flex justify-between text-xs">

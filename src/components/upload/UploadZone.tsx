@@ -18,7 +18,7 @@ function validateFile(file: File): string | null {
 export function UploadZone() {
   const { t } = useTranslation()
   const { setImage } = useUploadStore()
-  const { reset: resetCrop } = useCropStore()
+  const { resetForImage } = useCropStore()
   const { reset: resetConversion } = useConversionStore()
   const [isDragging, setIsDragging] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -41,7 +41,7 @@ export function UploadZone() {
             setError(t('errors.imageTooSmall'))
             return
           }
-          resetCrop()
+          resetForImage(img.naturalWidth, img.naturalHeight)
           resetConversion()
           setImage({
             file,
@@ -56,7 +56,7 @@ export function UploadZone() {
       reader.onerror = () => setError(t('errors.fileReadFailed'))
       reader.readAsDataURL(file)
     },
-    [t, setImage, resetCrop, resetConversion],
+    [t, setImage, resetForImage, resetConversion],
   )
 
   const onDragOver = (e: React.DragEvent) => {

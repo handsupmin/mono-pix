@@ -1,23 +1,38 @@
 import { useConversionStore } from '@/stores/conversion.store'
 import { useSettingsStore } from '@/stores/settings.store'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 const MIN_ZOOM = 1
 const MAX_ZOOM = 20
 const ZOOM_SENSITIVITY = 0.002
 
+type SnapGridSize = {
+  cols: number
+  rows: number
+}
+
+function fitCanvasToSnapGrid(width: number, height: number, gridSize?: SnapGridSize | null) {
+  if (!gridSize || gridSize.cols <= 0 || gridSize.rows <= 0) return { width, height }
+
+  const cellPx = Math.max(1, Math.floor(Math.min(width / gridSize.cols, height / gridSize.rows)))
+  return {
+    width: cellPx * gridSize.cols,
+    height: cellPx * gridSize.rows,
+  }
+}
+
 function ZoomablePixelCanvas({
   src,
   alt,
   className,
-  numCells,
+  gridSize,
   onCanvasSize,
   children,
 }: {
   src: string
   alt: string
   className?: string
-  numCells?: number | null
+  gridSize?: SnapGridSize | null
   onCanvasSize?: (w: number, h: number) => void
   children?: React.ReactNode
 }) {
@@ -41,11 +56,7 @@ function ZoomablePixelCanvas({
       const scale = Math.min(cw / img.width, ch / img.height)
       let dw = Math.floor(img.width * scale)
       let dh = Math.floor(img.height * scale)
-      if (numCells && numCells > 0) {
-        const cellPx = Math.max(1, Math.floor(Math.min(dw, dh) / numCells))
-        dw = cellPx * numCells
-        dh = cellPx * numCells
-      }
+      ;({ width: dw, height: dh } = fitCanvasToSnapGrid(dw, dh, gridSize))
       canvas.width = dw
       canvas.height = dh
       const ctx = canvas.getContext('2d')!
@@ -54,7 +65,7 @@ function ZoomablePixelCanvas({
       onCanvasSize?.(dw, dh)
     }
     img.src = src
-  }, [src, numCells, onCanvasSize])
+  }, [src, gridSize, onCanvasSize])
 
   // Reset zoom/pan when src changes (cleanup runs before next effect)
   useEffect(() => {
@@ -129,13 +140,13 @@ function PixelCanvas({
   src,
   alt,
   className,
-  numCells,
+  gridSize,
   onCanvasSize,
 }: {
   src: string
   alt: string
   className?: string
-  numCells?: number | null
+  gridSize?: SnapGridSize | null
   onCanvasSize?: (w: number, h: number) => void
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -152,12 +163,7 @@ function PixelCanvas({
       const scale = Math.min(cw / img.width, ch / img.height)
       let dw = Math.floor(img.width * scale)
       let dh = Math.floor(img.height * scale)
-      // Snap display size to multiple of numCells so every cell gets equal screen pixels
-      if (numCells && numCells > 0) {
-        const cellPx = Math.max(1, Math.floor(Math.min(dw, dh) / numCells))
-        dw = cellPx * numCells
-        dh = cellPx * numCells
-      }
+      ;({ width: dw, height: dh } = fitCanvasToSnapGrid(dw, dh, gridSize))
       canvas.width = dw
       canvas.height = dh
       const ctx = canvas.getContext('2d')!
@@ -166,7 +172,7 @@ function PixelCanvas({
       onCanvasSize?.(dw, dh)
     }
     img.src = src
-  }, [src, numCells, onCanvasSize])
+  }, [src, gridSize, onCanvasSize])
 
   return (
     <div
@@ -329,13 +335,13 @@ function VerifyView({
   colCuts,
   rowCuts,
   gridColor,
-  numCells,
+  gridSize,
 }: {
   src: string
   colCuts: number[]
   rowCuts: number[]
   gridColor: string
-  numCells?: number | null
+  gridSize?: SnapGridSize | null
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const baseCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -364,11 +370,7 @@ function VerifyView({
       const scale = Math.min(cw / img.width, ch / img.height)
       let dw = Math.floor(img.width * scale)
       let dh = Math.floor(img.height * scale)
-      if (numCells && numCells > 0) {
-        const cellPx = Math.max(1, Math.floor(Math.min(dw, dh) / numCells))
-        dw = cellPx * numCells
-        dh = cellPx * numCells
-      }
+      ;({ width: dw, height: dh } = fitCanvasToSnapGrid(dw, dh, gridSize))
       canvas.width = dw
       canvas.height = dh
       const ctx = canvas.getContext('2d')!
@@ -382,7 +384,7 @@ function VerifyView({
       setCanvasOffset({ x: ox, y: oy })
     }
     img.src = src
-  }, [src, numCells])
+  }, [src, gridSize])
 
   // Draw magnifier
   const drawMagnifier = useCallback(() => {
@@ -545,9 +547,16 @@ function VerifyView({
 }
 
 export function PreviewArea() {
-  const { resultDataUrl, originalCroppedDataUrl, colCuts, rowCuts, numCells } = useConversionStore()
+  const { resultDataUrl, originalCroppedDataUrl, colCuts, rowCuts } = useConversionStore()
   const { viewMode, pixelateMode, gridOverlay, gridColor, setViewMode } = useSettingsStore()
   const [canvasSize, setCanvasSize] = useState<{ w: number; h: number } | null>(null)
+  const snapGridSize = useMemo(() => {
+    if (!colCuts || !rowCuts) return null
+    return {
+      cols: colCuts.length - 1,
+      rows: rowCuts.length - 1,
+    }
+  }, [colCuts, rowCuts])
 
   // ESC key to exit verify mode
   useEffect(() => {
@@ -582,7 +591,7 @@ export function PreviewArea() {
           src={resultDataUrl}
           alt="After"
           className="rounded-xl"
-          numCells={numCells}
+          gridSize={snapGridSize}
           onCanvasSize={handleCanvasSize}
         >
           {showSnapGrid && canvasSize && (
@@ -610,7 +619,7 @@ export function PreviewArea() {
         colCuts={colCuts}
         rowCuts={rowCuts}
         gridColor={gridColor}
-        numCells={numCells}
+        gridSize={snapGridSize}
       />
     )
   }

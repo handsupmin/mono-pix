@@ -38,7 +38,10 @@
     "exitMonocle": "Salir del Monóculo",
     "turnOffMonocle": "Apagar Monóculo",
     "language": "Idioma",
-    "darkMode": "Modo oscuro"
+    "darkMode": "Modo oscuro",
+    "cropRatio": "Relación de recorte",
+    "cropRatioWidth": "Ancho de la relación de recorte",
+    "cropRatioHeight": "Alto de la relación de recorte"
   },
   "preview": {
     "cropSize": "Tamaño del recorte",

@@ -15,7 +15,6 @@ interface ConversionState {
   detectedResolution: number | null
   colCuts: number[] | null
   rowCuts: number[] | null
-  numCells: number | null
   progress: ProgressState
   errorKey: string | null
   setConverting: (progress: ProgressState) => void
@@ -25,7 +24,6 @@ interface ConversionState {
     detectedResolution?: number,
     colCuts?: number[],
     rowCuts?: number[],
-    numCells?: number,
   ) => void
   setError: (errorKey: string) => void
   reset: () => void
@@ -38,18 +36,10 @@ export const useConversionStore = create<ConversionState>((set) => ({
   detectedResolution: null,
   colCuts: null,
   rowCuts: null,
-  numCells: null,
   progress: { step: 0, total: 4, messageKey: '' },
   errorKey: null,
   setConverting: (progress) => set({ status: 'converting', progress, errorKey: null }),
-  setDone: (
-    resultDataUrl,
-    originalCroppedDataUrl,
-    detectedResolution,
-    colCuts,
-    rowCuts,
-    numCells,
-  ) =>
+  setDone: (resultDataUrl, originalCroppedDataUrl, detectedResolution, colCuts, rowCuts) =>
     set({
       status: 'done',
       resultDataUrl,
@@ -57,7 +47,6 @@ export const useConversionStore = create<ConversionState>((set) => ({
       detectedResolution: detectedResolution ?? null,
       colCuts: colCuts ?? null,
       rowCuts: rowCuts ?? null,
-      numCells: numCells ?? null,
     }),
   setError: (errorKey) => set({ status: 'error', errorKey }),
   reset: () =>
@@ -68,7 +57,6 @@ export const useConversionStore = create<ConversionState>((set) => ({
       detectedResolution: null,
       colCuts: null,
       rowCuts: null,
-      numCells: null,
       progress: { step: 0, total: 4, messageKey: '' },
       errorKey: null,
     }),

@@ -38,7 +38,10 @@
     "exitMonocle": "모노클 닫기",
     "turnOffMonocle": "모노클 끄기",
     "language": "언어",
-    "darkMode": "다크 모드"
+    "darkMode": "다크 모드",
+    "cropRatio": "Crop 비율",
+    "cropRatioWidth": "Crop 비율 가로",
+    "cropRatioHeight": "Crop 비율 세로"
   },
   "preview": {
     "cropSize": "Crop 크기",

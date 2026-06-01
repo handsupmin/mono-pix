@@ -26,7 +26,7 @@ function dataURLToBlob(dataUrl: string): Blob {
 export function TryDemoFab() {
   const { t } = useTranslation()
   const { setImage } = useUploadStore()
-  const { reset: resetCrop } = useCropStore()
+  const { resetForImage } = useCropStore()
   const { reset: resetConversion } = useConversionStore()
 
   const handleTryDemo = useCallback(() => {
@@ -41,7 +41,7 @@ export function TryDemoFab() {
       const dataUrl = canvas.toDataURL('image/png')
       const blob = dataURLToBlob(dataUrl)
       const file = new File([blob], demo.fileName, { type: 'image/png' })
-      resetCrop()
+      resetForImage(img.naturalWidth, img.naturalHeight)
       resetConversion()
       setImage({
         file,
@@ -51,7 +51,7 @@ export function TryDemoFab() {
       })
     }
     img.src = demo.src
-  }, [setImage, resetCrop, resetConversion])
+  }, [setImage, resetForImage, resetConversion])
 
   return (
     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">

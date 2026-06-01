@@ -38,7 +38,10 @@
     "exitMonocle": "退出单片镜",
     "turnOffMonocle": "关闭单片镜",
     "language": "语言",
-    "darkMode": "深色模式"
+    "darkMode": "深色模式",
+    "cropRatio": "裁剪比例",
+    "cropRatioWidth": "裁剪比例宽度",
+    "cropRatioHeight": "裁剪比例高度"
   },
   "preview": {
     "cropSize": "裁剪尺寸",

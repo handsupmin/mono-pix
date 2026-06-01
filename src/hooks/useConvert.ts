@@ -100,7 +100,6 @@ export function useConvert() {
           msg.detectedResolution,
           msg.colCuts,
           msg.rowCuts,
-          msg.numCells,
         )
         worker.terminate()
       } else if (msg.type === 'error') {

@@ -16,7 +16,6 @@ export type PixelateResponse =
       detectedResolution?: number
       colCuts?: number[]
       rowCuts?: number[]
-      numCells?: number
     }
   | { type: 'error'; message: string }
 
@@ -51,7 +50,6 @@ self.onmessage = (e: MessageEvent<PixelateRequest>) => {
           detectedResolution: snapped.detectedResolution,
           colCuts: snapped.colCuts,
           rowCuts: snapped.rowCuts,
-          numCells: snapped.colCuts.length - 1,
         } satisfies PixelateResponse,
         { transfer: [outputImageData.data.buffer] },
       )
