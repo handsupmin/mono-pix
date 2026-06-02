@@ -16,7 +16,7 @@ function downloadDataUrl(dataUrl: string, filename: string) {
 
 function HistoryCard({ item, onDelete }: { item: HistoryItem; onDelete: () => void }) {
   const { t } = useTranslation()
-  const filename = `${item.originalFileName.replace(/\.[^.]+$/, '')}_${item.resolution}x${item.resolution}_${item.outputMode}.png`
+  const filename = `${item.originalFileName.replace(/\.[^.]+$/, '')}_${item.resolution}_${item.outputMode}.png`
 
   return (
     <div className="group relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border border-border cursor-pointer hover:border-primary/60 transition-colors bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/8px_8px]">
@@ -51,7 +51,7 @@ function HistoryCard({ item, onDelete }: { item: HistoryItem; onDelete: () => vo
       </div>
       {/* Resolution badge */}
       <div className="absolute bottom-0.5 left-0.5 text-[9px] font-mono text-white/80 bg-black/40 px-0.5 rounded">
-        {item.resolution}×{item.resolution}
+        {item.resolution}
       </div>
     </div>
   )

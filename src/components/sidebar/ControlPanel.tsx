@@ -20,6 +20,7 @@ import { useCropStore } from '@/stores/crop.store'
 import { useValidResolutions } from '@/hooks/useValidResolutions'
 import { ConvertButton } from '@/components/shared/ConvertButton'
 import { cn } from '@/lib/utils'
+import { fitResolutionToAspect } from 'fast-pixelizer'
 import i18n from '@/lib/i18n'
 
 function downloadDataUrl(dataUrl: string, filename: string) {
@@ -32,7 +33,7 @@ function downloadDataUrl(dataUrl: string, filename: string) {
 function buildFilename(originalName: string, resolution: number, outputMode: OutputMode) {
   const base = originalName.replace(/\.[^.]+$/, '')
   const mode = outputMode === 'original-size' ? 'original-size' : 'resized'
-  return `${base}_${resolution}x${resolution}_${mode}.png`
+  return `${base}_${resolution}_${mode}.png`
 }
 
 const LANGUAGE_OPTIONS: { value: Language; label: string; native: string }[] = [
@@ -194,6 +195,10 @@ export function ControlPanel() {
       : detectedResolution
         ? `~${detectedResolution} × ${detectedResolution}`
         : null
+  const pixelGridSize =
+    croppedAreaPixels && pixelateMode !== 'snap'
+      ? fitResolutionToAspect(croppedAreaPixels, resolution)
+      : null
 
   const handleDownload = () => {
     if (!resultDataUrl || !image) return
@@ -207,7 +212,9 @@ export function ControlPanel() {
         ? isDone && detectedGridLabel
           ? detectedGridLabel
           : t('controls.autoDetected')
-        : `${resolution} × ${resolution}`
+        : pixelGridSize
+          ? `${pixelGridSize.cols} × ${pixelGridSize.rows}`
+          : `${resolution}`
     : '—'
 
   return (
@@ -326,7 +333,7 @@ export function ControlPanel() {
                           : 'bg-muted/30 text-muted-foreground/40 cursor-not-allowed',
                     )}
                   >
-                    {r}×{r}
+                    {r}
                   </button>
                 )
               })}

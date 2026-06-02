@@ -1,4 +1,4 @@
-import { pixelate, snap } from 'fast-pixelizer'
+import { fitResolutionToAspect, pixelate, snap } from 'fast-pixelizer'
 
 export type PixelateRequest = {
   imageData: ImageData
@@ -58,7 +58,7 @@ self.onmessage = (e: MessageEvent<PixelateRequest>) => {
       post(1, 4, 'samplingColors')
 
       const result = pixelate(imageData, {
-        resolution,
+        resolution: fitResolutionToAspect(imageData, resolution),
         mode: pixelateMode === 'frequent' ? 'clean' : 'detail',
         output: outputMode === 'resized' ? 'resized' : 'original',
       })

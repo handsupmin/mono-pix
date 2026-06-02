@@ -3,6 +3,7 @@ import Cropper from 'react-easy-crop'
 import { useCropStore } from '@/stores/crop.store'
 import { useSettingsStore } from '@/stores/settings.store'
 import { useUploadStore } from '@/stores/upload.store'
+import { fitResolutionToAspect } from 'fast-pixelizer'
 import type { Area } from 'react-easy-crop'
 
 interface CropEditorProps {
@@ -390,11 +391,13 @@ function GridOverlay({
   rect: CropBoxRect
   color: string
 }) {
-  const opacity = resolution >= 128 ? 0.15 : resolution >= 64 ? 0.25 : 0.4
+  const { cols, rows } = fitResolutionToAspect(rect, resolution)
+  const maxLines = Math.max(cols, rows)
+  const opacity = maxLines >= 128 ? 0.15 : maxLines >= 64 ? 0.25 : 0.4
   const lines: React.ReactNode[] = []
 
-  for (let i = 1; i < resolution; i++) {
-    const pct = (i / resolution) * 100
+  for (let i = 1; i < cols; i++) {
+    const pct = (i / cols) * 100
     lines.push(
       <line
         key={`v-${i}`}
@@ -406,6 +409,12 @@ function GridOverlay({
         strokeWidth="0.5"
         strokeOpacity={opacity}
       />,
+    )
+  }
+
+  for (let i = 1; i < rows; i++) {
+    const pct = (i / rows) * 100
+    lines.push(
       <line
         key={`h-${i}`}
         x1="0"
