@@ -134,11 +134,8 @@ export function ConvertButton() {
     >
       {/* Wrapper: both texts stacked, only text area gets the effect */}
       <span className="relative inline-block">
-        {/* Base: DungGeunMo (revealed as overlay dissolves) */}
-        <span
-          className="font-semibold tracking-wide text-[0.9375rem]"
-          style={{ fontFamily: 'DungGeunMo, monospace' }}
-        >
+        {/* Base text revealed as the overlay dissolves */}
+        <span className="font-mono font-semibold tracking-wide text-[0.9375rem]">
           {t('controls.convert')}
         </span>
 

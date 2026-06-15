@@ -98,10 +98,7 @@ export function LoadingOverlay() {
       </div>
 
       {/* Label */}
-      <p
-        className="text-sm font-medium text-foreground animate-pulse"
-        style={{ fontFamily: 'DungGeunMo, monospace' }}
-      >
+      <p className="font-mono text-sm font-medium text-foreground animate-pulse">
         {t('progress.pixelating')}
       </p>
     </div>

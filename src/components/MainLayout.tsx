@@ -1,4 +1,4 @@
-import logoSrc from '@/assets/logo.png'
+import logoSrc from '@/assets/logo.webp'
 import { cn } from '@/lib/utils'
 import { useConversionStore } from '@/stores/conversion.store'
 import { useCropStore } from '@/stores/crop.store'
@@ -155,10 +155,7 @@ export function MainLayout() {
         <div className="flex items-center justify-between px-5 py-3 border-b border-border shrink-0">
           <div className="flex items-center gap-2">
             <img src={logoSrc} alt="MonoPix logo" className="w-7 h-7 object-contain" />
-            <span
-              className="text-xl font-semibold tracking-tight text-foreground"
-              style={{ fontFamily: 'DungGeunMo, monospace' }}
-            >
+            <span className="font-mono text-xl font-semibold tracking-tight text-foreground">
               MonoPix
             </span>
           </div>
