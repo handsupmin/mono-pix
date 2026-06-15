@@ -1,5 +1,20 @@
 {
+  "mimeTypes": {
+    ".txt": "text/plain; charset=utf-8",
+    ".xml": "application/xml; charset=utf-8",
+    ".webmanifest": "application/manifest+json"
+  },
   "navigationFallback": {
-    "rewrite": "/index.html"
+    "rewrite": "/index.html",
+    "exclude": [
+      "/llms.txt",
+      "/llms-full.txt",
+      "/robots.txt",
+      "/sitemap.xml",
+      "/site.webmanifest",
+      "/favicon*",
+      "/assets/*",
+      "/*.{css,js,png,jpg,jpeg,gif,svg,webp,ico,woff,woff2,json,txt,xml,webmanifest}"
+    ]
   }
 }

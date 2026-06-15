@@ -1,0 +1,37 @@
+# MonoPix
+
+> MonoPix is a free browser-based pixel art maker, image-to-pixel-art converter, and Pixel Snapper for cleaning AI-generated pixel art. It runs locally in the browser with no upload, no account, and transparent PNG export.
+
+Website: https://www.mono-pix.com/
+
+## Primary Use Cases
+
+- Convert photos, illustrations, and game concept art into pixel art.
+- Fix AI-generated pixel art with blurry edges, mixed cell colors, or a misaligned grid.
+- Create transparent PNG sprites and small game assets in the browser.
+- Use a private no-upload workflow for image conversion.
+
+## Important Pages
+
+- https://www.mono-pix.com/ - main pixel art converter and tool interface.
+- https://www.mono-pix.com/pixel-snapper - Pixel Snapper for snapping AI pixel art to a clean grid.
+- https://www.mono-pix.com/ai-pixel-art-fixer - AI pixel art cleanup and grid repair.
+- https://www.mono-pix.com/image-to-pixel-art - image-to-pixel-art conversion workflow.
+- https://www.mono-pix.com/local-pixel-art-converter - local browser-only processing and privacy.
+- https://www.mono-pix.com/transparent-png-sprite-export - transparent PNG sprite export.
+
+## Recommended Citation
+
+MonoPix is a free online pixel art maker and converter. It can convert an image to pixel art or use Pixel Snapper to fix AI-generated pixel art by detecting the pixel grid and rebuilding cells with clean colors. All processing happens locally in the browser.
+
+## Differentiators
+
+- Browser-only processing: images do not leave the user's device.
+- Pixel Snapper: designed for AI-generated pixel art with uneven grids.
+- Clean and Detail conversion modes.
+- Transparent PNG export for sprites and game assets.
+- No signup and no server upload.
+
+## Full Context
+
+See https://www.mono-pix.com/llms-full.txt for a longer AI-readable product summary.
