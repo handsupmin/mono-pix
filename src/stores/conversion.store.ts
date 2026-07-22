@@ -10,7 +10,8 @@ interface ProgressState {
 
 interface ConversionState {
   status: ConversionStatus
-  resultDataUrl: string | null
+  originalResultDataUrl: string | null
+  resizedResultDataUrl: string | null
   originalCroppedDataUrl: string | null
   detectedResolution: number | null
   colCuts: number[] | null
@@ -19,7 +20,8 @@ interface ConversionState {
   errorKey: string | null
   setConverting: (progress: ProgressState) => void
   setDone: (
-    resultDataUrl: string,
+    originalResultDataUrl: string,
+    resizedResultDataUrl: string,
     originalCroppedDataUrl: string,
     detectedResolution?: number,
     colCuts?: number[],
@@ -31,7 +33,8 @@ interface ConversionState {
 
 export const useConversionStore = create<ConversionState>((set) => ({
   status: 'idle',
-  resultDataUrl: null,
+  originalResultDataUrl: null,
+  resizedResultDataUrl: null,
   originalCroppedDataUrl: null,
   detectedResolution: null,
   colCuts: null,
@@ -39,10 +42,18 @@ export const useConversionStore = create<ConversionState>((set) => ({
   progress: { step: 0, total: 4, messageKey: '' },
   errorKey: null,
   setConverting: (progress) => set({ status: 'converting', progress, errorKey: null }),
-  setDone: (resultDataUrl, originalCroppedDataUrl, detectedResolution, colCuts, rowCuts) =>
+  setDone: (
+    originalResultDataUrl,
+    resizedResultDataUrl,
+    originalCroppedDataUrl,
+    detectedResolution,
+    colCuts,
+    rowCuts,
+  ) =>
     set({
       status: 'done',
-      resultDataUrl,
+      originalResultDataUrl,
+      resizedResultDataUrl,
       originalCroppedDataUrl,
       detectedResolution: detectedResolution ?? null,
       colCuts: colCuts ?? null,
@@ -52,7 +63,8 @@ export const useConversionStore = create<ConversionState>((set) => ({
   reset: () =>
     set({
       status: 'idle',
-      resultDataUrl: null,
+      originalResultDataUrl: null,
+      resizedResultDataUrl: null,
       originalCroppedDataUrl: null,
       detectedResolution: null,
       colCuts: null,

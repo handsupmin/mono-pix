@@ -78,7 +78,10 @@ export function useConvert() {
       if (msg.type === 'progress') {
         setConverting({ step: msg.step, total: msg.total, messageKey: msg.message })
       } else if (msg.type === 'done') {
-        const resultDataUrl = imageDataToDataUrl(msg.result)
+        const originalResultDataUrl = imageDataToDataUrl(msg.originalResult)
+        const resizedResultDataUrl = imageDataToDataUrl(msg.resizedResult)
+        const resultDataUrl =
+          outputMode === 'resized' ? resizedResultDataUrl : originalResultDataUrl
         const thumbnailDataUrl = await generateThumbnail(resultDataUrl)
 
         await addHistoryItem({
@@ -95,7 +98,8 @@ export function useConvert() {
         await load()
         setViewMode('after')
         setDone(
-          resultDataUrl,
+          originalResultDataUrl,
+          resizedResultDataUrl,
           originalCroppedDataUrl,
           msg.detectedResolution,
           msg.colCuts,
@@ -116,7 +120,6 @@ export function useConvert() {
     const request: PixelateRequest = {
       imageData,
       resolution,
-      outputMode,
       pixelateMode,
       colorVariety,
     }

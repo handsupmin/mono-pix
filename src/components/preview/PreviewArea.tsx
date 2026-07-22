@@ -294,7 +294,10 @@ function CompareView({ beforeSrc, afterSrc }: { beforeSrc: string; afterSrc: str
         <PixelCanvas src={beforeSrc} alt="Before" />
       </div>
       {/* After (clipped to right of split) */}
-      <div className="absolute inset-0" style={{ clipPath: `inset(0 0 0 ${splitPct}%)` }}>
+      <div
+        className="absolute inset-0 bg-background bg-[repeating-conic-gradient(var(--checkerboard)_0%_25%,transparent_0%_50%)_0_0/16px_16px]"
+        style={{ clipPath: `inset(0 0 0 ${splitPct}%)` }}
+      >
         <PixelCanvas src={afterSrc} alt="After" />
       </div>
       {/* Draggable divider */}
@@ -547,8 +550,11 @@ function VerifyView({
 }
 
 export function PreviewArea() {
-  const { resultDataUrl, originalCroppedDataUrl, colCuts, rowCuts } = useConversionStore()
-  const { viewMode, pixelateMode, gridOverlay, gridColor, setViewMode } = useSettingsStore()
+  const { originalResultDataUrl, resizedResultDataUrl, originalCroppedDataUrl, colCuts, rowCuts } =
+    useConversionStore()
+  const { outputMode, viewMode, pixelateMode, gridOverlay, gridColor, setViewMode } =
+    useSettingsStore()
+  const resultDataUrl = outputMode === 'resized' ? resizedResultDataUrl : originalResultDataUrl
   const [canvasSize, setCanvasSize] = useState<{ w: number; h: number } | null>(null)
   const snapGridSize = useMemo(() => {
     if (!colCuts || !rowCuts) return null

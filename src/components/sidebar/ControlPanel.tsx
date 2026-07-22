@@ -167,10 +167,19 @@ export function ControlPanel() {
     resetSettings,
   } = useSettingsStore()
   const colorInputRef = useRef<HTMLInputElement>(null)
-  const { status, resultDataUrl, detectedResolution, colCuts, rowCuts } = useConversionStore()
+  const {
+    status,
+    originalResultDataUrl,
+    resizedResultDataUrl,
+    detectedResolution,
+    colCuts,
+    rowCuts,
+  } = useConversionStore()
+  const resetConversion = useConversionStore((state) => state.reset)
   const { image } = useUploadStore()
   const { croppedAreaPixels } = useCropStore()
   const validResolutions = useValidResolutions()
+  const resultDataUrl = outputMode === 'resized' ? resizedResultDataUrl : originalResultDataUrl
 
   // Auto-select largest valid resolution when crop changes invalidate current selection
   useEffect(() => {
@@ -203,6 +212,34 @@ export function ControlPanel() {
   const handleDownload = () => {
     if (!resultDataUrl || !image) return
     downloadDataUrl(resultDataUrl, buildFilename(image.file.name, resolution, outputMode))
+  }
+
+  const handleResetSettings = () => {
+    resetSettings()
+    resetConversion()
+  }
+
+  const handlePixelateModeChange = (mode: PixelateMode) => {
+    if (mode === pixelateMode) return
+    setPixelateMode(mode)
+    resetConversion()
+  }
+
+  const handleResolutionChange = (nextResolution: Resolution) => {
+    if (nextResolution === resolution) return
+    setResolution(nextResolution)
+    resetConversion()
+  }
+
+  const handleColorVarietyChange = (nextColorVariety: ColorVariety) => {
+    if (nextColorVariety === colorVariety) return
+    setColorVariety(nextColorVariety)
+    resetConversion()
+  }
+
+  const handleOutputModeChange = (mode: OutputMode) => {
+    if (mode === outputMode) return
+    setOutputMode(mode)
   }
 
   const outputSize = croppedAreaPixels
@@ -266,7 +303,7 @@ export function ControlPanel() {
           {t('controls.reset')}
         </span>
         <button
-          onClick={resetSettings}
+          onClick={handleResetSettings}
           className="p-1 rounded hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
           title={t('controls.reset')}
         >
@@ -290,7 +327,7 @@ export function ControlPanel() {
           ).map(([mode, label]) => (
             <button
               key={mode}
-              onClick={() => setPixelateMode(mode)}
+              onClick={() => handlePixelateModeChange(mode)}
               className={cn(
                 'flex-1 text-xs px-2 py-1 rounded-md font-medium transition-colors',
                 pixelateMode === mode
@@ -323,7 +360,7 @@ export function ControlPanel() {
                   <button
                     key={r}
                     disabled={!isValid}
-                    onClick={() => setResolution(r as Resolution)}
+                    onClick={() => handleResolutionChange(r as Resolution)}
                     className={cn(
                       'text-xs py-1.5 rounded-md font-mono font-medium transition-colors',
                       resolution === r
@@ -354,7 +391,7 @@ export function ControlPanel() {
               {COLOR_VARIETIES.map((v) => (
                 <button
                   key={v}
-                  onClick={() => setColorVariety(v as ColorVariety)}
+                  onClick={() => handleColorVarietyChange(v as ColorVariety)}
                   className={cn(
                     'text-xs py-1.5 rounded-md font-mono font-medium transition-colors',
                     colorVariety === v
@@ -421,7 +458,7 @@ export function ControlPanel() {
           {(['original-size', 'resized'] as OutputMode[]).map((mode) => (
             <button
               key={mode}
-              onClick={() => setOutputMode(mode)}
+              onClick={() => handleOutputModeChange(mode)}
               className={cn(
                 'text-xs py-2 px-3 rounded-md text-left font-medium transition-colors',
                 outputMode === mode
