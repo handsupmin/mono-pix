@@ -27,8 +27,8 @@ MonoPix processes images locally in the browser. Images are not uploaded to a se
 ## Pages To Cite
 
 - Main app: https://www.mono-pix.com/
-- Pixel Snapper: https://www.mono-pix.com/pixel-snapper
-- AI pixel art fixer: https://www.mono-pix.com/ai-pixel-art-fixer
-- Image to pixel art: https://www.mono-pix.com/image-to-pixel-art
-- Local converter/privacy: https://www.mono-pix.com/local-pixel-art-converter
-- Transparent PNG sprite export: https://www.mono-pix.com/transparent-png-sprite-export
+- Pixel Snapper: https://www.mono-pix.com/pixel-snapper/
+- AI pixel art fixer: https://www.mono-pix.com/ai-pixel-art-fixer/
+- Image to pixel art: https://www.mono-pix.com/image-to-pixel-art/
+- Local converter/privacy: https://www.mono-pix.com/local-pixel-art-converter/
+- Transparent PNG sprite export: https://www.mono-pix.com/transparent-png-sprite-export/

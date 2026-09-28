@@ -14,11 +14,11 @@ Website: https://www.mono-pix.com/
 ## Important Pages
 
 - https://www.mono-pix.com/ - main pixel art converter and tool interface.
-- https://www.mono-pix.com/pixel-snapper - Pixel Snapper for snapping AI pixel art to a clean grid.
-- https://www.mono-pix.com/ai-pixel-art-fixer - AI pixel art cleanup and grid repair.
-- https://www.mono-pix.com/image-to-pixel-art - image-to-pixel-art conversion workflow.
-- https://www.mono-pix.com/local-pixel-art-converter - local browser-only processing and privacy.
-- https://www.mono-pix.com/transparent-png-sprite-export - transparent PNG sprite export.
+- https://www.mono-pix.com/pixel-snapper/ - Pixel Snapper for snapping AI pixel art to a clean grid.
+- https://www.mono-pix.com/ai-pixel-art-fixer/ - AI pixel art cleanup and grid repair.
+- https://www.mono-pix.com/image-to-pixel-art/ - image-to-pixel-art conversion workflow.
+- https://www.mono-pix.com/local-pixel-art-converter/ - local browser-only processing and privacy.
+- https://www.mono-pix.com/transparent-png-sprite-export/ - transparent PNG sprite export.
 
 ## Recommended Citation
 
