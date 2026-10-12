@@ -41,6 +41,7 @@ assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`))
 assert.match(notFound, /name="robots" content="noindex,follow"/)
 assert.doesNotMatch(notFound, /rel="canonical"/)
 assert.equal(JSON.parse(staticWebAppConfig).responseOverrides?.['404']?.rewrite, '/404.html')
+assert.equal(JSON.parse(staticWebAppConfig).trailingSlash, 'auto', 'staticwebapp: 301 non-slash URLs to canonical trailing-slash URLs')
 assert.ok(llms.includes(`${origin}/`))
 
 console.log(`SEO contract verified for ${pages.length} MonoPix pages.`)
